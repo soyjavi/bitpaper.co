@@ -1,0 +1,20 @@
+{
+  "signup": {
+    "required": ["email", "username", "password"]
+  },
+  "login": {
+    "required": ["username", "password"]
+  },
+  "profile": {
+    "secure": true,
+    "optional": ["name", "phone", "website", "location",  "address", "xpub"]
+  },
+  "invoice": {
+    "secure": true,
+    "required": ["address", "amount"]
+  },
+  "transaction": {
+    "secure": true,
+    "required": ["address"]
+  }
+}
