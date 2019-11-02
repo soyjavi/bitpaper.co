@@ -20,7 +20,7 @@
     "on-finished": "2.3.0",
     "react": "^16.11.0",
     "react-dom": "^16.11.0",
-    "vanilla-storage": "0.1.10"
+    "vanilla-storage": "0.1.12"
   },
   "devDependencies": {
     "@babel/cli": "7.1.5",
@@ -32,6 +32,8 @@
     "eslint": "6.3.0",
     "eslint-config-airbnb": "latest",
     "eslint-plugin-import": "2.18.2",
+    "eslint-plugin-jsx-a11y": "^6.2.3",
+    "eslint-plugin-react": "^7.16.0",
     "parcel-bundler": "1.12.3"
   },
   "main": "index.js",

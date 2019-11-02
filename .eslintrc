@@ -1,11 +1,17 @@
 {
-  "extends": "airbnb-base",
+  "extends": "airbnb",
   "env": {
     "jest": true,
     "node": true,
     "browser": true
   },
+  "plugins": [
+    "react",
+  ],
   "rules": {
-    "max-len": [1, 120, { "tabWidth": 2, "ignoreComments": true }]
+    "max-len": [1, 120, { "tabWidth": 2, "ignoreComments": true }],
+    "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
+    "react/jsx-fragments": [0],
+    "jsx-a11y/label-has-associated-control": [0]
   }
 }
