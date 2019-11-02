@@ -9,12 +9,12 @@ export default ({ props: { username, password } }, res) => {
   const users = new Storage(STORE.USERS);
   users.get('active');
 
-  const user = users.findOne({ username });
+  const user = users.findOne({ username, password });
 
   if (!user) return ERROR.NOT_FOUND(res);
 
-  res.json({
-    authorization: session(username),
+  return res.json({
+    authorization: session(username, res),
     username,
   });
 };

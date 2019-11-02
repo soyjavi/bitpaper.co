@@ -5,7 +5,11 @@ import session from './modules/session';
 
 const { STORE } = C;
 
-export default ({ props: { email, username, password } }, res) => {
+export default ({ props }, res) => {
+  const {
+    email, username, password, name,
+  } = props;
+
   const users = new Storage(STORE.USERS);
   users.get('active');
 
@@ -17,11 +21,11 @@ export default ({ props: { email, username, password } }, res) => {
 
   new Storage({
     filename: username,
-    defaults: { ...STORE.USER.defaults, profile: { email } },
+    defaults: { ...STORE.USER.defaults, profile: { email, name } },
   });
 
-  res.json({
-    authorization: session(username),
+  return res.json({
+    authorization: session(username, res),
     username,
   });
 };
