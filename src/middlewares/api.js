@@ -1,9 +1,5 @@
-import Storage from 'vanilla-storage';
-
-import { C, ERROR } from '../common';
+import { ERROR } from '../common';
 import MAP from '../../map.json';
-
-const { STORE } = C;
 
 export default (req, res, next) => {
   const url = req.originalUrl.split('/')[2].split('?')[0];
@@ -15,19 +11,7 @@ export default (req, res, next) => {
     const { required = [], optional = [], secure = false } = route;
 
     // 1. Test if has a valid session
-    if (secure) {
-      const { authorization = req.authorization, username, secret } = req.headers;
-      if (!authorization) return ERROR.FORBIDDEN(res);
-
-      const users = new Storage(STORE.USERS);
-      if (!users.get('active').findOne({ username })) return ERROR.NOT_FOUND(res);
-
-      const user = new Storage({ filename: 'soyjavi', secret });
-      const currentSession = user.get('sessions').value.pop() || {};
-      if (authorization !== currentSession.authorization) return ERROR.FORBIDDEN(res);
-
-      req.session = { username, ...user.get('profile').value, invoices: user.get('invoices').value };
-    }
+    if (secure && !req.session) return ERROR.FORBIDDEN(res);
 
     // 2. Plain props
     const routeProps = required.concat(optional);
