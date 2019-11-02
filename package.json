@@ -21,6 +21,7 @@
     "on-finished": "2.3.0",
     "react": "^16.11.0",
     "react-dom": "^16.11.0",
+    "shortid": "^2.2.15",
     "vanilla-storage": "0.1.12"
   },
   "devDependencies": {

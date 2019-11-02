@@ -1,7 +1,7 @@
 import Storage from 'vanilla-storage';
 
 import { C, ERROR } from '../common';
-import session from './modules/session';
+import { session } from './modules';
 
 const { STORE } = C;
 

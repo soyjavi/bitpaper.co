@@ -1,7 +1,7 @@
 export default {
   FORBIDDEN: (res) => res.status(403).json({ message: 'Forbidden.' }),
 
-  MESSAGE: (res, error = {}) => res.status(400).json({ message: error.message }),
+  MESSAGE: (res, error = {}) => res.status(error.code || 400).json({ message: error.message }),
 
   NOT_FOUND: (res) => res.status(404).json({ message: 'Resource not found.' }),
 

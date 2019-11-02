@@ -12,7 +12,12 @@
   },
   "invoice": {
     "secure": true,
-    "required": ["address", "amount"]
+    "optional": [
+      "id",
+      "satoshis", "address",
+      "reference", "date", "location", "recipient", "products", "terms",
+      "state"
+    ]
   },
   "transaction": {
     "required": ["address"]

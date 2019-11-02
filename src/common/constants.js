@@ -32,12 +32,11 @@ export default {
   NAME,
   AVATAR,
 
-  // -- API
-  API: {
-    HEADERS: {
-      'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
-      'X-Requested-With': 'XMLHttpRequest',
-    },
+  STATE: {
+    DRAFT: 0,
+    PUBLISHED: 1,
+    PAID: 2,
+    CANCELLED: 99,
   },
 
   STORE: {
