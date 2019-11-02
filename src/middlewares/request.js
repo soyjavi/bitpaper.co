@@ -1,22 +1,14 @@
 import onFinished from 'on-finished';
 import Storage from 'vanilla-storage';
 
-import { C, ERROR } from '../common';
+import { C } from '../common';
 
 const { STORE } = C;
 
 export default (req, res, next) => {
-  const { headers: { cookie = '' }, originalUrl = '' } = req;
+  const { headers, originalUrl = '' } = req;
   const today = new Date();
   const timestamp = today.getTime();
-
-  // -- Get cookies
-  const cookies = {};
-  cookie.split(';').forEach((item) => {
-    const parts = item.split('=');
-    cookies[parts.shift().trim()] = decodeURI(parts.join('='));
-  });
-  req.authorization = cookies.authorization;
 
   // -- Set permissive CORS header
   res.setHeader('Access-Control-Allow-Origin', '*');
@@ -30,8 +22,8 @@ export default (req, res, next) => {
   // -- Determine session
   let { authorization, username } = req.cookies || {};
   if (!authorization && !username) {
-    authorization = req.headers.authorization || req.authorization;
-    username = req.headers.username;
+    authorization = headers.authorization;
+    username = headers.username;
   }
 
   if (authorization && username) {

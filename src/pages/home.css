@@ -1,0 +1,24 @@
+[data-page="home"] {
+  background-color: var(--color-base);
+}
+
+[data-page="home"] article {
+  padding: var(--space-XL) 0;
+}
+
+[data-page="home"] h1 {
+  font-size: calc(var(--font-size-L) * 2);
+  align-self: center;
+  margin: var(--space) 0;
+}
+
+[data-page="home"] h1,
+[data-page="home"] h1 + p {
+  margin: var(--space) auto;
+  text-align: center;
+}
+
+[data-page="home"] h1 + p {
+  max-width: 30vw;
+}
+

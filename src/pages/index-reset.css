@@ -1,0 +1,178 @@
+body {
+  background-color: var(--bg-color);
+  color: var(--color);
+
+  font-size: var(--font-size);
+  margin: 0;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  transition: background var(--animation);
+}
+
+* {
+  box-sizing: border-box;
+  font-family: var(--font);
+  /*font-size: var(--font-size);*/
+  margin: 0;
+  padding: 0;
+}
+
+/* -- <button> */
+button, .button {
+  display: inline-block;
+  background-color: var(--color-accent);
+  border: 0;
+  border-radius: var(--border-radius);
+  color: var(--bg-color);
+  cursor: pointer;
+  font-weight: bold;
+  font-size: var(--font-size-S);
+  height: var(--input-height);
+  outline: 0;
+  padding: 0 var(--space);
+  text-decoration: none;
+  text-align: center;
+  transition: opacity var(--animation);
+}
+  .button { line-height: var(--input-height); }
+  button.secondary, .button.secondary {
+    background-color: var(--color-secondary);
+    color: var(--color-accent);
+  }
+  button.outlined, .button.outlined {
+    background-color: transparent;
+    border: solid 1px var(--color-accent);
+    color: var(--color-accent);
+  }
+  button:hover, .button:hover { opacity: 0.9; }
+  button[disabled], .button.disabled {
+    background-color: var(--color-skeleton);
+    border-color: transparent;
+    color: var(--color-lighten);
+    pointer-events: none;
+  }
+  button.busy:before, .button.busy:before {
+    display: inline-block;
+    content: '⠋';
+    animation: spin 1s linear infinite;
+    vertical-align: middle;
+    margin-right: calc(var(--unit) / 2);
+  }
+
+/* -- <a> */
+a { color: var(--color); text-decoration: none; }
+
+/* -- <img> */
+img { background-color: var(--skeleton); border: 0; }
+
+/* -- <form>, <input>... */
+input:not([type="checkbox"]) {
+  background-color: transparent;
+  border: none;
+  color: var(--color);
+  font-size: var(--font-size-S);
+  height: var(--input-height);
+  margin-bottom: var(--space-S);
+  transition: border-color var(--animation);
+  width: 100%;
+}
+  input:not(.line) {
+    border: solid 1px var(--color-skeleton);
+    border-radius: var(--border-radius);
+    padding: 0 var(--unit);
+  }
+  input.line { border-bottom: solid 1px var(--color-skeleton); }
+  input:active, input:focus { border-color: var(--color-accent); }
+
+input[type="checkbox"] { margin: var(--space-XS) 0; }
+  input[type="checkbox"] + label { font-weight: normal; margin: var(--space-XS); }
+
+textarea, select, input, button { outline: none; }
+
+label {
+  display: inline-block;
+  font-size: var(--font-size-S);
+  font-weight: bold;
+  position: relative;
+  width: 100%;
+}
+  label > .right { font-weight: normal; position: absolute; right: 0; }
+  label + input { margin-top: var(--space-XS); }
+
+/* -- Browser spec -- */
+::-webkit-scrollbar { display: none; }
+
+/* -- <table> */
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+  width: 100%;
+  margin: 0;
+  margin-bottom: var(--space-XS);
+}
+  table th, table td { text-align: left; padding-bottom: var(--space-XS); }
+    table th:not(:last-child),
+    table td:not(:last-child) { padding-right: var(--space-S); }
+  table th { border-bottom: solid 2px var(--color); }
+  table td {
+    border-bottom: solid 1px var(--color-skeleton);
+    font-size: var(--font-size-S);
+    padding-top: var(--space-XS);
+  }
+    table td:last-child { padding-right: 0; }
+  table .center { text-align: center; }
+  table .right { text-align: right; }
+
+  table tbody tr:last-child td { padding-bottom: var(--space); }
+  table tfoot td {
+    font-size: var(--font-size-L);
+    font-weight: bold;
+    border-top: solid 2px var(--color);
+    border-bottom: solid 2px var(--color);
+  }
+
+/* -- <header> */
+header {
+  background: var(--bg-color);
+  border-bottom: 1px solid var(--color-skeleton);
+  box-shadow: 0 4px 20px rgba(16,19,20,.04);
+  left: 0;
+  position: fixed;
+  right: 0;
+  top: 0;
+  width: 100%;
+  z-index: 1;
+}
+  header .wrapper {
+    align-self: center;
+    padding: var(--space-XS) var(--space);
+    justify-content: space-between;
+  }
+  header .logo { margin-right: var(--unit); }
+
+  header nav { margin-left: var(--space); }
+    header nav > * { margin-left: var(--space-XS) }
+
+
+@media (max-width: 767px) {
+  header .wrapper { padding: var(--space-XS); }
+}
+
+@media (min-width: 768px) {
+
+}
+
+/* -- <footer> */
+footer { background-color: var(--color-accent); padding: var(--space-S) 0; }
+  footer * { color: var(--color-base); font-size: var(--font-size-S); }
+  footer .wrapper {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+@media (max-width: 767px) {
+  footer .wrapper { flex-direction: column; }
+}

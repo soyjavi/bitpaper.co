@@ -1,0 +1,34 @@
+[data-page="login"] .wrapper { align-items: center; min-height: 100vh; }
+
+[data-page="login"] .logo {
+  margin-top: var(--space);
+  margin-bottom: var(--space-XL);
+  width: calc(var(--unit) * 19.2);
+}
+
+[data-page="login"] #form nav { margin-top: var(--space-S); }
+
+[data-page="login"] h1 { font-size: var(--font-size-XL); }
+
+[data-page="login"] h1,
+[data-page="login"] p { margin-bottom: var(--space); }
+
+[data-page="login"] .illustration { margin-top: var(--space-XL); }
+
+
+@media (max-width: 767px) {
+  [data-page="login"] h1,
+  [data-page="login"] p { text-align: center; }
+  [data-page="login"] .illustration { width: 100%; }
+}
+
+@media (min-width: 768px) {
+  [data-page="login"] section {
+    align-items: flex-start;
+    display: flex;
+    flex: 1;
+  }
+  [data-page="login"] .texts { margin-right: var(--space-L); }
+  [data-page="login"] #form { min-width: 45%; }
+  [data-page="login"] .illustration { width: 576px; }
+}

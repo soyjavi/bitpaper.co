@@ -1,0 +1,67 @@
+[data-page="invoice"] main *:not(button),
+[data-page="invoice"] article *:not(button) { font-family: var(--font-mono); }
+
+[data-page="invoice"] h1 { color: var(--color-accent); font-size: var(--font-size-XL); }
+[data-page="invoice"] h2,
+[data-page="invoice"] h2 + h3 { font-weight: 400; }
+
+[data-page="invoice"] h3 { margin-bottom: var(--space-XS); }
+
+[data-page="invoice"] .content { flex: 1; width: 100%; }
+
+[data-page="invoice"] .terms { font-size: var(--font-size-S); }
+
+[data-page="invoice"] .payment { margin-top: var(--space); }
+  [data-page="invoice"] .payment .address { margin: var(--space-S) 0; }
+  [data-page="invoice"] .payment > div:first-child { flex: 1; }
+
+[data-page="invoice"] .qr { height: 192px; width: 192px; }
+
+[data-page="invoice"] button,
+[data-page="invoice"] .button { margin: var(--space-S) 0; }
+
+[data-page="invoice"] .bottom {
+  border-top: solid 1px var(--color);
+  justify-content: space-between;
+  padding-top: var(--space-S);
+  font-size: var(--font-size-S);
+  font-weight: bold;
+}
+
+@media (max-width: 767px) {
+  [data-page="invoice"] .logo { max-width: 48px; }
+  [data-page="invoice"] .row:not(.bottom) { align-items: flex-start; flex-direction: column; }
+    [data-page="invoice"] .row > * { margin-bottom: var(--space-S); }
+
+  [data-page="invoice"] h1 { font-size: var(--font-size-L); }
+
+  [data-page="invoice"] main,
+  [data-page="invoice"] article { padding: var(--space) 0; }
+
+  [data-page="invoice"] .qr { align-self: center; }
+
+  [data-page="invoice"] button,
+  [data-page="invoice"] .button { width: 100%; }
+
+  [data-page="invoice"] .bottom { display: none; }
+}
+
+@media (min-width: 768px) {
+  [data-page="invoice"] .row:not(:last-child) {
+    align-items: flex-start;
+    margin-bottom: var(--space-L);
+  }
+
+  [data-page="invoice"] main,
+  [data-page="invoice"] article { padding: var(--space-XL) 0; }
+
+  [data-page="invoice"] main .provider,
+    [data-page="invoice"] main h2 { text-align: right; }
+    [data-page="invoice"] main .provider,
+    [data-page="invoice"] main .recipient { flex: 1; }
+    [data-page="invoice"] main .customer { font-size: var(--font-size-L); }
+
+  [data-page="invoice"] article section { justify-content: space-between; }
+  [data-page="invoice"] article .content { max-width: 640px; }
+  [data-page="invoice"] article .payment > div:first-child { flex: 1; margin-right: var(--space); }
+}

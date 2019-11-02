@@ -1,0 +1,102 @@
+<main class="bg-squared">
+  <section class="wrapper">
+    <div class="row">
+      <img class="logo" src="https://via.placeholder.com/128" />
+      <div class="provider">
+        <h3>Soshilabs LTD</h3>
+        <p>20th Floor, Central Tower</p>
+        <p>28 Queen's Road, Central</p>
+        <p>Hong Kong</p>
+        <p>tel: +00 000 000 000</p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="recipient">
+        <h3>Recipient</h3>
+        <p>20th Floor, Central Tower</p>
+        <p>28 Queen's Road, Central</p>
+        <p>Hong Kong</p>
+        <p>tel: +00 000 000 000</p>
+      </div>
+
+      <div>
+        <h1>Invoice #{{invoice}}</h1>
+        <h2 class="color-lighten">June 20, 2017</h2>
+      </div>
+    </div>
+
+    <div>
+      <h3>Reference</h3>
+      <p>Curso programacion Blockchain</p>
+    </div>
+  </section>
+</main>
+
+<article>
+  <section class="wrapper row">
+    <div class="hide-mobile">
+      <h2>Invoice</h2>
+      <h3 class="color-lighten">#{{invoice}}</h3>
+    </div>
+
+    <div class="content">
+      <table>
+        <thead>
+          <tr>
+            <th>Qty</th>
+            <th>Description</th>
+            <th class="right">Price</th>
+            <th class="right">Total</th>
+          </tr>
+        </thead>
+        <tbody>
+          {{products}}
+        </tbody>
+        <tfoot>
+          <tr>
+            <td colspan="3">Total</td>
+            <td class="right">{{total}}</td>
+          </tr>
+        </tfoot>
+      </table>
+      <p class="terms">
+        Service outside the scope of Spanish VAT. Art 69 Vat Law and Art. 44  of Directive 2006/112/CE
+
+        The invoice payment must be made within the next 5 days, the bank account is IBAN DE0000000000000000000 with BIC CODE 0000000000 (BankName), based on Berlin (Germany).
+      </p>
+
+      <div class="payment row">
+        <div>
+          <h3>Payment</h3>
+          <p>
+            Please send <strong>{{amount}}BTC</strong> = {{total}} to address:
+          </p>
+          <p class="address"><strong>{{address}}</strong></p>
+          <p>
+            Exchange rate was set a few seconds ago and expires in 30 minutes.
+          </p>
+
+          <button disabled class="busy">Waiting for your payment</button>
+        </div>
+        <img alt="{{address}}" class="qr" src="{{qr}}" />
+      </div>
+
+      <div class="row">
+        <button class="bg-success">Payment received, click to continue</button>
+      </div>
+
+    </div>
+  </section>
+  <section class="wrapper row bottom">
+    <a class="color-accent" href="https://www.soyjavi.com">soyjavi.com</a>
+    <span>hello@soyjavi.com</span>
+    <span>+00 000 000 000</span>
+  </section>
+</article>
+
+<footer>
+  <div class="wrapper">
+    <a class="_color-base" href="{{DOMAIN}}" target="_blank">{{COPYRIGHT}}</a>
+    <span>🎉 Happy Invoicing!</span>
+  </div>
+</footer>

@@ -1,0 +1,26 @@
+[data-page="dashboard"] article {
+  padding: var(--space-XL) 0;
+  min-height: 100vh;
+}
+
+[data-page="dashboard"] .summary {}
+  [data-page="dashboard"] .summary .box {
+    min-height: 192px;
+    justify-content: center;
+  }
+  [data-page="dashboard"] .summary .box:last-child {
+    max-width: 30%;
+    margin-left: var(--space-L);
+  }
+
+[data-page="dashboard"] .box {
+  margin: var(--space) 0;
+}
+
+[data-page="dashboard"] .header.row {
+  border-bottom: solid 1px var(--color-skeleton);
+  margin-bottom: var(--space);
+  padding-bottom: var(--space-S);
+  justify-content: space-between;
+}
+

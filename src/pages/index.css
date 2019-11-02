@@ -1,0 +1,59 @@
+:root {
+  --animation: 250ms ease-in-out;
+
+  --bg-color: white;
+  --border-radius: 0.2rem;
+
+  --color: #333;
+  --color-base: #fafafa;
+  --color-lighten: #666;
+  /*--color-accent: #2B61F1;*/
+  --color-accent: #4C47F7;
+  --color-secondary: rgba(90,82,255,.05);
+  --color-success: #01B757;
+  --color-skeleton: #e5e5e5;
+
+  --font: 'Lato', sans-serif;
+  --font-mono: 'Inconsolata', monospace;
+  --font-content: 'Cardo', serif;
+  --font-size-XL: 2.4rem;
+  --font-size-L: 1.3rem;
+  --font-size-S: 0.9rem;
+  --font-size-XS: 0.8rem;
+
+  /*--mobile: 768px;*/
+
+  --input-height: 42px;
+
+  --space-XL: 4.8rem;
+  --space-L: 2.4rem;
+  --space: 1.6rem;
+  --space-S: 1.2rem;
+  --space-XS: 0.5rem;
+
+  /*--tablet: 1024px;*/
+
+  --unit: 10px;
+  --wrapper: 1024px;
+}
+
+@media (max-width: 767px) {
+  :root { --font-size: 16px; }
+}
+
+@media (min-width: 768px) {
+  :root { --font-size: 18px; }
+}
+
+/* -- reset -- */
+@import './index-reset.css';
+@import './index-classes.css';
+
+/* -- views -- */
+@import './home.css';
+@import './register.css';
+@import './login.css';
+@import './dashboard.css';
+@import './invoice.css';
+@import './home.css';
+@import './error.css';

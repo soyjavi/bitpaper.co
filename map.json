@@ -15,7 +15,6 @@
     "required": ["address", "amount"]
   },
   "transaction": {
-    "secure": true,
     "required": ["address"]
   }
 }

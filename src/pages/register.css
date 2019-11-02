@@ -1,0 +1,38 @@
+[data-page="register"] .wrapper {
+  align-items: center;
+  max-width: 576px;
+  min-height: 100vh;
+}
+
+[data-page="register"] .logo {
+  margin-top: var(--space);
+  margin-bottom: var(--space-XL);
+  width: calc(var(--unit) * 19.2);
+}
+
+[data-page="register"] h1 { font-size: var(--font-size-XL); }
+
+[data-page="register"] h1,
+[data-page="register"] p {
+  text-align: center;
+  margin-bottom: var(--space);
+}
+
+[data-page="register"] #form {
+  max-width: 420px;
+}
+  [data-page="register"] #form .error {
+    background-color: var(--color-skeleton);
+    border-radius: var(--border-radius);
+    color: var(--color-lighten);
+    margin-top: var(--space);
+    padding: var(--space-S);
+    text-align: left;
+    font-size: var(--font-size-S);
+  }
+  [data-page="register"] #form nav { margin-top: var(--space); }
+
+[data-page="register"] .illustration {
+  margin-top: var(--space-XL);
+  width: 100%;
+}
