@@ -4,7 +4,7 @@
   --bg-color: white;
   --border-radius: 0.2rem;
 
-  --color: #333;
+  --color: #2e2d31;
   --color-base: #fafafa;
   --color-lighten: #666;
   /*--color-accent: #2B61F1;*/
@@ -13,9 +13,8 @@
   --color-success: #01B757;
   --color-skeleton: #e5e5e5;
 
-  --font: 'Lato', sans-serif;
+  --font: 'Raleway', sans-serif;
   --font-mono: 'Inconsolata', monospace;
-  --font-content: 'Cardo', serif;
   --font-size-XL: 2.4rem;
   --font-size-L: 1.3rem;
   --font-size-S: 0.9rem;

@@ -23,11 +23,11 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cors());
 app.use(compression());
 app.use(cookierParser());
-app.use(request);
 // -- Statics
 app.use('/static', express.static('public'));
 app.use(express.static('dist'));
 // -- App
+app.use(request);
 app.use('/api', services);
 app.use('/', pages);
 app.use(error);

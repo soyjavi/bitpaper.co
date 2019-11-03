@@ -149,11 +149,13 @@ header {
     padding: var(--space-XS) var(--space);
     justify-content: space-between;
   }
-  header .logo { margin-right: var(--unit); }
+  header .logo { height: 36px; margin-right: var(--unit); }
 
   header nav { margin-left: var(--space); }
     header nav > * { margin-left: var(--space-XS) }
 
+
+footer .logo { margin-left: var(--space-XS); height: 28px; }
 
 @media (max-width: 767px) {
   header .wrapper { padding: var(--space-XS); }

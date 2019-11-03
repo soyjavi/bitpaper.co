@@ -14,6 +14,8 @@ const {
 export default {
   CACHE,
 
+  CURRENCY: 'USD',
+
   ENV: {
     IS_PRODUCTION: PRODUCTION !== undefined,
   },

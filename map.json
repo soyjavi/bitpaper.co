@@ -14,8 +14,8 @@
     "secure": true,
     "optional": [
       "id",
-      "satoshis", "address",
-      "reference", "date", "location", "recipient", "products", "terms",
+      "satoshis", "address", "currency",
+      "reference", "concept", "date", "location", "recipient", "products", "terms",
       "state"
     ]
   },

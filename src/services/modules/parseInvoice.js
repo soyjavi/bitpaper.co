@@ -1,8 +1,10 @@
-import { ERROR } from '../../common';
+import { C, ERROR } from '../../common';
+
+const { CURRENCY } = C;
 
 export default (res, session, props) => {
   const {
-    address = session.address, products = [], ...inherit
+    address = session.address, currency = CURRENCY, products = [], ...inherit
   } = props;
   let {
     satoshis = 0, date, location = [], recipient = [],
@@ -21,6 +23,7 @@ export default (res, session, props) => {
 
     satoshis,
     address,
+    currency,
 
     date,
     location,

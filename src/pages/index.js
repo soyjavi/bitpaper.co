@@ -1,6 +1,6 @@
 import { Router } from 'express';
 
-import { cacheHtml } from '../middlewares';
+import { cacheHtml, request } from '../middlewares';
 import home from './home';
 import register from './register';
 import login from './login';
@@ -17,7 +17,7 @@ router.get('/login', login);
 router.get('/logout', logout);
 router.get('/dashboard', dashboard);
 router.get('/qr/:address/:amount', qr);
-router.get('/pay/:invoice', invoice);
+router.get('/pay/:id', request, invoice);
 router.get('/', cacheHtml, home);
 
 export default router;

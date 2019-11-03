@@ -47,6 +47,8 @@
 }
 
 @media (min-width: 768px) {
+  [data-page="invoice"] .logo { max-width: calc(var(--unit) * 12.8); max-height: calc(var(--unit) * 12.8); }
+
   [data-page="invoice"] .row:not(:last-child) {
     align-items: flex-start;
     margin-bottom: var(--space-L);

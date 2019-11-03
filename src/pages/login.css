@@ -3,8 +3,10 @@
 [data-page="login"] .logo {
   margin-top: var(--space);
   margin-bottom: var(--space-XL);
-  width: calc(var(--unit) * 19.2);
+  height: calc(var(--unit) * 4.8);
 }
+
+[data-page="login"] section { flex: 1; }
 
 [data-page="login"] #form nav { margin-top: var(--space-S); }
 
@@ -30,5 +32,5 @@
   }
   [data-page="login"] .texts { margin-right: var(--space-L); }
   [data-page="login"] #form { min-width: 45%; }
-  [data-page="login"] .illustration { width: 576px; }
+  [data-page="login"] .illustration { width: 50%; }
 }

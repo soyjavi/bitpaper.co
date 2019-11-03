@@ -1,33 +1,27 @@
 <main class="bg-squared">
   <section class="wrapper">
     <div class="row">
-      <img class="logo" src="https://via.placeholder.com/128" />
+      <img class="logo" src="{{logo}}" />
       <div class="provider">
         <h3>Soshilabs LTD</h3>
-        <p>20th Floor, Central Tower</p>
-        <p>28 Queen's Road, Central</p>
-        <p>Hong Kong</p>
-        <p>tel: +00 000 000 000</p>
+        {{location}}
       </div>
     </div>
     <div class="row">
       <div class="recipient">
         <h3>Recipient</h3>
-        <p>20th Floor, Central Tower</p>
-        <p>28 Queen's Road, Central</p>
-        <p>Hong Kong</p>
-        <p>tel: +00 000 000 000</p>
+        {{recipient}}
       </div>
 
       <div>
-        <h1>Invoice #{{invoice}}</h1>
+        <h1>Invoice #{{reference}}</h1>
         <h2 class="color-lighten">June 20, 2017</h2>
       </div>
     </div>
 
     <div>
       <h3>Reference</h3>
-      <p>Curso programacion Blockchain</p>
+      <p>{{concept}}</p>
     </div>
   </section>
 </main>
@@ -36,7 +30,7 @@
   <section class="wrapper row">
     <div class="hide-mobile">
       <h2>Invoice</h2>
-      <h3 class="color-lighten">#{{invoice}}</h3>
+      <h3 class="color-lighten">#{{reference}}</h3>
     </div>
 
     <div class="content">
@@ -59,17 +53,13 @@
           </tr>
         </tfoot>
       </table>
-      <p class="terms">
-        Service outside the scope of Spanish VAT. Art 69 Vat Law and Art. 44  of Directive 2006/112/CE
-
-        The invoice payment must be made within the next 5 days, the bank account is IBAN DE0000000000000000000 with BIC CODE 0000000000 (BankName), based on Berlin (Germany).
-      </p>
+      <p class="terms">{{terms}}</p>
 
       <div class="payment row">
         <div>
           <h3>Payment</h3>
           <p>
-            Please send <strong>{{amount}}BTC</strong> = {{total}} to address:
+            Please send <strong>{{totalBTC}}BTC</strong> = {{total}} to address:
           </p>
           <p class="address"><strong>{{address}}</strong></p>
           <p>
@@ -88,15 +78,16 @@
     </div>
   </section>
   <section class="wrapper row bottom">
-    <a class="color-accent" href="https://www.soyjavi.com">soyjavi.com</a>
-    <span>hello@soyjavi.com</span>
-    <span>+00 000 000 000</span>
+    <a class="color-accent" href="{{website}}">{{website}}</a>
+    <span>{{email}}</span>
+    <span>{{phone}}</span>
   </section>
 </article>
 
 <footer>
   <div class="wrapper">
     <a class="_color-base" href="{{DOMAIN}}" target="_blank">{{COPYRIGHT}}</a>
-    <span>🎉 Happy Invoicing!</span>
+    <span class="row">🎉 Happy Invoicing with <a href="{{DOMAIN}}" target="_blank"><img class="logo" src="/static/logo-highlight.png" /></a></span>
+
   </div>
 </footer>

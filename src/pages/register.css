@@ -7,7 +7,7 @@
 [data-page="register"] .logo {
   margin-top: var(--space);
   margin-bottom: var(--space-XL);
-  width: calc(var(--unit) * 19.2);
+  height: calc(var(--unit) * 4.8);
 }
 
 [data-page="register"] h1 { font-size: var(--font-size-XL); }
