@@ -33,7 +33,8 @@ button, .button {
   padding: 0 var(--space);
   text-decoration: none;
   text-align: center;
-  transition: opacity var(--animation);
+  text-align: center;
+  transition: all var(--animation);
 }
   .button { line-height: var(--input-height); }
   button.secondary, .button.secondary {
@@ -41,14 +42,18 @@ button, .button {
     color: var(--color-accent);
   }
   button.outlined, .button.outlined {
-    background-color: transparent;
-    border: solid 1px var(--color-accent);
-    color: var(--color-accent);
+    background-color: var(--bg-color);
+    border: solid 1px var(--color-skeleton);
+    color: var(--color);
   }
+  button:not(.secondary):not(.outlined), .button:not(.secondary):not(.outlined) { box-shadow: 0 2px 4px 0 rgba(100,100,100,.5); }
+
   button:hover, .button:hover { opacity: 0.9; }
+  button.outlined:hover, .button.outlined:hover { background-color: var(--color-skeleton); }
   button[disabled], .button.disabled {
     background-color: var(--color-skeleton);
     border-color: transparent;
+    box-shadow: none !important;
     color: var(--color-lighten);
     pointer-events: none;
   }
@@ -67,27 +72,40 @@ a { color: var(--color); text-decoration: none; }
 img { background-color: var(--skeleton); border: 0; }
 
 /* -- <form>, <input>... */
-input:not([type="checkbox"]) {
+input:not([type="checkbox"]), textarea, select {
   background-color: transparent;
   border: none;
+  border-radius: var(--border-radius);
   color: var(--color);
   font-size: var(--font-size-S);
   height: var(--input-height);
-  margin-bottom: var(--space-S);
+  margin-bottom: var(--space-XS);
+  padding: 0 var(--unit);
   transition: border-color var(--animation);
   width: 100%;
 }
-  input:not(.line) {
+  input:not(.no-border), textarea:not(.no-border), select:not(.no-border) {
+    background-color: var(--bg-color);
     border: solid 1px var(--color-skeleton);
-    border-radius: var(--border-radius);
-    padding: 0 var(--unit);
   }
-  input.line { border-bottom: solid 1px var(--color-skeleton); }
-  input:active, input:focus { border-color: var(--color-accent); }
+  input.no-border, textarea.no-border, select.no-border {
+    background-color: var(--color-base);
+    border: solid 1px var(--color-base);
+  }
+  input:active, input:focus,
+  textarea:active, textarea:focus,
+  select:active, select:focus { border-color: var(--color-accent); }
 
 input[type="checkbox"] { margin: var(--space-XS) 0; }
   input[type="checkbox"] + label { font-weight: normal; margin: var(--space-XS); }
 
+input[type="date"] { position: relative; }
+input[type="date"]::-webkit-clear-button { display: none; }
+input[type="date"]::-ms-clear { display: none; }
+input[type="date"]::-webkit-inner-spin-button { display: none; }
+input[type="date"]::-webkit-calendar-picker-indicator { position: absolute; right: 0; }
+
+textarea { min-height: calc(var(--unit) * 7.2); padding-top: var(--unit); }
 textarea, select, input, button { outline: none; }
 
 label {
@@ -97,8 +115,8 @@ label {
   position: relative;
   width: 100%;
 }
+  label + input, label + textarea, label + select { margin-top: var(--space-XS); }
   label > .right { font-weight: normal; position: absolute; right: 0; }
-  label + input { margin-top: var(--space-XS); }
 
 /* -- Browser spec -- */
 ::-webkit-scrollbar { display: none; }
@@ -111,26 +129,17 @@ table {
   margin: 0;
   margin-bottom: var(--space-XS);
 }
-  table th, table td { text-align: left; padding-bottom: var(--space-XS); }
-    table th:not(:last-child),
-    table td:not(:last-child) { padding-right: var(--space-S); }
-  table th { border-bottom: solid 2px var(--color); }
-  table td {
+  table td, table th {
+    text-align: left;
+    padding-bottom: var(--space-XS);
     border-bottom: solid 1px var(--color-skeleton);
     font-size: var(--font-size-S);
     padding-top: var(--space-XS);
   }
-    table td:last-child { padding-right: 0; }
-  table .center { text-align: center; }
-  table .right { text-align: right; }
-
-  table tbody tr:last-child td { padding-bottom: var(--space); }
-  table tfoot td {
-    font-size: var(--font-size-L);
-    font-weight: bold;
-    border-top: solid 2px var(--color);
-    border-bottom: solid 2px var(--color);
-  }
+    table th:not(:last-child),
+    table td:not(:last-child) { padding-right: var(--space-S); }
+  table .center, table .center * { text-align: center; }
+  table .right, table .right * { text-align: right; }
 
 /* -- <header> */
 header {
@@ -155,7 +164,7 @@ header {
     header nav > * { margin-left: var(--space-XS) }
 
 
-footer .logo { margin-left: var(--space-XS); height: 28px; }
+footer .logo { margin-left: var(--space-XS); height: 24px; }
 
 @media (max-width: 767px) {
   header .wrapper { padding: var(--space-XS); }

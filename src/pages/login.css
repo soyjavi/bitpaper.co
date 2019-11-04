@@ -10,6 +10,8 @@
 
 [data-page="login"] #form nav { margin-top: var(--space-S); }
 
+[data-page="login"] input:not([type="checkbox"]) { margin-bottom: var(--space-S); }
+
 [data-page="login"] h1 { font-size: var(--font-size-XL); }
 
 [data-page="login"] h1,

@@ -2,10 +2,11 @@
   --animation: 250ms ease-in-out;
 
   --bg-color: white;
-  --border-radius: 0.2rem;
+  --border-radius: 0.25rem;
 
   --color: #2e2d31;
-  --color-base: #fafafa;
+  --color-base: #f8f8f8;
+  --color-border: #f2f2f2;
   --color-lighten: #666;
   /*--color-accent: #2B61F1;*/
   --color-accent: #4C47F7;
@@ -33,7 +34,8 @@
   /*--tablet: 1024px;*/
 
   --unit: 10px;
-  --wrapper: 1024px;
+  --wrapper-invoice: 1024px;
+  --wrapper: 1200px;
 }
 
 @media (max-width: 767px) {
@@ -54,5 +56,6 @@
 @import './login.css';
 @import './dashboard.css';
 @import './invoice.css';
+@import './invoice.form.css';
 @import './home.css';
 @import './error.css';

@@ -32,6 +32,8 @@
   }
   [data-page="register"] #form nav { margin-top: var(--space); }
 
+[data-page="register"] input:not([type="checkbox"]) { margin-bottom: var(--space-S); }
+
 [data-page="register"] .illustration {
   margin-top: var(--space-XL);
   width: 100%;

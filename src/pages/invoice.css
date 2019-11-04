@@ -1,3 +1,7 @@
+[data-page="invoice"] .wrapper {
+  max-width: var(--wrapper-invoice);
+}
+
 [data-page="invoice"] main *:not(button),
 [data-page="invoice"] article *:not(button) { font-family: var(--font-mono); }
 
@@ -27,6 +31,15 @@
   font-size: var(--font-size-S);
   font-weight: bold;
 }
+
+[data-page="invoice"] table th { border-bottom: solid 2px var(--color); }
+[data-page="invoice"] table tfoot td {
+  font-size: var(--font-size-L);
+  font-weight: bold;
+  border-top: solid 2px var(--color);
+  border-bottom: solid 2px var(--color);
+}
+[data-page="invoice"] table tbody tr:last-child td { padding-bottom: var(--space); }
 
 @media (max-width: 767px) {
   [data-page="invoice"] .logo { max-width: 48px; }

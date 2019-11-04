@@ -1,5 +1,5 @@
 [data-page="home"] {
-  background-color: var(--color-base);
+  background: linear-gradient(to bottom, var(--color-base), var(--bg-color));
 }
 
 [data-page="home"] article {
@@ -22,3 +22,6 @@
   max-width: 30vw;
 }
 
+[data-page="home"] #demo {
+  margin: var(--space-XL) 0;
+}
