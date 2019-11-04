@@ -44,6 +44,7 @@ class FormRegister extends PureComponent {
       <Fragment>
         <label>Username</label>
         <input
+          className="border"
           name="username"
           placeholder="Enter Your Username"
           onChange={(event) => onChange('username', event)}
@@ -53,6 +54,7 @@ class FormRegister extends PureComponent {
           <a className="right color-accent" href="/email/remember">Forgot password?</a>
         </label>
         <input
+          className="border"
           name="password"
           type="password"
           placeholder="Enter Your Password"

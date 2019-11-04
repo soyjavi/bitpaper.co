@@ -56,18 +56,50 @@ class FormRegister extends PureComponent {
     return (
       <Fragment>
         <label>Name</label>
-        <input name="name" placeholder="Enter Your Name" onChange={(event) => onChange('name', event)} />
+        <input
+          className="border"
+          name="name"
+          placeholder="Enter Your Name"
+          onChange={(event) => onChange('name', event)}
+        />
         <label>Username</label>
-        <input name="username" placeholder="Enter Your Username" onChange={(event) => onChange('username', event)} />
+        <input
+          className="border"
+          name="username"
+          placeholder="Enter Your Username"
+          onChange={(event) => onChange('username', event)}
+        />
         <label>Email</label>
-        <input name="email" placeholder="Enter Your Email" onChange={(event) => onChange('email', event)} />
+        <input
+          className="border"
+          name="email"
+          placeholder="Enter Your Email"
+          onChange={(event) => onChange('email', event)}
+        />
         <label>Password</label>
-        <input name="password" type="password" placeholder="Enter Your Password" onChange={(event) => onChange('password', event)} />
+        <input
+          className="border"
+          name="password"
+          type="password"
+          placeholder="Enter Your Password"
+          onChange={(event) => onChange('password', event)}
+        />
         <label>Confirm Password</label>
-        <input name="confirm" type="password" placeholder="Confirm Your Password" onChange={(event) => onChange('confirm', event)} />
-
+        <input
+          className="border"
+          name="confirm"
+          type="password"
+          placeholder="Confirm Your Password"
+          onChange={(event) => onChange('confirm', event)}
+        />
         <div className="row">
-          <input type="checkbox" checked={terms} name="terms" onChange={(event) => onCheckbox('terms', event)} />
+          <input
+            className="border"
+            type="checkbox"
+            checked={terms}
+            name="terms"
+            onChange={(event) => onCheckbox('terms', event)}
+          />
           <label>
             By signing up you agree with
             <a target="_blank" className="color-accent" href="/terms"> terms of use </a>
@@ -78,7 +110,12 @@ class FormRegister extends PureComponent {
         </div>
 
         <div className="row">
-          <input type="checkbox" name="newsletter" onChange={(event) => onCheckbox('newsletter', event)} />
+          <input
+            className="border"
+            type="checkbox"
+            name="newsletter"
+            onChange={(event) => onCheckbox('newsletter', event)}
+          />
           <label>
             Yes, please keep me updated about News and Features.
           </label>

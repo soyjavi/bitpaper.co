@@ -84,11 +84,11 @@ input:not([type="checkbox"]), textarea, select {
   transition: border-color var(--animation);
   width: 100%;
 }
-  input:not(.no-border), textarea:not(.no-border), select:not(.no-border) {
+  input.border, textarea.border, select.border {
     background-color: var(--bg-color);
     border: solid 1px var(--color-skeleton);
   }
-  input.no-border, textarea.no-border, select.no-border {
+  input:not(.border), textarea:not(.border), select:not(.border) {
     background-color: var(--color-base);
     border: solid 1px var(--color-base);
   }

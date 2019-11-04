@@ -9,19 +9,13 @@
   border-radius: var(--border-radius);
   padding: var(--space-L);
 }
-  .invoice .fieldset { display: flex; flex-direction: row; }
-    .invoice .fieldset:not(.total) {
-      border-bottom: solid 1px var(--color-skeleton);
-      margin-bottom: var(--space);
-      padding-bottom: var(--space);
-    }
-    .invoice .fieldset.total {
-      border-top: solid 1px var(--color-skeleton);
-      padding-top: var(--space-XS);
-      margin-top: var(--space-S);
-    }
-      .invoice .fieldset.total .row { padding: var(--space-XS) 0; }
-
+  .invoice .border { border-bottom: solid 1px var(--color-skeleton); }
+  .invoice .fieldset {
+    display: flex;
+    flex-direction: row;
+    margin-bottom: var(--space);
+    padding-bottom: var(--space);
+  }
     .invoice .fieldset > div { max-width: 50%; width: 50%; }
       .invoice .fieldset > div:first-child { margin-right: var(--space-S); }
       .invoice .fieldset > div:last-child { margin-left: var(--space-S); }
@@ -35,21 +29,21 @@
 
   .invoice .form label.large { font-size: var(--font-size-L); }
 
-  .invoice .form table th:not(:last-child) { padding-right: var(--space-XS); }
-  .invoice .form table tbody tr:first-child td { padding-top: var(--space-S); }
-  .invoice .form table td { border-bottom: none; padding-bottom: 0; }
-    .invoice .form table td:first-child { width: 50%; }
-    .invoice .form table td.right { width: 12%; }
-    .invoice .form table td:not(:last-child) { padding-right: var(--space-XS); }
-    .invoice .form table td input { margin-bottom: 0; }
-    .invoice .form table td:last-child { justify-content: flex-end; }
-
+  .invoice .form table { margin-bottom: var(--space); }
+    .invoice .form table th:not(:last-child) { padding-right: var(--space-XS); }
+    .invoice .form table tbody tr:first-child td { padding-top: var(--space-S); }
+    .invoice .form table tbody tr:last-child td { padding-bottom: var(--space-L); }
+    .invoice .form table td { border-bottom: none; padding-bottom: 0; }
+      .invoice .form table td:first-child { width: 50%; }
+      .invoice .form table td.right { width: 12%; }
+      .invoice .form table td:not(:last-child) { padding-right: var(--space-XS); }
+      .invoice .form table td input { margin-bottom: 0; }
+      .invoice .form table td:last-child { justify-content: flex-end; }
 
 .invoice .options { margin-left: var(--space); }
   .invoice .options > * { margin-bottom: var(--space-S); width: 100%;}
   .invoice .options .row button:first-child { border-right: 0; border-top-right-radius: 0; border-bottom-right-radius: 0; }
   .invoice .options .row button:last-child { border-top-left-radius: 0; border-bottom-left-radius: 0; }
-
 
 @media (max-width: 767px) {
 }
