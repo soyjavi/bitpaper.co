@@ -1,13 +1,15 @@
 import { func, shape, string } from 'prop-types';
 import React, { PureComponent } from 'react';
 
+import Input from './Input';
+
 class Recipient extends PureComponent {
   constructor(props) {
     super(props);
     this.onChange = this.onChange.bind(this);
   }
 
-  onChange(key, { target: { value } }) {
+  onChange(key, value) {
     const { props: { dataSource, onChange } } = this;
     onChange({ ...dataSource, [key]: value });
   }
@@ -15,35 +17,38 @@ class Recipient extends PureComponent {
   render() {
     const {
       onChange,
-      props: { dataSource = {}, key, label },
+      props: { dataSource = {}, label },
     } = this;
 
     return (
       <div>
         <label>{label}</label>
-        <input
+        <Input
           defaultValue={dataSource.name}
-          name={`${key}-name`}
-          onChange={(event) => onChange('name', event)}
+          name="name"
+          onChange={onChange}
           placeholder="Your Name"
         />
         <textarea
-          name={`${key}-address`}
-          type="text"
-          onChange={(event) => onChange('address', event)}
+          name="address"
+          onChange={({ target: { value } }) => onChange('address', value)}
           placeholder="Enter Address"
-        />
-        <input
-          name={`${key}-email`}
-          type="email"
-          onChange={(event) => onChange('email', event)}
+        >
+          {dataSource.address}
+        </textarea>
+        <Input
+          defaultValue={dataSource.email}
+          name="email"
+          onChange={onChange}
           placeholder="Enter Email"
+          type="email"
         />
-        <input
-          name={`${key}-phone`}
-          type="phone"
-          onChange={(event) => onChange('phone', event)}
+        <Input
+          defaultValue={dataSource.phone}
+          name="phone"
+          onChange={onChange}
           placeholder="Enter Phone"
+          type="phone"
         />
       </div>
     );
@@ -51,14 +56,13 @@ class Recipient extends PureComponent {
 }
 
 Recipient.propTypes = {
-  dataSource: shape({}).isRequired,
+  dataSource: shape({}),
   label: string.isRequired,
-  key: string,
   onChange: func.isRequired,
 };
 
 Recipient.defaultProps = {
-  key: 'from',
+  dataSource: {},
 };
 
 export default Recipient;

@@ -15,6 +15,15 @@ export default {
   CACHE,
 
   CURRENCY: 'USD',
+  CURRENCIES: [
+    'USD (United States Dollar)',
+    'EUR (Euro Member Countries)',
+    'GBP (United Kingdom Pound)',
+    'JPY (Japan Yen)',
+    'BTC (Bitcoin)',
+  ],
+
+  DATE_FORMATS: ['YYYY/MM/DD', 'DD/MM/YYYY', 'MM/DD/YYYY'],
 
   ENV: {
     IS_PRODUCTION: PRODUCTION !== undefined,
@@ -44,5 +53,13 @@ export default {
   STORE: {
     USERS: { filename: 'users', defaults: { active: [], blocked: [] }, secret: SECRET },
     USER: { defaults: { profile: {}, invoices: [], sessions: [] } },
+  },
+
+  SYMBOLS: {
+    USD: '$',
+    EUR: '€',
+    GBP: '£',
+    JPY: '¥',
+    BTC: '₿',
   },
 };

@@ -1,7 +1,7 @@
 import Storage from 'vanilla-storage';
 
 import {
-  C, ERROR, getAddress, price, rateSatoshis, render,
+  C, ERROR, calcTotal, getAddress, priceFormat, rateSatoshis, render,
 } from '../common';
 
 const { ICON, TITLE } = C;
@@ -25,9 +25,8 @@ export default async ({ subdomains: [subdomain = 'soyjavi'], props: { id } = {} 
 
   // Determine price
   if (products.length > 0) {
-    const reducer = products.reduce((a, b) => ({ total: (a.total) + (b.quantity * b.price) }), { total: 0 });
-    total = reducer.total;
-    satoshis = await rateSatoshis(reducer.total, currency);
+    total = calcTotal(products);
+    satoshis = await rateSatoshis(total, currency);
   } else {
     // @TODO: Determine rate right now
     total = 0;
@@ -55,7 +54,7 @@ export default async ({ subdomains: [subdomain = 'soyjavi'], props: { id } = {} 
 
         terms,
         address,
-        total: price(total),
+        total: priceFormat(total),
         totalBTC,
         qr: `/qr/${address}/${totalBTC}?label=${reference}`,
         products: normalizeHtml(products

@@ -1,7 +1,9 @@
-import ProductItem from './ProductItem';
+import Input from './Input';
+import Item from './Item';
 import Recipient from './Recipient';
 
 export {
-  ProductItem,
+  Input,
+  Item,
   Recipient,
 };

@@ -2,9 +2,10 @@ import C from './constants';
 import ERROR from './errors';
 
 import cache from './cache';
+import calcTotal from './calcTotal';
 import getAddress from './getAddress';
 import mail from './mail';
-import price from './price';
+import priceFormat from './priceFormat';
 import rateSatoshis from './rateSatoshis';
 import render from './render';
 
@@ -13,7 +14,8 @@ export {
   ERROR,
 
   cache,
-  price,
+  calcTotal,
+  priceFormat,
   getAddress,
   mail,
   rateSatoshis,
