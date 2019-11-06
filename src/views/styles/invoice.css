@@ -15,7 +15,12 @@
   border-radius: var(--border-radius);
   padding: var(--space-L);
 }
-  .invoice .form.fixed {
+  .invoice .form.skeleton {
+    min-height: 100vh;
+    background-color: var(--color-skeleton);
+    flex: 1;
+  }
+  .invoice .form._fixed {
     margin-right: calc(var(--space) + 192px);
   }
 
@@ -49,8 +54,9 @@
       .invoice .form table td input { margin-bottom: 0; }
       .invoice .form table td:last-child { justify-content: flex-end; }
 
-.invoice .options:not(.fixed) { margin-left: var(--space); }
-  .invoice .options.fixed {
+.invoice .options { min-width: var(--aside); }
+.invoice .options:not(._fixed) { margin-left: var(--space); }
+  .invoice .options._fixed {
     position: fixed;
     max-width: var(--wrapper);
     width: 100%;
@@ -59,11 +65,12 @@
     align-items: flex-end;
     padding-right: calc(var(--space) * 2);
   }
-  .invoice .options.fixed > * {
+  .invoice .options._fixed > * {
     max-width: 192px;
   }
 
-  .invoice .options > * { margin-bottom: var(--space-S); width: 100%;}
+    .invoice .options .columns > * { margin-bottom: var(--space-S); width: 100%;}
+
   .invoice .options .row button:first-child { border-right: 0; border-top-right-radius: 0; border-bottom-right-radius: 0; }
   .invoice .options .row button:last-child { border-top-left-radius: 0; border-bottom-left-radius: 0; }
 

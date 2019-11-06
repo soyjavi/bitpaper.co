@@ -1,4 +1,4 @@
-import { bool, func } from 'prop-types';
+import { bool, func, shape } from 'prop-types';
 import React, { PureComponent } from 'react';
 
 import { C, calcTotal, priceFormat } from '../../common';
@@ -17,6 +17,11 @@ class InvoiceContainer extends PureComponent {
     this.onChangeItem = this.onChangeItem.bind(this);
     this.onRemoveItem = this.onRemoveItem.bind(this);
     this.state = { dataSource: { currency: CURRENCY, dateFormat: DATE_FORMAT, items: [{}] } };
+  }
+
+  componentWillReceiveProps({ dataSource = {} }) {
+    const { state } = this;
+    if (state.dataSource.id !== dataSource.id) this.setState({ dataSource });
   }
 
   onAddItem() {
@@ -52,21 +57,25 @@ class InvoiceContainer extends PureComponent {
 
     dataSource = { ...dataSource, [key]: value };
     this.setState({ dataSource });
+
     onChange(dataSource);
   }
 
   render() {
     const {
       onAddItem, onChange, onChangeCurrency, onChangeItem, onRemoveItem,
-      props: { demo, onSubmit },
+      props: {
+        busy, demo, onPreview, onSubmit,
+      },
       state: { dataSource: { currency, items, ...dataSource } },
     } = this;
 
     const total = calcTotal(items);
+    const disabled = total <= 0 || busy;
 
     return (
       <div className="invoice">
-        <div className={`form ${!demo ? 'fixed' : ''}`}>
+        <section className={`form ${!demo ? 'fixed' : ''}`}>
           <div className="fieldset border">
             <div className="row">
               <label>Invoice #</label>
@@ -124,7 +133,7 @@ class InvoiceContainer extends PureComponent {
                 <td>
                   <button onClick={onAddItem}>Add New Item</button>
                 </td>
-                <td colspan="4" />
+                <td colSpan="4" />
               </tr>
             </tbody>
           </table>
@@ -156,41 +165,55 @@ class InvoiceContainer extends PureComponent {
               </div>
             </div>
           </div>
-        </div>
+        </section>
 
-        <div className={`options ${!demo ? 'fixed' : ''}`}>
-          <button disabled={total <= 0} onClick={onSubmit}>Send Invoice</button>
-          <div className="row">
-            <button disabled={total <= 0} className="outlined">Preview</button>
-            <button disabled={total <= 0} className="outlined">Download</button>
+        <section className={`options ${!demo ? 'fixed' : ''}`}>
+          <div className="columns">
+            <button disabled={disabled} className={busy ? 'busy' : undefined} onClick={onSubmit}>
+              Send Invoice
+            </button>
+            <div className="row">
+              <button disabled={disabled} className="outlined" onClick={onPreview}>
+                Preview
+              </button>
+              <button disabled className="outlined">
+                Download
+              </button>
+            </div>
+            <div className="column">
+              <label>Currency</label>
+              <select className="border" onChange={onChangeCurrency}>
+                { CURRENCIES.map((item, index) => <option key={index.toString()}>{item}</option>)}
+              </select>
+            </div>
+            <div className="column">
+              <label>Date Format</label>
+              <select className="border" onChange={({ target: { value } }) => onChange('dateFormat', value)}>
+                { DATE_FORMATS.map((item, index) => <option key={index.toString()}>{item}</option>)}
+              </select>
+            </div>
           </div>
-          <div className="column">
-            <label>Currency</label>
-            <select className="border" onChange={onChangeCurrency}>
-              { CURRENCIES.map((item, index) => <option key={index.toString()}>{item}</option>)}
-            </select>
-          </div>
-          <div className="column">
-            <label>Date Format</label>
-            <select className="border" onChange={({ target: { value } }) => onChange('dateFormat', value)}>
-              { DATE_FORMATS.map((item, index) => <option key={index.toString()}>{item}</option>)}
-            </select>
-          </div>
-        </div>
+        </section>
       </div>
     );
   }
 }
 
 InvoiceContainer.propTypes = {
+  busy: bool,
+  dataSource: shape({}),
   demo: bool,
   onChange: func,
+  onPreview: func,
   onSubmit: func,
 };
 
 InvoiceContainer.defaultProps = {
+  busy: false,
+  dataSource: undefined,
   demo: false,
   onChange() {},
+  onPreview() {},
   onSubmit() {},
 };
 

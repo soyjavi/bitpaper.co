@@ -19,13 +19,13 @@ export default async ({ subdomains: [subdomain = 'soyjavi'], props: { id } = {} 
   if (!address) return ERROR.MESSAGE(res, { message: 'Something wrong' });
 
   const {
-    currency, reference, concept, issued, due, from = {}, to = {}, products = [], terms,
+    currency, reference, concept, issued, due, from = {}, to = {}, items = [], terms,
   } = invoice;
   let { satoshis, total = 0 } = invoice;
 
   // Determine price
-  if (products.length > 0) {
-    total = calcTotal(products);
+  if (items.length > 0) {
+    total = calcTotal(items);
     satoshis = await rateSatoshis(total, currency);
   } else {
     // @TODO: Determine rate right now
@@ -43,19 +43,26 @@ export default async ({ subdomains: [subdomain = 'soyjavi'], props: { id } = {} 
         ...profile,
 
         logo: 'https://via.placeholder.com/128' || ICON,
-        from,
         reference,
         concept,
         issued: (new Date(issued)).toString(),
         due,
 
-        to,
+        from: {
+          name: from.name || profile.name,
+          location: (from.location || profile.location || []).join('<br>'),
+          email: from.email || profile.email,
+          phone: from.phone || profile.phone,
+        },
 
-        products: normalizeHtml(products
-          .map(({ price, ...product }) => render('templates/product', {
-            ...product,
+        to: { ...to, location: to.location.join('<br>') },
+
+        items: normalizeHtml(items
+          .map(({ price, quantity, ...item }) => render('templates/item', {
+            ...item,
+            quantity,
             price: priceFormat(price, currency),
-            total: priceFormat(price * product.quantity, currency),
+            total: priceFormat(price * quantity, currency),
           }))),
 
         terms,
@@ -63,6 +70,8 @@ export default async ({ subdomains: [subdomain = 'soyjavi'], props: { id } = {} 
         qr: `/qr/${address}/${totalBTC}?label=${reference}`,
         total: priceFormat(total, currency),
         totalBTC,
+
+        footer: render('templates/footer'),
       }),
     }),
   );

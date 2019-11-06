@@ -11,7 +11,8 @@ class Recipient extends PureComponent {
 
   onChange(key, value) {
     const { props: { dataSource, onChange } } = this;
-    onChange({ ...dataSource, [key]: value });
+
+    onChange({ ...dataSource, [key]: key === 'location' ? value.split('\n') : value });
   }
 
   render() {
@@ -31,10 +32,10 @@ class Recipient extends PureComponent {
         />
         <textarea
           name="address"
-          onChange={({ target: { value } }) => onChange('address', value)}
+          onChange={({ target: { value } }) => onChange('location', value)}
           placeholder="Enter Address"
         >
-          {dataSource.address}
+          {dataSource.location}
         </textarea>
         <Input
           defaultValue={dataSource.email}

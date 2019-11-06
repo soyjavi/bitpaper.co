@@ -40,14 +40,14 @@
       <table>
         <thead>
           <tr>
-            <th>Qty</th>
             <th>Description</th>
+            <th class="right">Qty</th>
             <th class="right">Price</th>
             <th class="right">Total</th>
           </tr>
         </thead>
         <tbody>
-          {{products}}
+          {{items}}
         </tbody>
         <tfoot>
           <tr>
@@ -82,15 +82,7 @@
   </section>
   <section class="wrapper row bottom">
     <a class="color-accent" href="{{website}}">{{website}}</a>
-    <span>{{email}}</span>
-    <span>{{phone}}</span>
+    <span>{{from.email}}</span>
+    <span>{{from.phone}}</span>
   </section>
 </article>
-
-<footer>
-  <div class="wrapper">
-    <a class="_color-base" href="{{DOMAIN}}" target="_blank">{{COPYRIGHT}}</a>
-    <span class="row">🎉 Happy Invoicing with <a href="{{DOMAIN}}" target="_blank"><img class="logo" src="/static/logo-highlight.png" /></a></span>
-
-  </div>
-</footer>

@@ -2,6 +2,8 @@
   max-width: var(--wrapper-S);
 }
 
+[data-page="invoice-preview"] *:not(button) { line-height: 125%; }
+
 [data-page="invoice-preview"] main *:not(button),
 [data-page="invoice-preview"] article *:not(button) { font-family: var(--font-mono); }
 
@@ -9,7 +11,7 @@
 [data-page="invoice-preview"] h2,
 [data-page="invoice-preview"] h2 + h3 { font-weight: 400; }
 
-[data-page="invoice-preview"] h3 { margin-bottom: var(--space-XS); }
+/*[data-page="invoice-preview"] h3 { margin-bottom: var(--space-XS); }*/
 
 [data-page="invoice-preview"] .content { flex: 1; width: 100%; }
 

@@ -12,13 +12,14 @@ class Item extends PureComponent {
 
   onChange(key, value) {
     const { props: { dataSource, onChange } } = this;
+
     onChange({ ...dataSource, [key]: value });
   }
 
   render() {
     const {
       onChange,
-      props: { currency, dataSource: { name, price = 0, quantity = 0 }, onRemove },
+      props: { currency, dataSource: { name, price = 0, quantity = 1 }, onRemove },
     } = this;
 
     return (

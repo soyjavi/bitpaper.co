@@ -1,20 +1,10 @@
-import shortid from 'shortid';
 import Storage from 'vanilla-storage';
 
-import { C } from '../common';
-import { parseInvoice } from './modules';
+import { ERROR } from '../common';
 
-const { STATE } = C;
-
-export default ({ session, props }, res) => {
-  const data = parseInvoice(res, session, props);
-
+export default ({ session, props: { id } }, res) => {
   const user = new Storage({ filename: session.username });
-  const invoice = user.get('invoices').push({
-    ...data,
-    id: shortid.generate(),
-    state: STATE.DRAFT,
-  });
+  const invoice = user.get('invoices').findOne({ id });
 
-  return res.json(invoice);
+  return invoice ? res.json(invoice) : ERROR.NOT_FOUND(res);
 };

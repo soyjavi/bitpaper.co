@@ -20,7 +20,7 @@ class FormRegister extends PureComponent {
     form.username = form.username ? form.username.trim().replace(/\./g, '') : undefined;
     const { username, password } = form;
 
-    this.setState({ form, valid: (username && password), error: undefined, });
+    this.setState({ form, valid: (username && password), error: undefined });
   }
 
   async onSubmit(event) {
@@ -32,7 +32,7 @@ class FormRegister extends PureComponent {
     fetch({ service: 'api/login', method: 'POST', ...form })
       .then((session) => {
         store.write(session);
-        window.location = '/dashboard';
+        window.location.reload();
       })
       .catch((error) => this.setState({ error: error.message }));
   }
@@ -70,7 +70,7 @@ class FormRegister extends PureComponent {
 
         <nav className="row space-between">
           <button disabled={!valid || error} onClick={onSubmit}>Login</button>
-          <a href="/register" class="button secondary">Don't have an account?</a>
+          <a href="/register" className="button secondary">Don't have an account?</a>
         </nav>
       </Fragment>
     );

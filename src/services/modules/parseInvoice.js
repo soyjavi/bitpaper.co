@@ -10,27 +10,21 @@ export default (res, session, props) => {
     issued = (new Date()).getTime(),
     due,
     dateFormat = DATE_FORMAT,
-    products = [],
-    to,
+    items = [],
+    from = {},
+    to = {},
     ...inherit
   } = props;
 
   let {
-    satoshis = 0, from = {},
+    satoshis = 0,
   } = props;
 
   satoshis = parseInt(satoshis, 10);
 
-  if (satoshis === 0 && products.length === 0) return ERROR.REQUIRED_PARAMETERS(res, 'satoshis or products.');
+  if (satoshis === 0 && items.length === 0) return ERROR.REQUIRED_PARAMETERS(res, 'satoshis or items.');
   if (!address && !session.xpub) return ERROR.REQUIRED_PARAMETERS(res, 'address or xpub');
-  if (due && issued > due) return ERROR.MESSAGE(res, { message: 'Incorrect dates.' });
-
-  from = {
-    name: from.name || session.name,
-    location: from.location || session.location,
-    email: from.email || session.email,
-    phone: from.phone || session.phone,
-  };
+  if (due && issued > due) return ERROR.MESSAGE(res, { message: 'Incorrect range of dates.' });
 
   return {
     ...inherit,
@@ -42,8 +36,14 @@ export default (res, session, props) => {
     issued,
     due,
     dateFormat,
+
     from,
     to,
-    products,
+
+    items: items.map(({ name, quantity, price }) => ({
+      name,
+      quantity: parseInt(quantity, 10),
+      price: parseFloat(price, 10),
+    })),
   };
 };

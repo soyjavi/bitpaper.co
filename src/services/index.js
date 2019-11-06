@@ -6,6 +6,7 @@ import login from './login';
 import profile from './profile';
 import profileUpdate from './profileUpdate';
 import invoice from './invoice';
+import invoiceCreate from './invoiceCreate';
 import invoiceUpdate from './invoiceUpdate';
 import transaction from './transaction';
 
@@ -16,7 +17,8 @@ router.post('/signup', api, signup);
 router.post('/login', api, login);
 router.get('/profile', api, profile);
 router.put('/profile', api, profileUpdate);
-router.post('/invoice', api, invoice);
+router.get('/invoice/:id', request, api, invoice);
+router.post('/invoice', api, invoiceCreate);
 router.put('/invoice', api, invoiceUpdate);
 router.get('/transaction/:address', request, api, transaction);
 

@@ -43,7 +43,7 @@ class FormRegister extends PureComponent {
     fetch({ service: 'api/signup', method: 'POST', ...form })
       .then((session) => {
         store.write(session);
-        window.location = '/dashboard';
+        window.location.reload();
       })
       .catch((error) => this.setState({ error: error.message }));
   }
@@ -52,6 +52,8 @@ class FormRegister extends PureComponent {
     const {
       onChange, onCheckbox, onSubmit, state: { error, valid, form: { terms } },
     } = this;
+
+    console.log(this.state.error);
 
     return (
       <Fragment>

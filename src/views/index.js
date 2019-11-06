@@ -16,10 +16,15 @@ const router = Router();
 router.get('/register', register);
 router.get('/login', login);
 router.get('/logout', logout);
-router.get('/dashboard', dashboard);
-router.get('/invoice/:id', invoice);
-router.get('/qr/:address/:amount', qr);
+router.get('/invoice/:id', request, invoice);
+router.get('/invoice/preview/:id', request, invoicePreview);
 router.get('/pay/:id', request, invoicePreview);
-router.get('/', cacheHtml, home);
+router.get('/qr/:address/:amount', qr);
+router.get('/', (req, res) => {
+  if (req.session) return dashboard(req, res);
+
+  cacheHtml(req, res);
+  return home(req, res);
+});
 
 export default router;
