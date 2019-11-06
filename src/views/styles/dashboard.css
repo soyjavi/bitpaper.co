@@ -1,4 +1,4 @@
-[data-page="dashboard"] article {
+[data-page="dashboard"] {
   padding: var(--space-XL) 0;
   min-height: 100vh;
 }

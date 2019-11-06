@@ -1,6 +1,6 @@
 {
   "name": "invoicer-btc-segwit",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "description": "Invoicer using Bitcoin Native Segwit addresses",
   "repository": "https://github.com/soyjavi/invoicer-btc-segwit",
   "author": "soyjavi <hello@soyjavi.com>",
@@ -40,8 +40,8 @@
   },
   "main": "index.js",
   "scripts": {
-    "build": "parcel build src/scripts/*.js src/pages/index.css",
-    "watch": "parcel src/scripts/*.js src/pages/index.css",
+    "build": "parcel build src/scripts/*.js src/views/index.css",
+    "watch": "parcel src/scripts/*.js src/views/index.css",
     "server": "babel-node index.js",
     "start": "yarn build && yarn server",
     "start:dev": "nodemon --ignore '/dist/**' --ignore '/store/**' --exec yarn start",

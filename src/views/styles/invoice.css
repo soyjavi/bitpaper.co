@@ -1,3 +1,9 @@
+[data-page="invoice"] article .wrapper {
+  padding-top: calc(var(--space-XL) + var(--space));
+  padding-bottom: var(--space);
+  /*max-width: var(--wrapper-S);*/
+}
+
 .invoice {
   display: flex;
   flex-direction: row;
@@ -9,6 +15,10 @@
   border-radius: var(--border-radius);
   padding: var(--space-L);
 }
+  .invoice .form.fixed {
+    margin-right: calc(var(--space) + 192px);
+  }
+
   .invoice .form *:not(button) { font-family: var(--font-mono); }
   .invoice .border { border-bottom: solid 1px var(--color-skeleton); }
   .invoice .row.total * { padding: var(--space-XS) 0; font-size: var(--font-size); }
@@ -29,8 +39,6 @@
     .invoice .fieldset:first-child div:last-child label { margin-left: var(--space-S); }
     .invoice .fieldset:first-child div:last-child input { background-color: var(--bg-color); border: none; }
 
-  .invoice .form label.large { font-size: var(--font-size-L); }
-
   .invoice .form table { margin-bottom: var(--space); }
     .invoice .form table th:not(:last-child) { padding-right: var(--space-XS); }
     .invoice .form table tbody tr:last-child td { padding-bottom: var(--space-L); }
@@ -41,7 +49,20 @@
       .invoice .form table td input { margin-bottom: 0; }
       .invoice .form table td:last-child { justify-content: flex-end; }
 
-.invoice .options { margin-left: var(--space); }
+.invoice .options:not(.fixed) { margin-left: var(--space); }
+  .invoice .options.fixed {
+    position: fixed;
+    max-width: var(--wrapper);
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    padding-right: calc(var(--space) * 2);
+  }
+  .invoice .options.fixed > * {
+    max-width: 192px;
+  }
+
   .invoice .options > * { margin-bottom: var(--space-S); width: 100%;}
   .invoice .options .row button:first-child { border-right: 0; border-top-right-radius: 0; border-bottom-right-radius: 0; }
   .invoice .options .row button:last-child { border-top-left-radius: 0; border-bottom-left-radius: 0; }

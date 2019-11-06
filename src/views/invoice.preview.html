@@ -3,19 +3,22 @@
     <div class="row">
       <img class="logo" src="{{logo}}" />
       <div class="provider">
-        <h3>Soshilabs LTD</h3>
-        {{location}}
+        <h3>{{from.name}}</h3>
+        <p>{{from.location}}</p>
       </div>
     </div>
+
     <div class="row">
       <div class="recipient">
-        <h3>Recipient</h3>
-        {{recipient}}
+        <h3>{{to.name}}</h3>
+        <p>{{to.location}}</p>
+        <p>{{to.email}}</p>
+        <p>{{to.phone}}</p>
       </div>
 
       <div>
         <h1>Invoice #{{reference}}</h1>
-        <h2 class="color-lighten">June 20, 2017</h2>
+        <h2 class="color-lighten">{{issued}}</h2>
       </div>
     </div>
 

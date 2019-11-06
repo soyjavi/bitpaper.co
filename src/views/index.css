@@ -34,8 +34,9 @@
   /*--tablet: 1024px;*/
 
   --unit: 10px;
-  --wrapper-invoice: 1024px;
   --wrapper: 1200px;
+  --wrapper-S: 1024px;
+  --wrapper-XS: 576px;
 }
 
 @media (max-width: 767px) {
@@ -47,15 +48,15 @@
 }
 
 /* -- reset -- */
-@import './index-reset.css';
-@import './index-classes.css';
+@import './styles/reset.css';
+@import './styles/classes.css';
 
 /* -- views -- */
-@import './home.css';
-@import './register.css';
-@import './login.css';
-@import './dashboard.css';
-@import './invoice.css';
-@import './invoice.form.css';
-@import './home.css';
-@import './error.css';
+@import './styles/home.css';
+@import './styles/register.css';
+@import './styles/login.css';
+@import './styles/dashboard.css';
+@import './styles/invoice.css';
+@import './styles/invoice-preview.css';
+@import './styles/home.css';
+@import './styles/error.css';

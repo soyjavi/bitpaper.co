@@ -1,6 +1,6 @@
 [data-page="register"] .wrapper {
   align-items: center;
-  max-width: 576px;
+  max-width: var(--wrapper-XS);
   min-height: 100vh;
 }
 

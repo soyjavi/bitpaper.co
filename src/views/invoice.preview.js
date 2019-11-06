@@ -19,7 +19,7 @@ export default async ({ subdomains: [subdomain = 'soyjavi'], props: { id } = {} 
   if (!address) return ERROR.MESSAGE(res, { message: 'Something wrong' });
 
   const {
-    currency, reference, concept, date, products = [], terms, recipient = [], location = [],
+    currency, reference, concept, issued, due, from = {}, to = {}, products = [], terms,
   } = invoice;
   let { satoshis, total = 0 } = invoice;
 
@@ -36,31 +36,33 @@ export default async ({ subdomains: [subdomain = 'soyjavi'], props: { id } = {} 
 
   return res.send(
     render('index', {
-      page: 'invoice',
-      // title: 'Invoicer',
+      page: 'invoice-preview',
       title: `${TITLE} - Invoice`,
       scripts: ['payment'],
-      content: render('invoice', {
-        // ---
+      content: render('invoice.preview', {
         ...profile,
-        logo: 'https://via.placeholder.com/128' || ICON,
-        // ---
-        reference,
-        date,
-        concept,
 
-        location: normalizeHtml(location.map((line) => `<p>${line}</p>`)),
-        recipient: normalizeHtml(recipient.map((line) => `<p>${line}</p>`)),
+        logo: 'https://via.placeholder.com/128' || ICON,
+        from,
+        reference,
+        concept,
+        issued: (new Date(issued)).toString(),
+        due,
+
+        to,
+
+        products: normalizeHtml(products
+          .map(({ price, ...product }) => render('templates/product', {
+            ...product,
+            price: priceFormat(price, currency),
+            total: priceFormat(price * product.quantity, currency),
+          }))),
 
         terms,
         address,
-        total: priceFormat(total),
-        totalBTC,
         qr: `/qr/${address}/${totalBTC}?label=${reference}`,
-        products: normalizeHtml(products
-          .map(({ price, ...product }) => render('templates/product', {
-            ...product, price: `$${price}`, total: `$${(price * product.quantity).toFixed(2)}`,
-          }))),
+        total: priceFormat(total, currency),
+        totalBTC,
       }),
     }),
   );

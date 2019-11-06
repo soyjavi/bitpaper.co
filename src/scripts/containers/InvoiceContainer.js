@@ -1,5 +1,5 @@
+import { bool, func } from 'prop-types';
 import React, { PureComponent } from 'react';
-import ReactDOM from 'react-dom';
 
 import { C, calcTotal, priceFormat } from '../../common';
 import { Input, Item, Recipient } from '../components';
@@ -8,7 +8,7 @@ const { CURRENCY, CURRENCIES, DATE_FORMATS } = C;
 
 const [DATE_FORMAT] = DATE_FORMATS;
 
-class InvoiceForm extends PureComponent {
+class InvoiceContainer extends PureComponent {
   constructor(props) {
     super(props);
     this.onAddItem = this.onAddItem.bind(this);
@@ -47,13 +47,18 @@ class InvoiceForm extends PureComponent {
   }
 
   onChange(key, value) {
-    const { state: { dataSource } } = this;
-    this.setState({ dataSource: { ...dataSource, [key]: value } });
+    const { props: { onChange } } = this;
+    let { state: { dataSource } } = this;
+
+    dataSource = { ...dataSource, [key]: value };
+    this.setState({ dataSource });
+    onChange(dataSource);
   }
 
   render() {
     const {
       onAddItem, onChange, onChangeCurrency, onChangeItem, onRemoveItem,
+      props: { demo, onSubmit },
       state: { dataSource: { currency, items, ...dataSource } },
     } = this;
 
@@ -61,7 +66,7 @@ class InvoiceForm extends PureComponent {
 
     return (
       <div className="invoice">
-        <div className="form">
+        <div className={`form ${!demo ? 'fixed' : ''}`}>
           <div className="fieldset border">
             <div className="row">
               <label>Invoice #</label>
@@ -78,7 +83,7 @@ class InvoiceForm extends PureComponent {
 
           <div className="fieldset border">
             <div>
-              <label className="large">Invoice</label>
+              <label>Invoice</label>
               <input name="concept" type="text" placeholder="Concept of invoice" onChange={onchange} />
             </div>
             <div>
@@ -153,8 +158,8 @@ class InvoiceForm extends PureComponent {
           </div>
         </div>
 
-        <div className="options">
-          <button disabled={total <= 0}>Send Invoice</button>
+        <div className={`options ${!demo ? 'fixed' : ''}`}>
+          <button disabled={total <= 0} onClick={onSubmit}>Send Invoice</button>
           <div className="row">
             <button disabled={total <= 0} className="outlined">Preview</button>
             <button disabled={total <= 0} className="outlined">Download</button>
@@ -177,4 +182,16 @@ class InvoiceForm extends PureComponent {
   }
 }
 
-export default InvoiceForm;
+InvoiceContainer.propTypes = {
+  demo: bool,
+  onChange: func,
+  onSubmit: func,
+};
+
+InvoiceContainer.defaultProps = {
+  demo: false,
+  onChange() {},
+  onSubmit() {},
+};
+
+export default InvoiceContainer;

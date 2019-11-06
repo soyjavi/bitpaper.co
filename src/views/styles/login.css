@@ -1,4 +1,8 @@
-[data-page="login"] .wrapper { align-items: center; min-height: 100vh; }
+[data-page="login"] .wrapper {
+  align-items: center;
+  max-width: var(--wrapper-S);
+  min-height: 100vh;
+}
 
 [data-page="login"] .logo {
   margin-top: var(--space);

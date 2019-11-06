@@ -1,0 +1,83 @@
+[data-page="invoice-preview"] .wrapper {
+  max-width: var(--wrapper-S);
+}
+
+[data-page="invoice-preview"] main *:not(button),
+[data-page="invoice-preview"] article *:not(button) { font-family: var(--font-mono); }
+
+[data-page="invoice-preview"] h1 { color: var(--color-accent); font-size: var(--font-size-XL); }
+[data-page="invoice-preview"] h2,
+[data-page="invoice-preview"] h2 + h3 { font-weight: 400; }
+
+[data-page="invoice-preview"] h3 { margin-bottom: var(--space-XS); }
+
+[data-page="invoice-preview"] .content { flex: 1; width: 100%; }
+
+[data-page="invoice-preview"] .terms { font-size: var(--font-size-S); }
+
+[data-page="invoice-preview"] .payment { margin-top: var(--space); }
+  [data-page="invoice-preview"] .payment .address { margin: var(--space-S) 0; }
+  [data-page="invoice-preview"] .payment > div:first-child { flex: 1; }
+
+[data-page="invoice-preview"] .qr { height: 192px; width: 192px; }
+
+[data-page="invoice-preview"] button,
+[data-page="invoice-preview"] .button { margin: var(--space-S) 0; }
+
+[data-page="invoice-preview"] .bottom {
+  border-top: solid 1px var(--color);
+  justify-content: space-between;
+  padding-top: var(--space-S);
+  font-size: var(--font-size-S);
+  font-weight: bold;
+}
+
+[data-page="invoice-preview"] table th { border-bottom: solid 2px var(--color); }
+[data-page="invoice-preview"] table tfoot td {
+  font-size: var(--font-size-L);
+  font-weight: bold;
+  border-top: solid 2px var(--color);
+  border-bottom: solid 2px var(--color);
+}
+[data-page="invoice-preview"] table tbody tr:last-child td { padding-bottom: var(--space); }
+
+@media (max-width: 767px) {
+  [data-page="invoice-preview"] .logo { max-width: 48px; }
+  [data-page="invoice-preview"] .row:not(.bottom) { align-items: flex-start; flex-direction: column; }
+    [data-page="invoice-preview"] .row > * { margin-bottom: var(--space-S); }
+
+  [data-page="invoice-preview"] h1 { font-size: var(--font-size-L); }
+
+  [data-page="invoice-preview"] main,
+  [data-page="invoice-preview"] article { padding: var(--space) 0; }
+
+  [data-page="invoice-preview"] .qr { align-self: center; }
+
+  [data-page="invoice-preview"] button,
+  [data-page="invoice-preview"] .button { width: 100%; }
+
+  [data-page="invoice-preview"] .bottom { display: none; }
+}
+
+@media (min-width: 768px) {
+  [data-page="invoice-preview"] .logo { max-width: calc(var(--unit) * 12.8); max-height: calc(var(--unit) * 12.8); }
+
+  [data-page="invoice-preview"] .row:not(:last-child) {
+    align-items: flex-start;
+    margin-bottom: var(--space-L);
+  }
+
+  [data-page="invoice-preview"] main,
+  [data-page="invoice-preview"] article { padding: var(--space-XL) 0; }
+
+  [data-page="invoice-preview"] main .provider *,
+  [data-page="invoice-preview"] main h1,
+  [data-page="invoice-preview"] main h2 { text-align: right; }
+    [data-page="invoice-preview"] main .provider,
+    [data-page="invoice-preview"] main .recipient { flex: 1; }
+    [data-page="invoice-preview"] main .customer { font-size: var(--font-size-L); }
+
+  [data-page="invoice-preview"] article section { justify-content: space-between; }
+  [data-page="invoice-preview"] article .content { max-width: 640px; }
+  [data-page="invoice-preview"] article .payment > div:first-child { flex: 1; margin-right: var(--space); }
+}

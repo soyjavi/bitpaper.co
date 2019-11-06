@@ -9,7 +9,7 @@ const {
   COPYRIGHT, DOMAIN, TITLE, DESCRIPTION, ICON, IMAGE,
   EMAIL, TWITTER,
 } = C;
-const folder = path.resolve('.', 'src/pages');
+const folder = path.resolve('.', 'src/views');
 const bindingProp = new RegExp(/{{.*}}/, 'g');
 const bindingObj = /{{(.*)\.(.*)}}/;
 

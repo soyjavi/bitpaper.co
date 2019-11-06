@@ -8,7 +8,7 @@ import http from 'http';
 
 import { C } from './src/common';
 import services from './src/services';
-import pages from './src/pages';
+import views from './src/views';
 import { error, request } from './src/middlewares';
 
 dotenv.config();
@@ -29,7 +29,7 @@ app.use(express.static('dist'));
 // -- App
 app.use(request);
 app.use('/api', services);
-app.use('/', pages);
+app.use('/', views);
 app.use(error);
 
 const listener = server.listen(PORT, () => {
