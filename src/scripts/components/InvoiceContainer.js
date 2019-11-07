@@ -8,6 +8,9 @@ import Recipient from './Recipient';
 import Options from './InvoiceOptions';
 
 const { CURRENCY, DATE_FORMATS: [DATE_FORMAT] } = C;
+const DEFAULT_DATASOURCE = {
+  currency: CURRENCY, dateFormat: DATE_FORMAT, items: [{}], from: {}, to: {},
+};
 
 class InvoiceContainer extends PureComponent {
   constructor(props) {
@@ -16,7 +19,7 @@ class InvoiceContainer extends PureComponent {
     this.onChange = this.onChange.bind(this);
     this.onChangeItem = this.onChangeItem.bind(this);
     this.onRemoveItem = this.onRemoveItem.bind(this);
-    this.state = { dataSource: { currency: CURRENCY, dateFormat: DATE_FORMAT, items: [{}] } };
+    this.state = { dataSource: DEFAULT_DATASOURCE };
   }
 
   componentWillReceiveProps({ dataSource = {} }) {
@@ -102,7 +105,12 @@ class InvoiceContainer extends PureComponent {
                 Bitcoin Address
                 <a className="right color-accent" href="/profile">...or setup a XPUB</a>
               </label>
-              <input name="address" type="text" placeholder="Bitcoin Address" onChange={onchange} />
+              <Input
+                name="address"
+                defaultValue={dataSource.address}
+                placeholder="Bitcoin Address"
+                onChange={onChange}
+              />
             </div>
           </div>
 

@@ -19,7 +19,7 @@ class Item extends PureComponent {
   render() {
     const {
       onChange,
-      props: { currency, dataSource: { name, price = 0, quantity = 1 }, onRemove },
+      props: { currency, dataSource: { name, price = 0, quantity = 0 }, onRemove },
     } = this;
 
     return (

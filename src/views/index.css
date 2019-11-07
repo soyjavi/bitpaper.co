@@ -19,6 +19,7 @@
   --font-mono: 'Inconsolata', monospace;
   --font-size-XL: 2.4rem;
   --font-size-L: 1.3rem;
+  --font-size: 18px;
   --font-size-S: 0.9rem;
   --font-size-XS: 0.8rem;
 
@@ -48,7 +49,7 @@
 }
 
 @media (min-width: 768px) {
-  :root { --font-size: 18px; }
+  /*:root { --font-size: 18px; }*/
 }
 
 /* -- reset -- */

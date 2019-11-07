@@ -3,9 +3,9 @@ import {
 } from 'prop-types';
 import React, { PureComponent } from 'react';
 
-import { C, calcTotal } from '../../common';
+import { C } from '../../common';
 
-const { CURRENCIES, DATE_FORMATS } = C;
+const { CURRENCIES, DATE_FORMATS, STATE } = C;
 const SYMBOLS = CURRENCIES.map((item) => item.split(' ')[0]);
 
 class InvoiceContainer extends PureComponent {
@@ -25,20 +25,33 @@ class InvoiceContainer extends PureComponent {
     const {
       onChangeCurrency,
       props: {
-        busy, onChange, onPreview, onSubmit, total, dataSource: { id, currency, dateFormat },
+        busy, onChange, onPreview, onSend, onSubmit, total,
+        dataSource: {
+          id, currency, dateFormat, state,
+        },
       },
     } = this;
 
     const disabled = total <= 0 || busy;
+    let buttonLabel = id ? 'Save Changes' : 'Create Invoice';
+    if (busy) buttonLabel = 'Please wait';
 
     return (
       <section className="options">
         <div className="columns">
           <button type="button" disabled={disabled} className={busy ? 'busy' : undefined} onClick={onSubmit}>
-            {busy
-              ? 'Please wait'
-              : id ? 'Save Changes' : 'Send Invoice'}
+            {buttonLabel}
           </button>
+          { state === STATE.DRAFT && (
+            <button
+              type="button"
+              disabled={disabled}
+              className={`secondary ${busy ? 'busy' : ''}`}
+              onClick={onSend}
+            >
+              Send Invoice
+            </button>
+          )}
           <div className="row">
             <button type="button" disabled={disabled} className="outlined" onClick={onPreview}>
               Preview
@@ -64,6 +77,8 @@ class InvoiceContainer extends PureComponent {
                 <option value={item} key={index.toString()}>{item}</option>))}
             </select>
           </div>
+
+
         </div>
       </section>
     );
@@ -75,6 +90,7 @@ InvoiceContainer.propTypes = {
   dataSource: shape({}),
   onChange: func,
   onPreview: func,
+  onSend: func,
   onSubmit: func,
   total: number,
 };
@@ -84,6 +100,7 @@ InvoiceContainer.defaultProps = {
   dataSource: undefined,
   onChange() {},
   onPreview() {},
+  onSend() {},
   onSubmit() {},
   total: undefined,
 };

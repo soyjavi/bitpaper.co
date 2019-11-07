@@ -1,9 +1,9 @@
 import { func, shape, string } from 'prop-types';
-import React, { PureComponent } from 'react';
+import React, { Component } from 'react';
 
 import Input from './Input';
 
-class Recipient extends PureComponent {
+class Recipient extends Component {
   constructor(props) {
     super(props);
     this.onChange = this.onChange.bind(this);

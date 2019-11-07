@@ -44,11 +44,11 @@ class InvoiceForm extends PureComponent {
   }
 
   onSubmit() {
-    const { state: { id, value } } = this;
+    const { state: { id, value: { from, to, ...value } } } = this;
     const newValue = {
       ...value,
-      from: { ...value.from, location: value.from.location.split('\n') },
-      to: { ...value.to, location: value.to.location.split('\n') },
+      from: { ...from, location: from.location ? from.location.split('\n') : undefined },
+      to: { ...to, location: to.location ? to.location.split('\n') : undefined },
     };
 
     this.setState({ busy: true });

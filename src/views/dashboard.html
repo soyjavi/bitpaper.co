@@ -28,10 +28,21 @@
     </div>
 
     <section class="box">
-      <div class="header row">
+      <div class="header border row">
         <h2>Drafts</h2>
         <a href="/invoice/new" class="button">New Invoice</a>
       </div>
+      <ul>
+        <li class="row fields border color-lighten">
+          <span class="field">No.</span>
+          <span class="customer">Client</span>
+          <span class="field center">Issued</span>
+          <span class="field right">Total</span>
+          <span class="field right">BTC</span>
+        </li>
+        {{drafts}}
+        <li class="row right">?.???????₿</li>
+      </ul>
     </section>
 
     <section class="box">
@@ -39,6 +50,21 @@
         <h2>Unpaid</h2>
         <a href="/invoice/new" class="button secondary">All Invoices</a>
       </div>
+      <ul>
+        <li class="fields border color-lighten">
+          <div class="row">
+            <span class="field">No.</span>
+            <span class="customer">Client</span>
+            <span class="field center">Issued</span>
+            <span class="field right">Total</span>
+            <span class="field right">BTC</span>
+          </div>
+        </li>
+        {{ready}}
+        <li class="row right">?.???????₿</li>
+      </ul>
     </section>
   </div>
 </article>
+
+{{footer}}
