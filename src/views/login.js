@@ -1,4 +1,5 @@
-import { cache, render } from '../common';
+import cache from '../common/cache';
+import render from '../common/render';
 
 export default ({ originalUrl }, res) => res.send(
   cache.set(originalUrl,

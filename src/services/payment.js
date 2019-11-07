@@ -1,7 +1,3 @@
-import {
-  C, mail, render,
-} from '../common';
-
 export default async (req, res) => {
   // let error = false;
 

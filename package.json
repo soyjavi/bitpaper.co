@@ -1,42 +1,42 @@
 {
   "name": "invoicer-btc-segwit",
-  "version": "0.2.3",
+  "version": "0.2.4",
   "description": "Invoicer using Bitcoin Native Segwit addresses",
   "repository": "https://github.com/soyjavi/invoicer-btc-segwit",
   "author": "soyjavi <hello@soyjavi.com>",
   "license": "MIT",
   "dependencies": {
-    "bitcoinjs-lib": "5.1.6",
-    "body-parser": "1.19.0",
-    "compression": "1.7.4",
+    "bitcoinjs-lib": "^5.1.6",
+    "body-parser": "^1.19.0",
+    "compression": "^1.7.4",
     "cookie-parser": "^1.4.4",
-    "cors": "2.8.5",
-    "cron": "1.7.1",
+    "cors": "^2.8.5",
+    "cron": "^1.7.1",
     "crypto-js": "^3.1.9-1",
-    "dotenv": "8.0.0",
-    "express": "4.16.3",
-    "node-cron": "2.0.3",
-    "node-fetch": "2.6.0",
-    "nodemailer": "6.3.0",
-    "on-finished": "2.3.0",
+    "dotenv": "^8.0.0",
+    "express": "^4.16.3",
+    "node-cron": "^2.0.3",
+    "node-fetch": "^2.6.0",
+    "nodemailer": "^6.3.0",
+    "on-finished": "^2.3.0",
     "prop-types": "^15.7.2",
     "react": "^16.11.0",
     "react-dom": "^16.11.0",
     "shortid": "^2.2.15",
-    "vanilla-storage": "0.1.12"
+    "vanilla-storage": "^0.1.12"
   },
   "devDependencies": {
-    "@babel/cli": "7.1.5",
-    "@babel/core": "7.1.5",
-    "@babel/node": "7.0.0",
-    "@babel/plugin-proposal-throw-expressions": "7.0.0",
-    "@babel/preset-env": "7.1.5",
-    "eslint": "6.3.0",
+    "@babel/cli": "^7.1.5",
+    "@babel/core": "^7.1.5",
+    "@babel/node": "^7.0.0",
+    "@babel/plugin-proposal-throw-expressions": "^7.0.0",
+    "@babel/preset-env": "^7.1.5",
+    "eslint": "^6.3.0",
     "eslint-config-airbnb": "latest",
-    "eslint-plugin-import": "2.18.2",
+    "eslint-plugin-import": "^2.18.2",
     "eslint-plugin-jsx-a11y": "^6.2.3",
     "eslint-plugin-react": "^7.16.0",
-    "parcel-bundler": "1.12.3"
+    "parcel-bundler": "^1.12.3"
   },
   "main": "index.js",
   "scripts": {
@@ -47,7 +47,6 @@
     "start:dev": "nodemon --ignore '/dist/**' --ignore '/store/**' --exec yarn start",
     "lint": "eslint src"
   },
-  "browserslist": [
-    "last 1 Chrome versions"
-  ]
+
+  "browserslist": ["last 1 Chrome version"]
 }

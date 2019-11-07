@@ -1,12 +1,14 @@
+import dotenv from 'dotenv';
 import Storage from 'vanilla-storage';
 
 import {
-  C, ERROR, calcTotal, getAddress, priceFormat, rateSatoshis, render,
+  ERROR, calcTotal, priceFormat, rateSatoshis,
 } from '../common';
+import render from '../common/render';
+import { getAddress, normalizeHtml } from './modules';
 
-const { ICON, TITLE } = C;
-
-const normalizeHtml = (array = []) => array.toString().replace(/,/g, '');
+dotenv.config();
+const { ICON, TITLE } = process.env;
 
 export default async ({ subdomains: [subdomain = 'soyjavi'], props: { id } = {} }, res) => {
   const user = new Storage({ filename: subdomain });

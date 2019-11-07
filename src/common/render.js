@@ -1,14 +1,15 @@
+import dotenv from 'dotenv';
 import fs from 'fs';
 import path from 'path';
 
 import PKG from '../../package.json';
 import cache from './cache';
-import C from './constants';
 
+dotenv.config();
 const {
-  COPYRIGHT, DOMAIN, TITLE, DESCRIPTION, ICON, IMAGE,
-  EMAIL, TWITTER,
-} = C;
+  COPYRIGHT, DOMAIN, TITLE, DESCRIPTION, ICON, IMAGE, EMAIL,
+} = process.env;
+
 const folder = path.resolve('.', 'src/views');
 const bindingProp = new RegExp(/{{.*}}/, 'g');
 const bindingObj = /{{(.*)\.(.*)}}/;
@@ -18,10 +19,8 @@ export default (filename = 'index', values = {}, forceCache = true) => {
   let view = forceCache ? cache.get(cacheKey) : undefined;
 
   if (!view) {
-    const uriFile = `${folder}/${filename}.html`;
-
-    if (!fs.existsSync(uriFile)) throw new Error(`${filename} could not read correctly.`);
-    view = fs.readFileSync(uriFile, 'utf8');
+    if (!fs.existsSync(`${folder}/${filename}.html`)) throw new Error(`${filename} could not read correctly.`);
+    view = fs.readFileSync(`${folder}/${filename}.html`, 'utf8');
     cache.set(cacheKey, view);
   }
 
@@ -39,7 +38,6 @@ export default (filename = 'index', values = {}, forceCache = true) => {
     EMAIL,
     ICON: `${DOMAIN}${ICON}`,
     VERSION: PKG.version,
-    TWITTER,
 
     ...values,
     scripts: scripts.map((script) => (

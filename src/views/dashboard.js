@@ -1,4 +1,4 @@
-import { render } from '../common';
+import render from '../common/render';
 
 export default (req, res) => {
   if (!req.session) res.redirect('/logout');

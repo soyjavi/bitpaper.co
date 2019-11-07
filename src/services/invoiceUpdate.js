@@ -12,9 +12,9 @@ export default ({ session, props: { id, ...inherit } }, res) => {
   if (!invoice) return ERROR.NOT_FOUND(res);
   if (invoice.state === PAID) return ERROR.MESSAGE(res, { message: `Invoice ${invoice.reference} already paid.` });
 
-  const nextData = parseInvoice(res, session, inherit);
-
-  invoice = user.get('invoices').update({ id }, nextData);
+  invoice = user
+    .get('invoices')
+    .update({ id }, { ...parseInvoice(res, session, inherit), id });
 
   return res.json(invoice);
 };

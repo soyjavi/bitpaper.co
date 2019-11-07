@@ -32,7 +32,7 @@ class FormRegister extends PureComponent {
     fetch({ service: 'api/login', method: 'POST', ...form })
       .then((session) => {
         store.write(session);
-        window.location.reload();
+        window.location = '/';
       })
       .catch((error) => this.setState({ error: error.message }));
   }
@@ -69,8 +69,8 @@ class FormRegister extends PureComponent {
         )}
 
         <nav className="row space-between">
-          <button disabled={!valid || error} onClick={onSubmit}>Login</button>
-          <a href="/register" className="button secondary">Don't have an account?</a>
+          <button type="button" disabled={!valid || error} onClick={onSubmit}>Login</button>
+          <a href="/register" className="button secondary">Don&apos;t have an account?</a>
         </nav>
       </Fragment>
     );

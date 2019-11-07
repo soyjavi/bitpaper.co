@@ -1,6 +1,7 @@
-import C from './constants';
+import dotenv from 'dotenv';
 
-const { CACHE } = C;
+dotenv.config();
+const { CACHE } = process.env;
 
 class Cache {
   constructor() {

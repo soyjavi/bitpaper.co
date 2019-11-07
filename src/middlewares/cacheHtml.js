@@ -1,4 +1,4 @@
-import { cache } from '../common';
+import cache from '../common/cache';
 
 export default ({ originalUrl }, res, next) => {
   const cached = cache.get(originalUrl);

@@ -34,7 +34,7 @@ button, .button {
   text-decoration: none;
   text-align: center;
   text-align: center;
-  transition: all var(--animation);
+  /*transition: all var(--animation);*/
 }
   .button { line-height: var(--input-height); }
   button.secondary, .button.secondary {
@@ -155,7 +155,7 @@ header {
 }
   header .wrapper {
     align-self: center;
-    padding: var(--space-XS) var(--space);
+    height: var(--header);
     justify-content: space-between;
   }
   header .logo { height: 36px; margin-right: var(--unit); }
@@ -163,16 +163,6 @@ header {
   header nav { margin-left: var(--space); }
     header nav > * { margin-left: var(--space-XS) }
 
-
-footer .logo { margin-left: var(--space-XS); height: 24px; }
-
-@media (max-width: 767px) {
-  header .wrapper { padding: var(--space-XS); }
-}
-
-@media (min-width: 768px) {
-
-}
 
 /* -- <footer> */
 footer { background-color: var(--color-accent); padding: var(--space-S) 0; }
@@ -184,6 +174,13 @@ footer { background-color: var(--color-accent); padding: var(--space-S) 0; }
     align-items: center;
   }
 
+  footer .logo { margin-left: var(--space-XS); height: 24px; }
+
+
+/* -- media queries */
 @media (max-width: 767px) {
   footer .wrapper { flex-direction: column; }
+}
+
+@media (min-width: 768px) {
 }

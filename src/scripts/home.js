@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react';
 import ReactDOM from 'react-dom';
 
-import InvoiceContainer from './containers/InvoiceContainer';
+import { InvoiceContainer } from './components';
 
 class InvoiceDemo extends PureComponent {
   render() {

@@ -52,7 +52,7 @@ class Item extends PureComponent {
         </td>
         <td className="right price">{priceFormat(price * quantity, currency)}</td>
         <td className="row">
-          <button className="secondary" onClick={onRemove}>Delete</button>
+          <button type="button" className="secondary" onClick={onRemove}>Delete</button>
         </td>
       </tr>
     );

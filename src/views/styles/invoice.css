@@ -1,7 +1,6 @@
 [data-page="invoice"] article .wrapper {
-  padding-top: calc(var(--space-XL) + var(--space));
-  padding-bottom: var(--space);
-  /*max-width: var(--wrapper-S);*/
+  padding-top: calc(var(--header) + var(--space-L));
+  padding-bottom: var(--space-L);
 }
 
 .invoice {
@@ -48,7 +47,7 @@
     .invoice .form table th:not(:last-child) { padding-right: var(--space-XS); }
     .invoice .form table tbody tr:last-child td { padding-bottom: var(--space-L); }
     .invoice .form table td { border-bottom: none; padding-bottom: 0; }
-      .invoice .form table td:first-child { width: 50%; }
+      .invoice .form table td:first-child { width: 49%; }
       .invoice .form table td.right { width: 12%; }
       .invoice .form table td:not(:last-child) { padding-right: var(--space-XS); }
       .invoice .form table td input { margin-bottom: 0; }

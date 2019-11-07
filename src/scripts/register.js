@@ -43,7 +43,7 @@ class FormRegister extends PureComponent {
     fetch({ service: 'api/signup', method: 'POST', ...form })
       .then((session) => {
         store.write(session);
-        window.location.reload();
+        window.location = '/';
       })
       .catch((error) => this.setState({ error: error.message }));
   }
@@ -52,8 +52,6 @@ class FormRegister extends PureComponent {
     const {
       onChange, onCheckbox, onSubmit, state: { error, valid, form: { terms } },
     } = this;
-
-    console.log(this.state.error);
 
     return (
       <Fragment>
@@ -131,7 +129,7 @@ class FormRegister extends PureComponent {
         )}
 
         <nav className="row space-between">
-          <button disabled={!valid || error} onClick={onSubmit}>Sign Up</button>
+          <button type="button" disabled={!valid || error} onClick={onSubmit}>Sign Up</button>
           <a className="button secondary" href="/login">Already have an account?</a>
         </nav>
       </Fragment>

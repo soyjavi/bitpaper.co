@@ -1,4 +1,4 @@
-import { render } from '../common';
+import render from '../common/render';
 
 export default (error, req, res, next) => {
   if (res.headersSent) next(error);

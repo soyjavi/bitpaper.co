@@ -10,16 +10,16 @@ export default ({ props }, res) => {
     email, username, password, name,
   } = props;
 
-  const users = new Storage(STORE.USERS);
-  users.get('active');
+  let store = new Storage(STORE.USERS);
+  store.get('active');
 
-  if (users.findOne({ username })) return ERROR.CONFLICT(res);
+  if (store.findOne({ username })) return ERROR.CONFLICT(res);
 
-  users.push({
+  store.push({
     email, username, password, createdAt: (new Date()).getTime(),
   });
 
-  new Storage({
+  store = new Storage({
     filename: username,
     defaults: { ...STORE.USER.defaults, profile: { email, name } },
   });

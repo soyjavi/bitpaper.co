@@ -2,18 +2,18 @@ import { bool, func, shape } from 'prop-types';
 import React, { PureComponent } from 'react';
 
 import { C, calcTotal, priceFormat } from '../../common';
-import { Input, Item, Recipient } from '../components';
+import Input from './Input';
+import Item from './Item';
+import Recipient from './Recipient';
+import Options from './InvoiceOptions';
 
-const { CURRENCY, CURRENCIES, DATE_FORMATS } = C;
-
-const [DATE_FORMAT] = DATE_FORMATS;
+const { CURRENCY, DATE_FORMATS: [DATE_FORMAT] } = C;
 
 class InvoiceContainer extends PureComponent {
   constructor(props) {
     super(props);
     this.onAddItem = this.onAddItem.bind(this);
     this.onChange = this.onChange.bind(this);
-    this.onChangeCurrency = this.onChangeCurrency.bind(this);
     this.onChangeItem = this.onChangeItem.bind(this);
     this.onRemoveItem = this.onRemoveItem.bind(this);
     this.state = { dataSource: { currency: CURRENCY, dateFormat: DATE_FORMAT, items: [{}] } };
@@ -21,8 +21,14 @@ class InvoiceContainer extends PureComponent {
 
   componentWillReceiveProps({ dataSource = {} }) {
     const { state } = this;
-    if (state.dataSource.id !== dataSource.id) this.setState({ dataSource });
+    if (dataSource.id && state.dataSource.id !== dataSource.id) this.setState({ dataSource });
   }
+
+  // @TODO
+  // static getDerivedStateFromError(error) {
+  //   // Update state so the next render will show the fallback UI.
+  //   return { hasError: true };
+  // }
 
   onAddItem() {
     const { state: { dataSource } } = this;
@@ -33,13 +39,6 @@ class InvoiceContainer extends PureComponent {
     const { onChange, state: { dataSource: { items = [] } } } = this;
     items[index] = value;
     onChange('items', items);
-  }
-
-  onChangeCurrency({ target: { value } }) {
-    const { onChange } = this;
-
-    const [currency] = value.split(' ');
-    onChange('currency', currency);
   }
 
   onRemoveItem(index) {
@@ -53,7 +52,7 @@ class InvoiceContainer extends PureComponent {
 
   onChange(key, value) {
     const { props: { onChange } } = this;
-    let { state: { dataSource } } = this;
+    let { state: { dataSource = {} } } = this;
 
     dataSource = { ...dataSource, [key]: value };
     this.setState({ dataSource });
@@ -63,19 +62,17 @@ class InvoiceContainer extends PureComponent {
 
   render() {
     const {
-      onAddItem, onChange, onChangeCurrency, onChangeItem, onRemoveItem,
-      props: {
-        busy, demo, onPreview, onSubmit,
-      },
-      state: { dataSource: { currency, items, ...dataSource } },
+      onAddItem, onChange, onChangeItem, onRemoveItem,
+      props,
+      state: { dataSource },
     } = this;
+    const { currency, items } = dataSource;
 
     const total = calcTotal(items);
-    const disabled = total <= 0 || busy;
 
     return (
       <div className="invoice">
-        <section className={`form ${!demo ? 'fixed' : ''}`}>
+        <section className="form">
           <div className="fieldset border">
             <div className="row">
               <label>Invoice #</label>
@@ -84,16 +81,21 @@ class InvoiceContainer extends PureComponent {
 
             <div className="row">
               <label>Issued:</label>
-              <Input name="issued" type="date" onChange={onChange} />
+              <Input name="issued" defaultValue={dataSource.issued} type="date" onChange={onChange} />
               <label>Due:</label>
-              <Input name="due" type="date" onChange={onChange} />
+              <Input name="due" defaultValue={dataSource.due} type="date" onChange={onChange} />
             </div>
           </div>
 
           <div className="fieldset border">
             <div>
               <label>Invoice</label>
-              <input name="concept" type="text" placeholder="Concept of invoice" onChange={onchange} />
+              <Input
+                name="concept"
+                defaultValue={dataSource.concept}
+                placeholder="Concept of invoice"
+                onChange={onChange}
+              />
             </div>
             <div>
               <label>
@@ -131,7 +133,7 @@ class InvoiceContainer extends PureComponent {
               ))}
               <tr>
                 <td>
-                  <button onClick={onAddItem}>Add New Item</button>
+                  <button type="button" onClick={onAddItem}>Add New Item</button>
                 </td>
                 <td colSpan="4" />
               </tr>
@@ -143,11 +145,10 @@ class InvoiceContainer extends PureComponent {
               <label>Notes</label>
               <textarea
                 name="terms"
+                defaultValue={dataSource.terms}
                 placeholder="Enter Terms & Conditions"
                 onChange={({ target: { value } }) => onChange('terms', value)}
-              >
-                {dataSource.terms}
-              </textarea>
+              />
             </div>
             <div />
           </div>
@@ -167,33 +168,7 @@ class InvoiceContainer extends PureComponent {
           </div>
         </section>
 
-        <section className={`options ${!demo ? 'fixed' : ''}`}>
-          <div className="columns">
-            <button disabled={disabled} className={busy ? 'busy' : undefined} onClick={onSubmit}>
-              Send Invoice
-            </button>
-            <div className="row">
-              <button disabled={disabled} className="outlined" onClick={onPreview}>
-                Preview
-              </button>
-              <button disabled className="outlined">
-                Download
-              </button>
-            </div>
-            <div className="column">
-              <label>Currency</label>
-              <select className="border" onChange={onChangeCurrency}>
-                { CURRENCIES.map((item, index) => <option key={index.toString()}>{item}</option>)}
-              </select>
-            </div>
-            <div className="column">
-              <label>Date Format</label>
-              <select className="border" onChange={({ target: { value } }) => onChange('dateFormat', value)}>
-                { DATE_FORMATS.map((item, index) => <option key={index.toString()}>{item}</option>)}
-              </select>
-            </div>
-          </div>
-        </section>
+        <Options {...props} dataSource={dataSource} onChange={onChange} total={total} />
       </div>
     );
   }
@@ -202,7 +177,6 @@ class InvoiceContainer extends PureComponent {
 InvoiceContainer.propTypes = {
   busy: bool,
   dataSource: shape({}),
-  demo: bool,
   onChange: func,
   onPreview: func,
   onSubmit: func,
@@ -211,7 +185,6 @@ InvoiceContainer.propTypes = {
 InvoiceContainer.defaultProps = {
   busy: false,
   dataSource: undefined,
-  demo: false,
   onChange() {},
   onPreview() {},
   onSubmit() {},
