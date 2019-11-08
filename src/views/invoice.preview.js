@@ -72,8 +72,6 @@ export default async ({ subdomains: [subdomain = 'soyjavi'], props: { id } = {} 
         qr: `/qr/${address}/${totalBTC}?label=${reference}`,
         total: priceFormat(total, currency),
         totalBTC,
-
-        footer: render('templates/footer'),
       }),
     }),
   );

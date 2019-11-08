@@ -29,7 +29,6 @@ export default ({ session }, res) => {
       content: render('dashboard', {
         drafts: normalizeHtml(drafts.map(renderItem)),
         ready: normalizeHtml(ready.map(renderItem)),
-        footer: render('templates/footer'),
       }),
       scripts: ['dashboard'],
     }),

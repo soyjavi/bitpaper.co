@@ -27,7 +27,14 @@
     <script src="/scripts/index.js" defer></script>
     {{scripts}}
   </head>
-  <body data-page="{{page}}" data-id={{id}}>
+  <body data-page="{{page}}" data-id="{{id}}">
     {{content}}
+
+    <footer>
+      <div class="wrapper">
+        <a href="{{DOMAIN}}" target="_blank">{{COPYRIGHT}}</a>
+        <span class="row">🎉 Happy Invoicing with <a alt="{{TITLE}} - {{DESCRIPTION}}" href="{{DOMAIN}}"><img class="logo" src="/static/logo-highlight.png" /></a></span>
+      </div>
+    </footer>
   </body>
 </html>

@@ -3,7 +3,9 @@
 }
 
 [data-page="home"] article {
-  padding: var(--space-XL) 0;
+  padding-top: calc(var(--header) + var(--space-L));
+  padding-bottom: var(--space-L);
+  /*padding: var(--space-XL) 0;*/
 }
 
 [data-page="home"] h1 {

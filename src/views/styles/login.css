@@ -1,10 +1,10 @@
-[data-page="login"] .wrapper {
+[data-page="login"] article.wrapper {
   align-items: center;
   max-width: var(--wrapper-S);
   min-height: 100vh;
 }
 
-[data-page="login"] .logo {
+[data-page="login"] article .logo {
   margin-top: var(--space);
   margin-bottom: var(--space-XL);
   height: calc(var(--unit) * 4.8);

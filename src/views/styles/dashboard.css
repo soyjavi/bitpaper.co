@@ -2,7 +2,7 @@
 
 [data-page="dashboard"] article .wrapper {
   padding-top: calc(var(--header) + var(--space-L));
-  padding-bottom: var(--space-L);
+  padding-bottom: var(--space);
   min-height: 100vh;
 }
 

@@ -23,7 +23,6 @@ export default ({ originalUrl, session, props: { id } }, res) => {
         id,
         content: render('invoice', {
           title,
-          footer: render('templates/footer'),
         }),
         scripts: ['invoice'],
       })),

@@ -1,10 +1,10 @@
-[data-page="register"] .wrapper {
+[data-page="register"] article.wrapper {
   align-items: center;
   max-width: var(--wrapper-XS);
   min-height: 100vh;
 }
 
-[data-page="register"] .logo {
+[data-page="register"] article .logo {
   margin-top: var(--space);
   margin-bottom: var(--space-XL);
   height: calc(var(--unit) * 4.8);
@@ -19,7 +19,7 @@
 }
 
 [data-page="register"] #form {
-  max-width: 420px;
+  max-width: 440px;
 }
   [data-page="register"] #form .error {
     background-color: var(--color-skeleton);
@@ -34,7 +34,4 @@
 
 [data-page="register"] input:not([type="checkbox"]) { margin-bottom: var(--space-S); }
 
-[data-page="register"] .illustration {
-  margin-top: var(--space-XL);
-  width: 100%;
-}
+[data-page="register"] .illustration { margin-top: var(--space-XL); width: 100%; }

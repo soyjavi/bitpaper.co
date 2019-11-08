@@ -143,9 +143,6 @@ table {
 
 /* -- <header> */
 header {
-  background: var(--bg-color);
-  border-bottom: 1px solid var(--color-skeleton);
-  box-shadow: 0 4px 20px rgba(16,19,20,.04);
   left: 0;
   position: fixed;
   right: 0;
@@ -153,6 +150,11 @@ header {
   width: 100%;
   z-index: 1;
 }
+  header.solid {
+    background: var(--bg-color);
+    border-bottom: 1px solid var(--color-skeleton);
+    box-shadow: 0 4px 20px rgba(16,19,20,.04);
+  }
   header .wrapper {
     align-self: center;
     height: var(--header);
