@@ -23,6 +23,6 @@
     ]
   },
   "transaction": {
-    "required": ["address"]
+    "required": ["invoice"]
   }
 }
