@@ -13,10 +13,11 @@ export default (req, res, next) => {
 
   // 2. Plain props
   const routeProps = required.concat(optional);
-  const props = {};
+  const props = { domain: req.props.domain };
   Object.keys(req.props).forEach((key) => {
     if (routeProps.includes(key)) props[key] = req.props[key];
   });
+
 
   // 3. Required parameters
   if (required.length > 0) {

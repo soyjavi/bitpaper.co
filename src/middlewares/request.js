@@ -5,8 +5,10 @@ import { C } from '../common';
 
 const { STORE } = C;
 
+const DEFAULT_DOMAIN = 'soyjavi';
+
 export default (req, res, next) => {
-  const { headers, originalUrl = '' } = req;
+  const { headers, originalUrl = '', subdomains: [domain = DEFAULT_DOMAIN] } = req;
   const today = new Date();
   const timestamp = today.getTime();
 
@@ -17,7 +19,9 @@ export default (req, res, next) => {
   res.setHeader('Cache-Control', 'no-cache');
 
   // -- Parse all parameters as props of request
-  req.props = { ...req.params, ...req.query, ...req.body };
+  req.props = {
+    ...req.params, ...req.query, ...req.body, domain,
+  };
 
   // -- Determine session
   let { authorization, username } = req.cookies || {};
