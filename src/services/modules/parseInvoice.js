@@ -1,11 +1,13 @@
 import { C, ERROR } from '../../common';
 
+import createAddress from './createAddress';
+
 const { CURRENCY, DATE_FORMATS } = C;
 const [DATE_FORMAT] = DATE_FORMATS;
 
 export default (res, session, props) => {
   const {
-    address = session.address,
+    address = session.address || createAddress(session.xpub, session.invoices),
     currency = CURRENCY,
     issued = (new Date()).getTime(),
     due,
@@ -16,9 +18,7 @@ export default (res, session, props) => {
     ...inherit
   } = props;
 
-  let {
-    satoshis = 0,
-  } = props;
+  let { satoshis = 0 } = props;
 
   satoshis = parseInt(satoshis, 10);
 

@@ -5,23 +5,20 @@ import {
   ERROR, calcTotal, priceFormat, rateSatoshis,
 } from '../common';
 import render from '../common/render';
-import { getAddress, normalizeHtml } from './modules';
+import { normalizeHtml } from './modules';
 
 dotenv.config();
 const { ICON, TITLE } = process.env;
 
-export default async ({ subdomains: [subdomain = 'soyjavi'], props: { id } = {} }, res) => {
-  const user = new Storage({ filename: subdomain });
+export default async ({ props: { domain, id } = {} }, res) => {
+  const user = new Storage({ filename: domain });
   const profile = user.get('profile').value;
   const invoice = user.get('invoices').findOne({ id });
 
   if (!invoice) return ERROR.NOT_FOUND(res);
 
-  const address = getAddress(invoice, profile);
-  if (!address) return ERROR.MESSAGE(res, { message: 'Something wrong' });
-
   const {
-    currency, reference, concept, issued, due, from = {}, to = {}, items = [], terms,
+    address, currency, due, from = {}, issued, items = [], reference, to = {},
   } = invoice;
   let { satoshis, total = 0 } = invoice;
 
@@ -43,10 +40,12 @@ export default async ({ subdomains: [subdomain = 'soyjavi'], props: { id } = {} 
       scripts: ['payment'],
       content: render('invoice.preview', {
         ...profile,
+        ...invoice,
+
+        id,
+        domain,
 
         logo: 'https://via.placeholder.com/128' || ICON,
-        reference,
-        concept,
         issued: (new Date(issued)).toString(),
         due,
 
@@ -57,7 +56,7 @@ export default async ({ subdomains: [subdomain = 'soyjavi'], props: { id } = {} 
           phone: from.phone || profile.phone,
         },
 
-        to: { ...to, location: to.location.join('<br>') },
+        to: { ...to, location: (to.location || []).join('<br>') },
 
         items: normalizeHtml(items
           .map(({ price, quantity, ...item }) => render('templates/item', {
@@ -67,7 +66,6 @@ export default async ({ subdomains: [subdomain = 'soyjavi'], props: { id } = {} 
             total: priceFormat(price * quantity, currency),
           }))),
 
-        terms,
         address,
         qr: `/qr/${address}/${totalBTC}?label=${reference}`,
         total: priceFormat(total, currency),
