@@ -10,5 +10,5 @@ export default async (amount, currency = CURRENCY) => {
 
   const { value = 0 } = await response.json();
 
-  return value * 100000000;
+  return parseInt(value * 100000000, 10);
 };

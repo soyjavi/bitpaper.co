@@ -69,15 +69,10 @@
             Exchange rate was set a few seconds ago and expires in 30 minutes.
           </p>
 
-          <button type="button" disabled class="busy">Waiting for your payment</button>
+          <div id="payment-info" data-invoice="{{id}}" data-domain="{{domain}}"></div>
         </div>
         <img alt="{{address}}" class="qr" src="{{qr}}" />
       </div>
-
-      <div class="row">
-        <button type="button" class="bg-success">Payment received, click to continue</button>
-      </div>
-
     </div>
   </section>
   <section class="wrapper row bottom">

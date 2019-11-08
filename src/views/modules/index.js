@@ -1,7 +1,5 @@
-import getAddress from './getAddress';
 import normalizeHtml from './normalizeHtml';
 
 export {
-  getAddress,
-  normalizeHtml,
+  normalizeHtml, // eslint-disable-line
 };

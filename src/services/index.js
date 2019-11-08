@@ -17,9 +17,9 @@ router.post('/signup', api, signup);
 router.post('/login', api, login);
 router.get('/profile', api, profile);
 router.put('/profile', api, profileUpdate);
-router.get('/invoice/:id', request, api, invoice);
 router.post('/invoice', api, invoiceCreate);
+router.get('/invoice/:id', request, api, invoice);
 router.put('/invoice', api, invoiceUpdate);
-router.get('/transaction/:address', request, api, transaction);
+router.get('/transaction/:invoice', request, api, transaction);
 
 export default router;
