@@ -18,7 +18,7 @@ export default () => {
       .forEach(async (invoice) => {
         console.log(`🔎 ${HEADER} fetching invoice ${username}/${invoice.id}...`);
 
-        await updateInvoiceTx({ username, invoice });
+        await updateInvoiceTx(username, invoice);
       });
   });
 };

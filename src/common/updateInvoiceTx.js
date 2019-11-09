@@ -6,7 +6,7 @@ import C from './constants';
 const { STATE: { CONFIRMED } } = C;
 const BASE_URL = 'https://blockstream.info/api/address';
 
-export default async ({ username, invoice }) => {
+export default async (username, invoice = {}) => {
   let { tx = {} } = invoice;
 
   if (!tx.id || (tx.id && !tx.confirmed)) {
