@@ -1,16 +1,14 @@
 import dotenv from 'dotenv';
 import Storage from 'vanilla-storage';
 
-import {
-  ERROR, calcTotal, priceFormat, rateSatoshis,
-} from '../common';
+import { ERROR, priceFormat, rateSatoshis } from '../common';
 import render from '../common/render';
 import { normalizeHtml } from './modules';
 
 dotenv.config();
 const { ICON, TITLE } = process.env;
 
-export default async ({ props: { domain, id } = {} }, res) => {
+export default async ({ session: { username } = {}, props: { domain, id } = {} }, res) => {
   const user = new Storage({ filename: domain });
   const profile = user.get('profile').value;
   const invoice = user.get('invoices').findOne({ id });
@@ -18,17 +16,14 @@ export default async ({ props: { domain, id } = {} }, res) => {
   if (!invoice) return ERROR.NOT_FOUND(res);
 
   const {
-    address, currency, due, from = {}, issued, items = [], reference, to = {},
+    address, currency, due, from = {}, issued, items = [], total, reference, to = {},
   } = invoice;
-  let { satoshis, total = 0 } = invoice;
+  let { satoshis } = invoice;
 
-  // Determine price
-  if (items.length > 0) {
-    total = calcTotal(items);
+  // Each time customer watch the invoice we should calculate the satoshis
+  if (username !== domain && items.length > 0) {
     satoshis = await rateSatoshis(total, currency);
-  } else {
-    // @TODO: Determine rate right now
-    total = 0;
+    user.update({ id }, { ...invoice, satoshis });
   }
 
   const totalBTC = satoshis / 100000000;
@@ -44,6 +39,10 @@ export default async ({ props: { domain, id } = {} }, res) => {
 
         id,
         domain,
+
+        buttonEdit: username === domain
+          ? `<a href="/invoice/${id}" class="button fixed">Edit Invoice</a>`
+          : '',
 
         logo: 'https://via.placeholder.com/128' || ICON,
         issued: (new Date(issued)).toString(),
