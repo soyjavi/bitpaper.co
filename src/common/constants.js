@@ -13,7 +13,7 @@ export default {
   STATE: {
     DRAFT: 0,
     PUBLISHED: 1,
-    PAID: 2,
+    CONFIRMED: 2,
     CANCELLED: 99,
   },
 

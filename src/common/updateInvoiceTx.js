@@ -1,6 +1,9 @@
 import fetch from 'node-fetch';
 import Storage from 'vanilla-storage';
 
+import C from './constants';
+
+const { STATE: { CONFIRMED } } = C;
 const BASE_URL = 'https://blockstream.info/api/address';
 
 export default async ({ username, invoice }) => {
@@ -21,7 +24,11 @@ export default async ({ username, invoice }) => {
         tx = { id, confirmed, timestamp: timestamp * 1000 };
 
         const user = new Storage({ filename: username });
-        user.get('invoices').update({ id: invoice.id }, { ...invoice, tx });
+        user.get('invoices').update({ id: invoice.id }, {
+          ...invoice,
+          tx,
+          state: confirmed ? CONFIRMED : invoice.state,
+        });
 
         // @TODO: Should comunicate to recipients the new state of the tx
       }
