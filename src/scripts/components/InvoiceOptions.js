@@ -45,8 +45,8 @@ class InvoiceContainer extends PureComponent {
           { state === STATE.DRAFT && (
             <button
               type="button"
+              className="secondary"
               disabled={disabled}
-              className={`secondary ${busy ? 'busy' : ''}`}
               onClick={onSend}
             >
               Send Invoice
@@ -77,8 +77,6 @@ class InvoiceContainer extends PureComponent {
                 <option value={item} key={index.toString()}>{item}</option>))}
             </select>
           </div>
-
-
         </div>
       </section>
     );

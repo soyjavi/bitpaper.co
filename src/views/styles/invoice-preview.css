@@ -2,10 +2,15 @@
   max-width: var(--wrapper-S);
 }
 
-[data-page="invoice-preview"] *:not(button) { line-height: 125%; }
+[data-page="invoice-preview"] .button.fixed {
+  position: fixed;
+  right: var(--space);
+}
 
-[data-page="invoice-preview"] main *:not(button),
-[data-page="invoice-preview"] article *:not(button) { font-family: var(--font-mono); }
+[data-page="invoice-preview"] *:not(button):not(.button) { line-height: 125%; }
+
+[data-page="invoice-preview"] main *:not(button):not(.button),
+[data-page="invoice-preview"] article *:not(button):not(.button) { font-family: var(--font-mono); }
 
 [data-page="invoice-preview"] h1 { color: var(--color-accent); font-size: var(--font-size-XL); }
 [data-page="invoice-preview"] h2,

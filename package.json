@@ -1,6 +1,6 @@
 {
   "name": "invoicer-btc-segwit",
-  "version": "0.2.5",
+  "version": "0.2.6",
   "description": "Invoicer using Bitcoin Native Segwit addresses",
   "repository": "https://github.com/soyjavi/invoicer-btc-segwit",
   "author": "soyjavi <hello@soyjavi.com>",
@@ -15,6 +15,7 @@
     "crypto-js": "^3.1.9-1",
     "dotenv": "^8.0.0",
     "express": "^4.16.3",
+    "nanoid": "^2.1.6",
     "node-cron": "^2.0.3",
     "node-fetch": "^2.6.0",
     "nodemailer": "^6.3.0",
@@ -22,7 +23,6 @@
     "prop-types": "^15.7.2",
     "react": "^16.11.0",
     "react-dom": "^16.11.0",
-    "shortid": "^2.2.15",
     "vanilla-storage": "^0.1.12"
   },
   "devDependencies": {
@@ -47,6 +47,7 @@
     "start:dev": "nodemon --ignore '/dist/**' --ignore '/store/**' --exec yarn start",
     "lint": "eslint src"
   },
-
-  "browserslist": ["last 1 Chrome version"]
+  "browserslist": [
+    "last 1 Chrome version"
+  ]
 }

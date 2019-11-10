@@ -43,7 +43,7 @@ class InvoiceForm extends PureComponent {
     window.location = `/invoice/${id}/preview`;
   }
 
-  onSubmit() {
+  async onSubmit() {
     const { state: { id, value: { from, to, ...value } } } = this;
     const newValue = {
       ...value,
@@ -53,13 +53,14 @@ class InvoiceForm extends PureComponent {
 
     this.setState({ busy: true });
 
-    fetch({ service: '/api/invoice', method: id ? 'PUT' : 'POST', ...newValue })
-      .then((invoice) => {
-        if (!id) window.location = `/invoice/${invoice.id}`;
-      })
+    const method = id ? 'PUT' : 'POST';
+    const service = id ? `/api/invoice/${id}` : '/api/invoice';
+
+    const invoice = await fetch({ service, method, ...newValue })
       .catch((error) => this.setState({ error }));
 
     this.setState({ busy: false });
+    if (!id) window.location = `/invoice/${invoice.id}`;
   }
 
   render() {
