@@ -1,6 +1,7 @@
 import Storage from 'vanilla-storage';
 
-import { C, updateInvoiceTx } from '../common';
+import { C } from '../common';
+import updateInvoiceTx from '../common/updateInvoiceTx';
 
 const { STATE } = C;
 const HEADER = '[🤖:transactions]';

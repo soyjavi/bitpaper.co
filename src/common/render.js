@@ -49,6 +49,10 @@ export default (filename = 'index', values = {}, forceCache = true) => {
     url: url ? `${DOMAIN}${url}` : DOMAIN,
   };
 
+  Object.keys(dataSource).forEach((key) => {
+    view = view.replace(new RegExp(`{{${key}}}`, 'g'), dataSource[key]);
+  });
+
   let match = view.match(bindingObj);
   while (match !== null) {
     const [binding, base, prop] = match;
@@ -60,10 +64,6 @@ export default (filename = 'index', values = {}, forceCache = true) => {
 
     match = view.match(bindingObj);
   }
-
-  Object.keys(dataSource).forEach((key) => {
-    view = view.replace(new RegExp(`{{${key}}}`, 'g'), dataSource[key]);
-  });
 
   view = view.replace(bindingProp, '');
 

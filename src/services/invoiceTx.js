@@ -1,6 +1,7 @@
 import Storage from 'vanilla-storage';
 
-import { ERROR, updateInvoiceTx } from '../common';
+import { ERROR } from '../common';
+import updateInvoiceTx from '../common/updateInvoiceTx';
 
 export default async ({ props: { domain, id } }, res) => {
   const user = new Storage({ filename: domain });

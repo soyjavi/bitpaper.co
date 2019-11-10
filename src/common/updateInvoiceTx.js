@@ -2,9 +2,17 @@ import fetch from 'node-fetch';
 import Storage from 'vanilla-storage';
 
 import C from './constants';
+import mail from './mail';
+import render from './render';
 
 const { STATE: { CONFIRMED } } = C;
 const BASE_URL = 'https://blockstream.info/api/address';
+
+const sendEmail = (recipient, props) => mail({
+  to: recipient.email,
+  subject: `Status Invoice #${props.reference}`,
+  text: render('templates/mailTransaction', { ...props, name: recipient.name }),
+});
 
 export default async (username, invoice = {}) => {
   let { tx = {} } = invoice;
@@ -21,16 +29,21 @@ export default async (username, invoice = {}) => {
       ));
 
       if (output) {
+        const { from, to, state } = invoice;
         tx = { id, confirmed, timestamp: timestamp * 1000 };
 
         const user = new Storage({ filename: username });
-        user.get('invoices').update({ id: invoice.id }, {
-          ...invoice,
-          tx,
-          state: confirmed ? CONFIRMED : invoice.state,
-        });
+        user.get('invoices').update({ id: invoice.id }, { ...invoice, tx, state: confirmed ? CONFIRMED : state });
 
-        // @TODO: Should comunicate to recipients the new state of the tx
+        const mailProps = {
+          ...invoice,
+          username,
+          tx,
+          state: confirmed ? 'confirmed' : 'pending to confirmed',
+        };
+
+        if (from.email) sendEmail(from, mailProps);
+        if (from.email) sendEmail(to, mailProps);
       }
 
       return output !== undefined;
