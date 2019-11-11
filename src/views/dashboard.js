@@ -1,19 +1,18 @@
-import { C, calcTotal, priceFormat } from '../common';
+import { C, priceFormat } from '../common';
 import render from '../common/render';
+import exchange from '../common/exchange';
 
 import { normalizeHtml } from './modules';
 
 const { STATE } = C;
 
 const renderItem = ({
-  concept, currency, items, to: { name }, ...item
+  concept, currency, items, to: { name }, total, ...item
 }) => render('templates/invoiceItem', {
   ...item,
   customer: `${name} - <span class="color-lighten">${concept}</span>`,
-  total: priceFormat(calcTotal(items), currency),
-  totalBTC: '?.???????₿',
-  // quantity,
-  // total: priceFormat(price, currency),
+  total: priceFormat(total, currency),
+  totalBTC: priceFormat(exchange(total, currency), 'BTC'),
 });
 
 export default ({ session }, res) => {
@@ -28,7 +27,10 @@ export default ({ session }, res) => {
       page: 'dashboard',
       content: render('dashboard', {
         drafts: normalizeHtml(drafts.map(renderItem)),
+        draftsTotal: 0,
         ready: normalizeHtml(ready.map(renderItem)),
+        unpaidTotal: 0,
+        paidTotal: 0,
       }),
       scripts: ['dashboard'],
     }),
