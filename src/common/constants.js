@@ -20,6 +20,7 @@ export default {
   STORE: {
     USERS: { filename: 'users', defaults: { active: [], blocked: [] } },
     USER: { defaults: { profile: {}, invoices: [], sessions: [] } },
+    CURRENCIES: { filename: 'currencies', defaults: { rates: [] } },
   },
 
   SYMBOLS: {

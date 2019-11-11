@@ -1,6 +1,6 @@
 {
   "name": "invoicer-btc-segwit",
-  "version": "0.2.7",
+  "version": "0.2.9",
   "description": "Invoicer using Bitcoin Native Segwit addresses",
   "repository": "https://github.com/soyjavi/invoicer-btc-segwit",
   "author": "soyjavi <hello@soyjavi.com>",
