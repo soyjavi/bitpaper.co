@@ -41,7 +41,7 @@
 
   --wrapper: 1200px;
   --wrapper-S: 900px;
-  --wrapper-XS: 576px;
+  --wrapper-XS: 512px;
 }
 
 @media (max-width: 767px) {
@@ -61,6 +61,7 @@
 @import './styles/register.css';
 @import './styles/login.css';
 @import './styles/dashboard.css';
+@import './styles/profile.css';
 @import './styles/invoice.css';
 @import './styles/invoice-preview.css';
 @import './styles/home.css';

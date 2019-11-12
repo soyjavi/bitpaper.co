@@ -14,7 +14,7 @@
 
 [data-page="login"] #form nav { margin-top: var(--space-S); }
 
-[data-page="login"] input:not([type="checkbox"]) { margin-bottom: var(--space-S); }
+[data-page="login"] label:not(:first-child) { margin-top: var(--space-XS); }
 
 [data-page="login"] h1 { font-size: var(--font-size-XL); }
 

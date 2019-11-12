@@ -1,0 +1,45 @@
+[data-page="profile"] article.wrapper {
+  align-items: center;
+  max-width: var(--wrapper-XS);
+  min-height: 100vh;
+}
+
+[data-page="profile"] article .logo {
+  margin-top: var(--space);
+  margin-bottom: var(--space-XL);
+  height: calc(var(--unit) * 4.8);
+}
+
+[data-page="profile"] h1 { font-size: var(--font-size-XL); }
+
+[data-page="profile"] h1,
+[data-page="profile"] p {
+  text-align: center;
+  margin-bottom: var(--space);
+}
+
+[data-page="profile"] #form {
+}
+  [data-page="profile"] #form .error {
+    background-color: var(--color-skeleton);
+    border-radius: var(--border-radius);
+    color: var(--color-lighten);
+    margin-top: var(--space);
+    padding: var(--space-S);
+    text-align: left;
+    font-size: var(--font-size-S);
+  }
+  [data-page="profile"] #form nav { margin-top: var(--space); }
+
+[data-page="profile"] label:not(:first-child) { margin-top: var(--space-XS); }
+
+[data-page="profile"] small {
+  color: var(--color-lighten);
+  display: block;
+  font-size: var(--font-size-S);
+  margin-bottom: var(--space-XS);
+  margin-top: var(--space-XS);
+  text-align: justify;
+}
+
+[data-page="profile"] .illustration { margin-top: var(--space-XL); width: 100%; }

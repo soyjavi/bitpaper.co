@@ -18,9 +18,7 @@
   margin-bottom: var(--space);
 }
 
-[data-page="register"] #form {
-  max-width: 440px;
-}
+[data-page="register"] #form {}
   [data-page="register"] #form .error {
     background-color: var(--color-skeleton);
     border-radius: var(--border-radius);
@@ -32,6 +30,6 @@
   }
   [data-page="register"] #form nav { margin-top: var(--space); }
 
-[data-page="register"] input:not([type="checkbox"]) { margin-bottom: var(--space-S); }
+[data-page="register"] label:not(:first-child) { margin-top: var(--space-XS); }
 
 [data-page="register"] .illustration { margin-top: var(--space-XL); width: 100%; }

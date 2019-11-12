@@ -34,7 +34,6 @@ button, .button {
   text-decoration: none;
   text-align: center;
   text-align: center;
-  /*transition: all var(--animation);*/
 }
   .button { line-height: var(--input-height); }
   button.secondary, .button.secondary {
@@ -164,7 +163,6 @@ header {
 
   header nav { margin-left: var(--space); }
     header nav > * { margin-left: var(--space-XS) }
-
 
 /* -- <footer> */
 footer { background-color: var(--color-accent); padding: var(--space-S) 0; }
