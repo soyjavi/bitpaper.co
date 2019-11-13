@@ -2,7 +2,7 @@ import Storage from 'vanilla-storage';
 
 import { C } from '../common';
 import cache from '../common/cache';
-import render from '../common/render';!
+import render from '../common/render';
 
 const { STATE } = C;
 

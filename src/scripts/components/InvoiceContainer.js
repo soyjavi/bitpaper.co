@@ -93,7 +93,7 @@ class InvoiceContainer extends PureComponent {
           <div className="fieldset border">
             <div>
               <label>Invoice</label>
-              <Input defaultValue={dataSource.concept} name="concept" onChange={onChange} placeholder="Concept of invoice" >
+              <Input defaultValue={dataSource.concept} name="concept" onChange={onChange} placeholder="Concept of invoice" />
             </div>
             <div>
               <label>
