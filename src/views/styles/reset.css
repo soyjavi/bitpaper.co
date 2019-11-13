@@ -95,6 +95,11 @@ input:not([type="checkbox"]), textarea, select {
   textarea:active, textarea:focus,
   select:active, select:focus { border-color: var(--color-accent); }
 
+  input[disabled], textarea[disabled], select[disabled] {
+    background-color: var(--bg-color);
+    border-color: var(--color-skeleton);
+  }
+
 input[type="checkbox"] { margin: var(--space-XS) 0; }
   input[type="checkbox"] + label { font-weight: normal; margin: var(--space-XS); }
 

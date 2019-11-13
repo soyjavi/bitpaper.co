@@ -79,38 +79,28 @@ class InvoiceContainer extends PureComponent {
           <div className="fieldset border">
             <div className="row">
               <label>Invoice #</label>
-              <Input name="reference" defaultValue={dataSource.reference} placeholder="001" onChange={onChange} />
+              <Input defaultValue={dataSource.reference} name="reference" onChange={onChange} placeholder="001" />
             </div>
 
             <div className="row">
               <label>Issued:</label>
-              <Input name="issued" defaultValue={dataSource.issued} type="date" onChange={onChange} />
+              <Input defaultValue={dataSource.issued} name="issued" onChange={onChange} type="date" />
               <label>Due:</label>
-              <Input name="due" defaultValue={dataSource.due} type="date" onChange={onChange} />
+              <Input defaultValue={dataSource.due} name="due" type="date" onChange={onChange} />
             </div>
           </div>
 
           <div className="fieldset border">
             <div>
               <label>Invoice</label>
-              <Input
-                name="concept"
-                defaultValue={dataSource.concept}
-                placeholder="Concept of invoice"
-                onChange={onChange}
-              />
+              <Input defaultValue={dataSource.concept} name="concept" onChange={onChange} placeholder="Concept of invoice" >
             </div>
             <div>
               <label>
                 Bitcoin Address
                 <a className="right color-accent" href="/profile">...or setup a XPUB</a>
               </label>
-              <Input
-                name="address"
-                defaultValue={dataSource.address}
-                placeholder="Bitcoin Address"
-                onChange={onChange}
-              />
+              <Input defaultValue={dataSource.address} name="address" onChange={onChange} placeholder="Bitcoin Address" />
             </div>
           </div>
 
@@ -149,16 +139,15 @@ class InvoiceContainer extends PureComponent {
           </table>
 
           <div className="fieldset border">
-            <div>
+            <div className="expand">
               <label>Notes</label>
               <textarea
-                name="terms"
                 defaultValue={dataSource.terms}
-                placeholder="Enter Terms & Conditions"
+                name="terms"
                 onChange={({ target: { value } }) => onChange('terms', value)}
+                placeholder="Enter Terms & Conditions"
               />
             </div>
-            <div />
           </div>
 
           <div className="fieldset">
