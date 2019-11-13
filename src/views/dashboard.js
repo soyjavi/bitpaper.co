@@ -1,4 +1,4 @@
-import { C, priceFormat } from '../common';
+import { C, formatPrice } from '../common';
 import render from '../common/render';
 import exchange from '../common/exchange';
 
@@ -11,8 +11,8 @@ const renderItem = ({
 }) => render('templates/invoiceItem', {
   ...item,
   customer: `${name} - <span class="color-lighten">${concept}</span>`,
-  total: priceFormat(total, currency),
-  totalBTC: priceFormat(exchange(total, currency), 'BTC'),
+  total: formatPrice(total, currency),
+  totalBTC: formatPrice(exchange(total, currency), 'BTC'),
 });
 
 export default ({ session }, res) => {

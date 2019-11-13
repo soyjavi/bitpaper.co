@@ -2,7 +2,7 @@ import dotenv from 'dotenv';
 import Storage from 'vanilla-storage';
 
 import {
-  C, ERROR, priceFormat, rateSatoshis,
+  C, ERROR, formatDate, formatPrice, rateSatoshis,
 } from '../common';
 import render from '../common/render';
 import { normalizeHtml } from './modules';
@@ -54,7 +54,7 @@ export default async ({ session: { username } = {}, props: { domain, id } = {} }
         options,
 
         logo: 'https://via.placeholder.com/128' || ICON,
-        issued: (new Date(issued)).toString(),
+        issued: formatDate(issued),
         due,
 
         from: {
@@ -70,18 +70,18 @@ export default async ({ session: { username } = {}, props: { domain, id } = {} }
           .map(({ price, quantity, ...item }) => render('templates/item', {
             ...item,
             quantity,
-            price: priceFormat(price, currency),
-            total: priceFormat(price * quantity, currency),
+            price: formatPrice(price, currency),
+            total: formatPrice(price * quantity, currency),
           }))),
 
-        total: priceFormat(total, currency),
+        total: formatPrice(total, currency),
 
         info: isConfirmed
           ? render('templates/invoiceTransaction', {
-            ...invoice, total: priceFormat(total, currency), totalBTC,
+            ...invoice, total: formatPrice(total, currency), totalBTC,
           })
           : render('templates/invoicePayment', {
-            id, domain, address, total: priceFormat(total, currency), totalBTC,
+            id, domain, address, total: formatPrice(total, currency), totalBTC,
           }),
       }),
     }),

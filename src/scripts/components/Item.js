@@ -1,7 +1,7 @@
 import { func, shape } from 'prop-types';
 import React, { PureComponent } from 'react';
 
-import { priceFormat } from '../../common';
+import { formatPrice } from '../../common';
 import Input from './Input';
 
 class Item extends PureComponent {
@@ -50,7 +50,7 @@ class Item extends PureComponent {
             type="number"
           />
         </td>
-        <td className="right price">{priceFormat(price * quantity, currency)}</td>
+        <td className="right price">{formatPrice(price * quantity, currency)}</td>
         <td className="row">
           <button type="button" className="secondary" onClick={onRemove}>Delete</button>
         </td>

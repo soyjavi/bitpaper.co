@@ -1,7 +1,7 @@
 import { bool, func, shape } from 'prop-types';
 import React, { PureComponent } from 'react';
 
-import { C, calcTotal, priceFormat } from '../../common';
+import { C, calcTotal, formatPrice } from '../../common';
 import Input from './Input';
 import Item from './Item';
 import Recipient from './Recipient';
@@ -155,11 +155,11 @@ class InvoiceContainer extends PureComponent {
             <div>
               <div className="row total">
                 <label>Total</label>
-                <strong>{priceFormat(total, currency)}</strong>
+                <strong>{formatPrice(total, currency)}</strong>
               </div>
               <div className="row total">
                 <label>Total Bitcoin</label>
-                <strong>{priceFormat(0, 'BTC')}</strong>
+                <strong>{formatPrice(0, 'BTC')}</strong>
               </div>
             </div>
           </div>
