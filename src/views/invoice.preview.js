@@ -19,7 +19,7 @@ export default async ({ session: { username } = {}, props: { domain, id } = {} }
   if (!invoice) return ERROR.NOT_FOUND(res);
 
   const {
-    address, currency, due, from = {}, issued, items = [], total, reference, to = {}, state,
+    address, currency, due, from = {}, issued, items = [], total, to = {}, state,
   } = invoice;
   let { satoshis } = invoice;
   const isOwner = username === domain;

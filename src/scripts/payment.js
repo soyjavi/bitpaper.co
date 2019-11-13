@@ -13,7 +13,8 @@ class Payment extends PureComponent {
 
     const invoice = el.getAttribute('data-invoice');
 
-    this.state = { invoice, state: undefined };
+    this.state = { invoice, tx: undefined };
+
     if (invoice) {
       this.onFetch();
       INTERVAL = setInterval(this.onFetch, 1000 * 60);
@@ -23,21 +24,27 @@ class Payment extends PureComponent {
   onFetch() {
     const { state: { invoice } } = this;
 
-    fetch({ service: `/api/transaction/${invoice}` })
-      .then((response) => {
-        console.log({ response });
+    fetch({ service: `/api/invoice/${invoice}/tx` })
+      .then((tx) => {
+        this.setState({ tx });
+        clearInterval(INTERVAL);
       })
-      .catch((error) => console.error({ error }));
+      .catch((error) => this.setState({ error }));
   }
 
   render() {
+    const {  state: { tx = {} } } = this;
+
     return (
-      <Fragment>
-        <button type="button" disabled className="busy">Waiting for your payment</button>
-      </Fragment>
+      tx.id
+        ? (
+          <a href={`https://blockstream.info/tx/${tx.id}`} className="button success" target="_blank" rel="noopener noreferrer">
+            Payment detected, More Info
+          </a>
+        )
+        : <button type="button" disabled className="busy">Waiting for your payment</button>
     );
   }
 }
 
 ReactDOM.render(<Payment />, el);
-// <button type="button" class="bg-success">Payment received, click to continue</button>

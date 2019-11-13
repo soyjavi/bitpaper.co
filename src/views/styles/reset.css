@@ -46,7 +46,7 @@ button, .button {
     color: var(--color);
   }
   button:not(.secondary):not(.outlined), .button:not(.secondary):not(.outlined) { box-shadow: 0 2px 4px 0 rgba(100,100,100,.5); }
-
+  button.success, .button.success { background-color: var(--color-success); }
   button:hover, .button:hover { opacity: 0.9; }
   button.outlined:hover, .button.outlined:hover { background-color: var(--color-skeleton); }
   button[disabled], .button.disabled {
