@@ -1,38 +1,45 @@
-import { C, formatPrice } from '../common';
+import { C, formatDate, formatPrice } from '../common';
 import render from '../common/render';
 import exchange from '../common/exchange';
 
 import { normalizeHtml } from './modules';
 
-const { STATE } = C;
+const { STATE: { DRAFT, PUBLISHED, CONFIRMED } } = C;
 
-const renderItem = ({
-  concept, currency, items, to: { name }, total, ...item
-}) => render('templates/invoiceItem', {
-  ...item,
-  customer: `${name} - <span class="color-lighten">${concept}</span>`,
-  total: formatPrice(total, currency),
-  totalBTC: formatPrice(exchange(total, currency), 'BTC'),
-});
+const renderGroup = (dataSource = [], state, title) => {
+  const invoices = dataSource.filter((invoice) => invoice.state === state)
+  const { total: totalBTC } = dataSource.reduce((a, b) => ({ total: a.total + exchange(b.total, b.currency) }), { total: 0 });
+
+  return invoices.length > 0
+    ? render('templates/invoicesGroup', {
+      title,
+      action: state === DRAFT ? '<a href="/invoice/new" class="button">New Invoice</a>' : '',
+      items: normalizeHtml(invoices.map(({
+        concept, currency, items, issued, to: { name }, total, ...item
+      }) => render('templates/invoiceItem', {
+        ...item,
+        issued: formatDate(issued),
+        customer: `${name} - <span class="color-lighten">${concept}</span>`,
+        total: formatPrice(total, currency),
+        totalBTC: formatPrice(exchange(total, currency), 'BTC'),
+      }))),
+      total: formatPrice(totalBTC, 'BTC'),
+    })
+    : undefined;
+};
 
 export default ({ session }, res) => {
   if (!session) res.redirect('/logout');
   const { invoices = [] } = session;
 
-  const drafts = invoices.filter((invoice) => invoice.state === STATE.DRAFT);
-  const ready = invoices.filter((invoice) => invoice.state !== STATE.DRAFT);
-
   return res.send(
     render('index', {
       page: 'dashboard',
       content: render('dashboard', {
-        drafts: normalizeHtml(drafts.map(renderItem)),
-        draftsTotal: 0,
-        ready: normalizeHtml(ready.map(renderItem)),
-        unpaidTotal: 0,
-        paidTotal: 0,
+        drafts: renderGroup(invoices, DRAFT, 'Drafts'),
+        unpaids: renderGroup(invoices, PUBLISHED, 'Unpaid'),
+        confirmed: renderGroup(invoices, CONFIRMED, 'Confirmed'),
       }),
-      scripts: ['dashboard'],
     }),
   );
 };
