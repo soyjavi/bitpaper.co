@@ -1,7 +1,7 @@
 {
   "signup": {
-    "required": ["email", "username", "password"],
-    "optional": ["name"]
+    "required": ["username"],
+    "optional": ["name", "email"]
   },
   "login": {
     "required": ["username", "password"]
