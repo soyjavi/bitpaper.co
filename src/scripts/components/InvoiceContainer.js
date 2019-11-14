@@ -1,7 +1,9 @@
 import { bool, func, shape } from 'prop-types';
 import React, { PureComponent } from 'react';
 
-import { C, calcTotal, formatPrice } from '../../common';
+import {
+  C, calcTotal, exchange, formatPrice,
+} from '../../common';
 import Input from './Input';
 import Item from './Item';
 import Recipient from './Recipient';
@@ -15,16 +17,21 @@ const DEFAULT_DATASOURCE = {
 class InvoiceContainer extends PureComponent {
   constructor(props) {
     super(props);
+
+    const rates = JSON.parse(document.getElementById('rates').innerHTML);
+
     this.onAddItem = this.onAddItem.bind(this);
     this.onChange = this.onChange.bind(this);
     this.onChangeItem = this.onChangeItem.bind(this);
     this.onRemoveItem = this.onRemoveItem.bind(this);
-    this.state = { dataSource: DEFAULT_DATASOURCE };
+    this.state = { dataSource: DEFAULT_DATASOURCE, rates };
   }
 
   componentWillReceiveProps({ dataSource = {} }) {
     const { state } = this;
-    if (dataSource.id && state.dataSource.id !== dataSource.id) this.setState({ dataSource });
+    if (dataSource.id && state.dataSource.id !== dataSource.id) {
+      this.setState({ dataSource });
+    }
   }
 
   // @TODO
@@ -67,7 +74,7 @@ class InvoiceContainer extends PureComponent {
     const {
       onAddItem, onChange, onChangeItem, onRemoveItem,
       props,
-      state: { dataSource },
+      state: { dataSource, rates },
     } = this;
     const { currency, items } = dataSource;
 
@@ -159,7 +166,7 @@ class InvoiceContainer extends PureComponent {
               </div>
               <div className="row total">
                 <label>Total Bitcoin</label>
-                <strong>{formatPrice(0, 'BTC')}</strong>
+                <strong>{formatPrice(exchange(total, currency, rates), 'BTC')}</strong>
               </div>
             </div>
           </div>
