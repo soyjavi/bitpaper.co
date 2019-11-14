@@ -1,7 +1,7 @@
 import {
   bool, func, number, shape,
 } from 'prop-types';
-import React, { PureComponent } from 'react';
+import React, { Fragment, PureComponent } from 'react';
 
 import { C } from '../../common';
 
@@ -25,35 +25,42 @@ class InvoiceContainer extends PureComponent {
     const {
       onChangeCurrency,
       props: {
-        busy, onChange, onPreview, onSend, onSubmit, total,
+        busy, demo, onChange, onPreview, onSend, onSubmit, total,
         dataSource: {
-          id, currency, dateFormat, state,
+          id, currency, dateFormat, reference = '', state,
         },
       },
     } = this;
 
-    const disabled = total <= 0 || busy;
+    const isValid = total > 0 && reference.length > 0;
     let buttonLabel = id ? 'Save Changes' : 'Create Invoice';
     if (busy) buttonLabel = 'Please wait';
+
+    console.log({ demo });
 
     return (
       <section className="options">
         <div className="columns">
-          <button type="button" disabled={disabled} className={busy ? 'busy' : undefined} onClick={onSubmit}>
-            {buttonLabel}
-          </button>
-          { state === STATE.DRAFT && (
-            <button
-              type="button"
-              className="secondary"
-              disabled={disabled}
-              onClick={onSend}
-            >
-              Send Invoice
-            </button>
+          { !demo && (
+            <Fragment>
+              <button type="button" disabled={busy || !isValid} className={busy ? 'busy' : undefined} onClick={onSubmit}>
+                {buttonLabel}
+              </button>
+              { state === STATE.DRAFT && (
+                <button
+                  type="button"
+                  className="secondary"
+                  disabled={busy || !id}
+                  onClick={onSend}
+                >
+                  Send Invoice
+                </button>
+              )}
+            </Fragment>
           )}
+
           <div className="row">
-            <button type="button" disabled={disabled} className="outlined" onClick={onPreview}>
+            <button type="button" disabled={busy || (!demo && !id)} className="outlined" onClick={onPreview}>
               Preview
             </button>
             <button type="button" disabled className="outlined">
@@ -86,6 +93,7 @@ class InvoiceContainer extends PureComponent {
 InvoiceContainer.propTypes = {
   busy: bool,
   dataSource: shape({}),
+  demo: bool,
   onChange: func,
   onPreview: func,
   onSend: func,
@@ -96,6 +104,7 @@ InvoiceContainer.propTypes = {
 InvoiceContainer.defaultProps = {
   busy: false,
   dataSource: undefined,
+  demo: false,
   onChange() {},
   onPreview() {},
   onSend() {},

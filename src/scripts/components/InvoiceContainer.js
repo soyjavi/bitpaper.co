@@ -18,7 +18,9 @@ class InvoiceContainer extends PureComponent {
   constructor(props) {
     super(props);
 
-    const rates = JSON.parse(document.getElementById('rates').innerHTML);
+    const rates = document.getElementById('rates')
+      ? JSON.parse(document.getElementById('rates').innerHTML)
+      : {};
 
     this.onAddItem = this.onAddItem.bind(this);
     this.onChange = this.onChange.bind(this);
