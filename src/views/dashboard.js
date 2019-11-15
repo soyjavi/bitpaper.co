@@ -21,17 +21,19 @@ const renderGroup = (dataSource = [], state, title) => {
       title,
       action: state === DRAFT ? '<a href="/invoice/new" class="button">New Invoice</a>' : '',
       items: normalizeHtml(invoices.map(({
-        concept, currency, items, issued, to: { name }, total, ...item
+        concept, currency, items, issued, to: { name = 'Unknown customer' }, total, ...item
       }) => render('templates/invoiceItem', {
         ...item,
         issued: formatDate(issued),
-        customer: `${name} - <span class="color-lighten">${concept}</span>`,
+        customer: concept
+          ? `${name} - <span class="color-lighten">${concept}</span>`
+          : name,
         total: formatPrice(total, currency),
         totalBTC: formatPrice(exchange(total, currency, rates), 'BTC'),
       }))),
       total: formatPrice(totalBTC, 'BTC'),
     })
-    : undefined;
+    : '';
 };
 
 export default ({ session }, res) => {
@@ -43,7 +45,7 @@ export default ({ session }, res) => {
       page: 'dashboard',
       content: render('dashboard', {
         drafts: renderGroup(invoices, DRAFT, 'Drafts'),
-        unpaids: renderGroup(invoices, PUBLISHED, 'Unpaid'),
+        unpaid: renderGroup(invoices, PUBLISHED, 'Unpaid'),
         confirmed: renderGroup(invoices, CONFIRMED, 'Confirmed'),
       }),
     }),

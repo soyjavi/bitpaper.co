@@ -14,6 +14,8 @@ class InvoiceContainer extends PureComponent {
     super(props);
     this.onChangeCurrency = this.onChangeCurrency.bind(this);
     this.onDelete = this.onDelete.bind(this);
+    this.onPublish = this.onPublish.bind(this);
+    this.state = { busy: undefined };
   }
 
   onChangeCurrency({ target: { value } }) {
@@ -25,19 +27,33 @@ class InvoiceContainer extends PureComponent {
 
   onDelete() {
     const { props: { dataSource: { id } } } = this;
+
+    this.setState({ busy: true });
     fetch({ service: `/api/invoice/${id}`, method: 'DELETE' }).then(() => { window.location = '/'; });
+  }
+
+  onPublish() {
+    const { props: { dataSource } } = this;
+    const props = { ...dataSource, state: STATE.PUBLISHED };
+
+    this.setState({ busy: true });
+    fetch({ service: `/api/invoice/${dataSource.id}`, method: 'PUT', ...props })
+      .then(() => { window.location = '/'; })
+      .catch((error) => this.setState({ busy: undefined, error }));
   }
 
   render() {
     const {
-      onChangeCurrency, onDelete,
+      onChangeCurrency, onDelete, onPublish,
       props: {
-        busy, demo, onChange, onPreview, onSend, onSubmit, total,
+        demo, onChange, onPreview, onSubmit, total,
         dataSource: {
           id, currency, dateFormat, reference = '', state,
         },
+        ...props
       },
     } = this;
+    const { state: { busy = props.busy } } = this;
 
     const isValid = total > 0 && reference.length > 0;
     let buttonLabel = id ? 'Save Changes' : 'Create Invoice';
@@ -52,7 +68,7 @@ class InvoiceContainer extends PureComponent {
                 {buttonLabel}
               </button>
               { state === STATE.DRAFT && (
-                <button type="button" className="secondary" disabled={busy} onClick={onSend}>
+                <button type="button" className="secondary" disabled={busy || !isValid} onClick={onPublish}>
                   Publish Invoice
                 </button>
               )}
@@ -102,7 +118,6 @@ InvoiceContainer.propTypes = {
   demo: bool,
   onChange: func,
   onPreview: func,
-  onSend: func,
   onSubmit: func,
   total: number,
 };
@@ -113,7 +128,6 @@ InvoiceContainer.defaultProps = {
   demo: false,
   onChange() {},
   onPreview() {},
-  onSend() {},
   onSubmit() {},
   total: undefined,
 };
