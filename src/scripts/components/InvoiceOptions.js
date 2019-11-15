@@ -4,6 +4,7 @@ import {
 import React, { Fragment, PureComponent } from 'react';
 
 import { C } from '../../common';
+import { fetch } from '../modules';
 
 const { CURRENCIES, DATE_FORMATS, STATE } = C;
 const SYMBOLS = CURRENCIES.map((item) => item.split(' ')[0]);
@@ -12,6 +13,7 @@ class InvoiceContainer extends PureComponent {
   constructor(props) {
     super(props);
     this.onChangeCurrency = this.onChangeCurrency.bind(this);
+    this.onDelete = this.onDelete.bind(this);
   }
 
   onChangeCurrency({ target: { value } }) {
@@ -21,9 +23,14 @@ class InvoiceContainer extends PureComponent {
     onChange('currency', currency);
   }
 
+  onDelete() {
+    const { props: { dataSource: { id } } } = this;
+    fetch({ service: `/api/invoice/${id}`, method: 'DELETE' }).then(() => { window.location = '/'; });
+  }
+
   render() {
     const {
-      onChangeCurrency,
+      onChangeCurrency, onDelete,
       props: {
         busy, demo, onChange, onPreview, onSend, onSubmit, total,
         dataSource: {
@@ -36,8 +43,6 @@ class InvoiceContainer extends PureComponent {
     let buttonLabel = id ? 'Save Changes' : 'Create Invoice';
     if (busy) buttonLabel = 'Please wait';
 
-    console.log({ demo });
-
     return (
       <section className="options">
         <div className="columns">
@@ -47,13 +52,8 @@ class InvoiceContainer extends PureComponent {
                 {buttonLabel}
               </button>
               { state === STATE.DRAFT && (
-                <button
-                  type="button"
-                  className="secondary"
-                  disabled={busy || !id}
-                  onClick={onSend}
-                >
-                  Send Invoice
+                <button type="button" className="secondary" disabled={busy} onClick={onSend}>
+                  Publish Invoice
                 </button>
               )}
             </Fragment>
@@ -84,6 +84,12 @@ class InvoiceContainer extends PureComponent {
                 <option value={item} key={index.toString()}>{item}</option>))}
             </select>
           </div>
+
+          { !demo && state !== STATE.CONFIRMED && (
+            <button type="button" className="secondary" onClick={onDelete}>
+              Delete
+            </button>
+          )}
         </div>
       </section>
     );
