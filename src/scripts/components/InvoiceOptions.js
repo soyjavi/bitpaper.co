@@ -33,8 +33,14 @@ class InvoiceContainer extends PureComponent {
   }
 
   onPublish() {
-    const { props: { dataSource } } = this;
-    const props = { ...dataSource, state: STATE.PUBLISHED };
+    const { props: { dataSource: { from = {}, to = {}, ...dataSource } } } = this;
+
+    const props = {
+      ...dataSource,
+      state: STATE.PUBLISHED,
+      from: { ...from, location: from.location ? from.location.split('\n') : undefined },
+      to: { ...to, location: to.location ? to.location.split('\n') : undefined },
+    };
 
     this.setState({ busy: true });
     fetch({ service: `/api/invoice/${dataSource.id}`, method: 'PUT', ...props })
