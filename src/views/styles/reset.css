@@ -101,6 +101,23 @@ input:not([type="checkbox"]), textarea, select {
     border-color: var(--color-skeleton);
   }
 
+  input:focus + .required {
+    background-color: var(--color-border);
+  }
+
+  input + .required {
+    background-color: var(--color-accent);
+    border-radius: var(--border-radius);
+    color: var(--bg-color);
+    display: inline-block;
+    font-size: var(--font-size-XS);
+    font-weight: bold;
+    line-height: var(--font-size-L);
+    margin-left: calc(var(--unit) * -7.8);
+    padding: 0 var(--space-XS);
+  }
+
+
 input[type="checkbox"] { margin: var(--space-XS) 0; }
   input[type="checkbox"] + label { font-weight: normal; margin: var(--space-XS); }
 

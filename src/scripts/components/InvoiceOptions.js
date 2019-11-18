@@ -65,6 +65,8 @@ class InvoiceContainer extends PureComponent {
     let buttonLabel = id ? 'Save Changes' : 'Create Invoice';
     if (busy) buttonLabel = 'Please wait';
 
+    // @TODO: Improve validator
+
     return (
       <section className="options">
         <div className="columns">
@@ -81,14 +83,16 @@ class InvoiceContainer extends PureComponent {
             </Fragment>
           )}
 
-          <div className="row">
-            <button type="button" disabled={busy || (!demo && !id)} className="outlined" onClick={onPreview}>
-              Preview
-            </button>
-            <button type="button" disabled className="outlined">
-              Download
-            </button>
-          </div>
+          { (demo || id) && (
+            <div className="row">
+              <button type="button" disabled={busy || (!demo && !id)} className="outlined" onClick={onPreview}>
+                Preview
+              </button>
+              <button type="button" disabled className="outlined">
+                Download
+              </button>
+            </div>
+          )}
           <div className="column">
             <label>Currency</label>
             <select className="border" onChange={onChangeCurrency} value={currency}>
@@ -107,7 +111,7 @@ class InvoiceContainer extends PureComponent {
             </select>
           </div>
 
-          { !demo && state !== STATE.CONFIRMED && (
+          { id && state !== STATE.CONFIRMED && (
             <button type="button" className="secondary" onClick={onDelete}>
               Delete
             </button>

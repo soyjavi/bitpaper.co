@@ -1,4 +1,4 @@
-import { func, shape } from 'prop-types';
+import { bool, func, shape } from 'prop-types';
 import React, { PureComponent } from 'react';
 
 import { formatPrice } from '../../common';
@@ -19,7 +19,9 @@ class Item extends PureComponent {
   render() {
     const {
       onChange,
-      props: { currency, dataSource: { name, price = 0, quantity = 0 }, onRemove },
+      props: {
+        currency, dataSource: { name, price = 0, quantity = 0 }, onRemove, required,
+      },
     } = this;
 
     return (
@@ -30,6 +32,7 @@ class Item extends PureComponent {
             name="name"
             onChange={onChange}
             placeholder="Item Name"
+            required={required}
           />
         </td>
         <td className="right">
@@ -64,8 +67,11 @@ Item.propTypes = {
   dataSource: shape({}).isRequired,
   onChange: func.isRequired,
   onRemove: func.isRequired,
+  required: bool,
 };
 
-Item.defaultProps = {};
+Item.defaultProps = {
+  required: false,
+};
 
 export default Item;
