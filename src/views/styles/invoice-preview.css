@@ -26,7 +26,7 @@
   [data-page="invoice-preview"] .payment .address { margin: var(--space-S) 0; }
   [data-page="invoice-preview"] .payment > div:first-child { flex: 1; }
 
-[data-page="invoice-preview"] .qr { height: 192px; width: 192px; }
+[data-page="invoice-preview"] .qr { height: 192px; width: 192px; background-color: var(--color-skeleton); }
 
 [data-page="invoice-preview"] button,
 [data-page="invoice-preview"] .button { margin: var(--space-S) 0; }

@@ -1,18 +1,15 @@
-import https from 'https';
+import tor from 'tor-request';
+
+const BASE_URL = 'https://chart.googleapis.com/chart?cht=qr&chs=256x256&chld=H|0&chl=';
 
 export default ({ params: { address, amount } }, res) => {
-  https.request({
-    host: 'chart.googleapis.com',
-    path: `/chart?cht=qr&chs=256x256&chld=H|0&chl=bitcoin:${address}?amount=${amount}`,
-  }, (response) => {
-    if (response.statusCode === 200) {
-      res.writeHead(200, {
-        'Content-Type': response.headers['content-type'],
-      });
-      response.pipe(res);
-    } else {
-      res.writeHead(response.statusCode);
-      res.end();
-    }
-  }).end();
+  tor.request(
+    { url: `${BASE_URL}bitcoin:${address}?amount=${amount}`, strictSSL: true },
+    (error, { statusCode }) => {
+      if (error) {
+        res.writeHead(statusCode);
+        res.end();
+      }
+    },
+  ).pipe(res);
 };
