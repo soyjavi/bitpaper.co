@@ -1,9 +1,9 @@
-import torRequest from 'tor-request';
+import tor from 'tor-request';
 
 const BASE_URL = 'http://chart.googleapis.com/chart?cht=qr&chs=256x256&chld=H|0&chl=';
 
 export default ({ params: { address, amount } }, res) => {
-  torRequest.request(`${BASE_URL}bitcoin:${address}?amount=${amount}`, (error, response) => {
+  tor.request(`${BASE_URL}bitcoin:${address}?amount=${amount}`, (error, response) => {
     if (response.statusCode === 200) {
       const { headers = {} } = response;
 
