@@ -1,5 +1,5 @@
-import fetch from 'node-fetch';
 import Storage from 'vanilla-storage';
+import tor from 'tor-request';
 
 import C from './constants';
 import mail from './mail';
@@ -14,14 +14,18 @@ const sendEmail = (recipient, props) => mail({
   text: render('templates/mailTransaction', { ...props, name: recipient.name }),
 });
 
+const torAsync = (url) => new Promise((resolve, reject) => {
+  tor.request(url, (error, res, body) => (error ? reject(error) : resolve(body)));
+});
+
 export default async (username, invoice = {}) => {
   let { tx = {} } = invoice;
 
   if (!tx.id || (tx.id && !tx.confirmed)) {
-    const response = await fetch(`${BASE_URL}/${invoice.address}/txs`).catch((error) => console.error(error));
+    const response = await torAsync(`${BASE_URL}/${invoice.address}/txs`).catch((error) => { throw Error(error); });
 
     if (!response) throw Error('Something wrong');
-    const txs = await response.json();
+    const txs = JSON.parse(response);
 
     txs.some(({ txid: id, vout: outputs = [], status: { confirmed, block_time: timestamp } }) => {
       const output = outputs.find(({ scriptpubkey_address: address, value: satoshis }) => (

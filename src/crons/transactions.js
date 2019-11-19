@@ -3,11 +3,11 @@ import Storage from 'vanilla-storage';
 import { C } from '../common';
 import updateInvoiceTx from '../common/updateInvoiceTx';
 
-const { STATE } = C;
+const { STATE, STORE } = C;
 const HEADER = '[🤖:transactions]';
 
 export default () => {
-  const users = new Storage({ filename: 'users' });
+  const users = new Storage(STORE.USERS);
 
   let store;
   users.get('active').value.forEach(({ username }) => {

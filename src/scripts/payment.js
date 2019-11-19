@@ -33,7 +33,7 @@ class Payment extends PureComponent {
   }
 
   render() {
-    const {  state: { tx = {} } } = this;
+    const { state: { tx = {} } } = this;
 
     return (
       tx.id

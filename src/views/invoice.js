@@ -4,7 +4,7 @@ import { C } from '../common';
 import cache from '../common/cache';
 import render from '../common/render';
 
-const { STATE } = C;
+const { STATE, STORE } = C;
 
 export default ({ originalUrl, session, props: { id } }, res) => {
   if (!session) res.redirect('/');
@@ -18,7 +18,10 @@ export default ({ originalUrl, session, props: { id } }, res) => {
     if (invoice.state === STATE.CONFIRMED) return res.redirect(`/invoice/${id}/preview`);
   }
 
+  const { xpub = '', address = '' } = session;
   const title = isNew ? 'New Invoice' : `Invoice: ${id}`;
+  const store = new Storage(STORE.CURRENCIES);
+  const rates = store.get('rates').value;
 
   return res.send(
     cache.set(originalUrl,
@@ -27,6 +30,8 @@ export default ({ originalUrl, session, props: { id } }, res) => {
         id,
         content: render('invoice', {
           title,
+          address: xpub.length === 0 && address.length === 0,
+          rates: JSON.stringify(rates),
         }),
         scripts: ['invoice'],
       })),

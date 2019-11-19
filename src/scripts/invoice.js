@@ -4,6 +4,8 @@ import ReactDOM from 'react-dom';
 import { fetch } from './modules';
 import InvoiceContainer from './components/InvoiceContainer';
 
+const el = document.getElementById('form');
+
 class InvoiceForm extends PureComponent {
   constructor(props) {
     super(props);
@@ -11,10 +13,13 @@ class InvoiceForm extends PureComponent {
     this.onSubmit = this.onSubmit.bind(this);
 
     const id = document.getElementsByTagName('body')[0].getAttribute('data-id');
-    const isNew = id === 'new';
+    const withoutAddress = el.getAttribute('data-without-address') === 'true';
 
     this.state = {
-      busy: !isNew, error: undefined, id: !isNew ? id : undefined, value: {},
+      busy: false,
+      error: undefined,
+      id: id !== 'new' ? id : undefined,
+      value: { withoutAddress },
     };
   }
 
@@ -79,4 +84,4 @@ class InvoiceForm extends PureComponent {
   }
 }
 
-ReactDOM.render(<InvoiceForm />, document.getElementById('form'));
+ReactDOM.render(<InvoiceForm />, el);

@@ -1,4 +1,4 @@
-<header>
+<header class="solid">
   <div class="row wrapper">
     <a href="/" class="row">
       <img class="logo" src="/static/icon.png" />
@@ -12,7 +12,7 @@
 </header>
 
 <article class="bg-squared">
-  <div id="form" class="wrapper">
+  <div id="form" class="wrapper" data-without-address={{address}}>
     <div class="invoice">
       <section class="form skeleton"></section>
       <aside class="options">
@@ -23,3 +23,5 @@
     </div>
   </div>
 </article>
+
+ <script id="rates" type="application/json">{{rates}}</script>

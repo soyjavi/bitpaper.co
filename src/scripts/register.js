@@ -1,6 +1,7 @@
 import React, { Fragment, PureComponent } from 'react';
 import ReactDOM from 'react-dom';
 
+import { Input } from './components';
 import { fetch, Storage } from './modules';
 
 const store = new Storage({ defaults: {}, filename: 'authorization' });
@@ -55,19 +56,20 @@ class FormRegister extends PureComponent {
 
     return (
       <Fragment>
+        <label>Username</label>
+        <Input
+          className="border"
+          name="username"
+          onChange={(event) => onChange('username', event)}
+          placeholder="Enter Your Username"
+          required
+        />
         <label>Name</label>
         <input
           className="border"
           name="name"
           placeholder="Enter Your Name"
           onChange={(event) => onChange('name', event)}
-        />
-        <label>Username</label>
-        <input
-          className="border"
-          name="username"
-          placeholder="Enter Your Username"
-          onChange={(event) => onChange('username', event)}
         />
         <label>Email</label>
         <input
