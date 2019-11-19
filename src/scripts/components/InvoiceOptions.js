@@ -54,18 +54,16 @@ class InvoiceContainer extends PureComponent {
       props: {
         demo, onChange, onPreview, onSubmit, total,
         dataSource: {
-          id, currency, dateFormat, reference = '', state,
+          address = '', id, currency, dateFormat, reference = '', state, withoutAddress,
         },
         ...props
       },
     } = this;
     const { state: { busy = props.busy } } = this;
 
-    const isValid = total > 0 && reference.length > 0;
+    const isValid = total > 0 && reference.length > 0 && (!withoutAddress || (withoutAddress && address.length >= 34));
     let buttonLabel = id ? 'Save Changes' : 'Create Invoice';
     if (busy) buttonLabel = 'Please wait';
-
-    // @TODO: Improve validator
 
     return (
       <section className="options">

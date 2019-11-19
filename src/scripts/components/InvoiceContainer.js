@@ -11,7 +11,7 @@ import Options from './InvoiceOptions';
 
 const { CURRENCY, DATE_FORMATS: [DATE_FORMAT] } = C;
 const DEFAULT_DATASOURCE = {
-  currency: CURRENCY, dateFormat: DATE_FORMAT, items: [{}], from: {}, to: {},
+  currency: CURRENCY, dateFormat: DATE_FORMAT, items: [{}], from: {}, to: {}, withoutAddress: true,
 };
 
 class InvoiceContainer extends PureComponent {
@@ -26,11 +26,12 @@ class InvoiceContainer extends PureComponent {
     this.onChange = this.onChange.bind(this);
     this.onChangeItem = this.onChangeItem.bind(this);
     this.onRemoveItem = this.onRemoveItem.bind(this);
-    this.state = { dataSource: DEFAULT_DATASOURCE, rates };
+    this.state = { dataSource: { ...DEFAULT_DATASOURCE, ...props.dataSource }, rates };
   }
 
   componentWillReceiveProps({ dataSource = {} }) {
     const { state } = this;
+    // @TODO: Why?
     if (dataSource.id && state.dataSource.id !== dataSource.id) {
       this.setState({ dataSource });
     }
@@ -79,7 +80,6 @@ class InvoiceContainer extends PureComponent {
       state: { dataSource, rates },
     } = this;
     const { currency, items } = dataSource;
-
     const total = calcTotal(items);
 
     return (
@@ -87,29 +87,50 @@ class InvoiceContainer extends PureComponent {
         <section className="form">
           <div className="fieldset border">
             <div className="row">
-              <label>Invoice #</label>
-              <Input defaultValue={dataSource.reference} name="reference" onChange={onChange} placeholder="001" />
+              <Input
+                defaultValue={dataSource.reference}
+                label="Invoice #"
+                name="reference"
+                onChange={onChange}
+                placeholder="001"
+                required
+              />
             </div>
 
             <div className="row">
-              <label>Issued:</label>
-              <Input defaultValue={dataSource.issued} name="issued" onChange={onChange} type="date" />
-              <label>Due:</label>
-              <Input defaultValue={dataSource.due} name="due" type="date" onChange={onChange} />
+              <Input
+                defaultValue={dataSource.issued}
+                label="Issued:"
+                name="issued"
+                onChange={onChange}
+                type="date"
+              />
+              <Input defaultValue={dataSource.due} label="Due:" name="due" type="date" onChange={onChange} />
             </div>
           </div>
 
           <div className="fieldset border">
             <div>
-              <label>Invoice</label>
-              <Input defaultValue={dataSource.concept} name="concept" onChange={onChange} placeholder="Concept of invoice" />
+              <Input
+                defaultValue={dataSource.concept}
+                label="Invoice"
+                name="concept"
+                onChange={onChange}
+                placeholder="Concept of invoice"
+              />
             </div>
             <div>
               <label>
                 Bitcoin Address
                 <a className="right color-accent" href="/profile">...or setup a XPUB</a>
               </label>
-              <Input defaultValue={dataSource.address} name="address" onChange={onChange} placeholder="Bitcoin Address" />
+              <Input
+                defaultValue={dataSource.address}
+                name="address"
+                onChange={onChange}
+                placeholder="Bitcoin Address"
+                required={dataSource.withoutAddress}
+              />
             </div>
           </div>
 
@@ -136,6 +157,7 @@ class InvoiceContainer extends PureComponent {
                   dataSource={product}
                   onChange={(value) => onChangeItem(index, value)}
                   onRemove={() => onRemoveItem(index)}
+                  required={index === 0 && (!product.name || product.name.length === 0)}
                 />
               ))}
               <tr>
