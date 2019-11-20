@@ -1,6 +1,6 @@
 import { Router } from 'express';
 
-import { api, request } from '../middlewares';
+import { api, request } from '../server/middlewares';
 import signup from './signup';
 import login from './login';
 import profile from './profile';

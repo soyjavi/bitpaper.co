@@ -1,6 +1,6 @@
 import { Router } from 'express';
 
-import { cacheHtml, request } from '../middlewares';
+import { cacheHtml, request } from '../server/middlewares';
 import home from './home';
 import register from './register';
 import login from './login';

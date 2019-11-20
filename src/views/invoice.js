@@ -1,9 +1,11 @@
+import dotenv from 'dotenv';
 import Storage from 'vanilla-storage';
 
 import { C } from '../common';
-import cache from '../common/cache';
-import render from '../common/render';
+import { cache, render } from '../server/modules';
 
+dotenv.config();
+const { SECRET: secret } = process.env;
 const { STATE, STORE } = C;
 
 export default ({ originalUrl, session, props: { id } }, res) => {
@@ -12,7 +14,7 @@ export default ({ originalUrl, session, props: { id } }, res) => {
   const isNew = id === 'new';
 
   if (!isNew) {
-    const user = new Storage({ filename: session.username });
+    const user = new Storage({ filename: session.username, secret });
     const invoice = user.get('invoices').findOne({ id });
     if (!invoice) return res.redirect('/');
     if (invoice.state === STATE.CONFIRMED) return res.redirect(`/invoice/${id}/preview`);

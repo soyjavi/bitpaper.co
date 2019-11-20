@@ -1,10 +1,13 @@
+import dotenv from 'dotenv';
 import onFinished from 'on-finished';
 import Storage from 'vanilla-storage';
+import { decrypt } from 'vanilla-storage/dist/modules';
 
-import { C } from '../common';
+import { C } from '../../common';
 
+dotenv.config();
+const { SECRET: secret } = process.env;
 const { STORE } = C;
-
 const DEFAULT_DOMAIN = 'soyjavi';
 
 export default (req, res, next) => {
@@ -24,25 +27,26 @@ export default (req, res, next) => {
   };
 
   // -- Determine session
-  let { authorization, username } = req.cookies || {};
-  if (!authorization && !username) {
-    authorization = headers.authorization;
-    username = headers.username;
-  }
+  let { authorization } = req.cookies || {};
+  if (!authorization) authorization = headers.authorization;
 
-  if (authorization && username) {
-    const users = new Storage(STORE.USERS);
-    if (users.get('active').findOne({ username })) {
-      const user = new Storage({ filename: username });
-      const currentSession = user.get('sessions').value.pop() || {};
-      if (authorization === currentSession.authorization) {
+  if (authorization) {
+    try {
+      const { entropy, username } = decrypt(authorization, secret);
+
+      const users = new Storage({ ...STORE.DB, secret });
+      let user = users.get('users').findOne({ username });
+      if (user && decrypt(user.passport, entropy) === username) {
+        user = new Storage({ filename: username, secret });
+
         req.session = {
+          entropy,
           username,
           ...user.get('profile').value,
           invoices: user.get('invoices').value,
         };
       }
-    }
+    } catch (e) { console.log(e); }
   }
 
   onFinished(res, () => {
