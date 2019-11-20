@@ -1,6 +1,5 @@
-import {
-  C, ERROR, calcTotal, rateSatoshis,
-} from '../../common';
+import { C, ERROR, calcTotal } from '../../common';
+import { rateSatoshis } from '../../server/modules';
 
 import createAddress from './createAddress';
 

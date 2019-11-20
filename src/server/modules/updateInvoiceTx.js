@@ -1,10 +1,13 @@
+import dotenv from 'dotenv';
 import Storage from 'vanilla-storage';
 import tor from 'tor-request';
 
-import C from './constants';
+import { C } from '../../common';
 import mail from './mail';
 import render from './render';
 
+dotenv.config();
+const { SECRET: secret } = process.env;
 const { STATE: { CONFIRMED } } = C;
 const BASE_URL = 'https://blockstream.info/api/address';
 
@@ -36,7 +39,7 @@ export default async (username, invoice = {}) => {
         const { from, to, state } = invoice;
         tx = { id, confirmed, timestamp: timestamp * 1000 };
 
-        const user = new Storage({ filename: username });
+        const user = new Storage({ filename: username, secret });
         user.get('invoices').update({ id: invoice.id }, { ...invoice, tx, state: confirmed ? CONFIRMED : state });
 
         const mailProps = {

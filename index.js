@@ -9,7 +9,7 @@ import http from 'http';
 import crons from './src/crons';
 import services from './src/services';
 import views from './src/views';
-import { error, request } from './src/middlewares';
+import { error, request } from './src/server/middlewares';
 
 dotenv.config();
 const { DOMAIN, PORT = 3000 } = process.env;

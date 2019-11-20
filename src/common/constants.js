@@ -1,4 +1,6 @@
 export default {
+  COOKIE_MAXAGE: 14 * 24 * 60 * 60 * 1000, // 14-days
+
   CURRENCY: 'USD',
   CURRENCIES: [
     'USD (United States Dollar)',
@@ -18,8 +20,8 @@ export default {
   },
 
   STORE: {
-    USERS: { filename: 'users', defaults: { active: [], blocked: [] } },
-    USER: { defaults: { profile: {}, invoices: [], sessions: [] } },
+    DB: { filename: 'db', defaults: { users: [], rates: {} } },
+    USER: { defaults: { profile: {}, invoices: [] } },
     CURRENCIES: { filename: 'currencies', defaults: { rates: {} } },
   },
 

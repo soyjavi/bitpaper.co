@@ -2,7 +2,7 @@ import dotenv from 'dotenv';
 import fs from 'fs';
 import path from 'path';
 
-import PKG from '../../package.json';
+import PKG from '../../../package.json';
 import cache from './cache';
 
 dotenv.config();

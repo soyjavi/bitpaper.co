@@ -1,11 +1,12 @@
 {
   "name": "invoicer-btc-segwit",
-  "version": "0.2.14",
+  "version": "0.2.15",
   "description": "Invoicer using Bitcoin Native Segwit addresses",
   "repository": "https://github.com/soyjavi/invoicer-btc-segwit",
   "author": "soyjavi <hello@soyjavi.com>",
   "license": "MIT",
   "dependencies": {
+    "bip39": "^3.0.2",
     "bitcoinjs-lib": "^5.1.6",
     "body-parser": "^1.19.0",
     "compression": "^1.7.4",
@@ -24,7 +25,7 @@
     "react": "^16.11.0",
     "react-dom": "^16.11.0",
     "tor-request": "^3.1.0",
-    "vanilla-storage": "^0.1.12"
+    "vanilla-storage": "^0.2.2"
   },
   "devDependencies": {
     "@babel/cli": "^7.1.5",

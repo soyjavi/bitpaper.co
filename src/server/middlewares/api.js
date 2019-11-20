@@ -1,5 +1,5 @@
-import { ERROR } from '../common';
-import MAP from '../../map.json';
+import { ERROR } from '../../common';
+import MAP from '../../../map.json';
 
 export default (req, res, next) => {
   const url = req.originalUrl.split('/')[2].split('?')[0];

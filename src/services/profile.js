@@ -1,3 +1,3 @@
-export default ({ session }, res) => {
+export default ({ session: { entropy, ...session } }, res) => {
   res.json(session);
 };

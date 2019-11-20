@@ -1,18 +1,16 @@
 import dotenv from 'dotenv';
 import Storage from 'vanilla-storage';
 
-import {
-  C, ERROR, formatDate, formatPrice, rateSatoshis,
-} from '../common';
-import render from '../common/render';
+import { C, ERROR, formatPrice } from '../common';
+import { formatDate, rateSatoshis, render } from '../server/modules';
 import { normalizeHtml } from './modules';
 
 dotenv.config();
-const { ICON, TITLE } = process.env;
+const { ICON, SECRET: secret, TITLE } = process.env;
 const { STATE } = C;
 
 export default async ({ session: { username } = {}, props: { domain, id } = {} }, res) => {
-  const user = new Storage({ filename: domain });
+  const user = new Storage({ filename: domain, secret });
   const profile = user.get('profile').value;
   const invoice = user.get('invoices').findOne({ id });
 
