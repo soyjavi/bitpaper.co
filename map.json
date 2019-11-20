@@ -4,7 +4,7 @@
     "optional": ["name", "email"]
   },
   "login": {
-    "required": ["username", "password"]
+    "required": ["username", "mnemonic"]
   },
   "profile": {
     "secure": true,

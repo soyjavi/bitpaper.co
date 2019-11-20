@@ -1,17 +1,12 @@
+import * as Bip39 from 'bip39';
 import { SHA256 } from 'crypto-js';
-import Storage from 'vanilla-storage';
+import dotenv from 'dotenv';
+import { encrypt } from 'vanilla-storage/dist/modules';
 
-const TWO_WEEKS = 14 * 24 * 60 * 60 * 1000;
+dotenv.config();
+const { SECRET: secret } = process.env;
 
-export default (username, res) => {
-  const user = new Storage({ filename: username });
-  const timestamp = (new Date()).getTime();
-  const authorization = SHA256(JSON.stringify({ username, timestamp })).toString();
-
-  res.cookie('authorization', authorization, { maxAge: TWO_WEEKS, httpOnly: true });
-  res.cookie('username', username, { maxAge: TWO_WEEKS, httpOnly: true });
-
-  user.get('sessions').push({ authorization, timestamp });
-
-  return authorization;
-};
+export default (username, mnemonic) => encrypt({
+  entropy: SHA256(Bip39.mnemonicToEntropy(mnemonic)).toString(),
+  username,
+}, secret);

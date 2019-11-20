@@ -1,20 +1,27 @@
+import * as Bip39 from 'bip39';
+import dotenv from 'dotenv';
 import Storage from 'vanilla-storage';
+import { decrypt } from 'vanilla-storage/dist/modules';
 
 import { C, ERROR } from '../common';
 import { session } from './modules';
 
-const { STORE } = C;
+dotenv.config();
+const { SECRET: secret } = process.env;
+const { COOKIE_MAXAGE, STORE } = C;
 
-export default ({ props: { username, password } }, res) => {
-  const users = new Storage(STORE.USERS);
-  users.get('active');
+// const mnemonicDecompiled = Bip39.entropyToMnemonic(authorization);
 
-  const user = users.findOne({ username, password });
+export default ({ props: { username, mnemonic } }, res) => {
+  if (!Bip39.validateMnemonic(mnemonic)) return ERROR.NOT_FOUND(res);
 
-  if (!user) return ERROR.NOT_FOUND(res);
+  const authorization = session(username, mnemonic);
+  const { entropy } = decrypt(authorization, secret);
 
-  return res.json({
-    authorization: session(username, res),
-    username,
-  });
+  const store = new Storage({ ...STORE.DB, secret });
+  const user = store.get('users').findOne({ username });
+  if (!user || decrypt(user.passport, entropy) !== username) return ERROR.NOT_FOUND(res);
+
+  res.cookie('authorization', authorization, { maxAge: COOKIE_MAXAGE, httpOnly: true });
+  return res.json({ authorization });
 };

@@ -8,11 +8,11 @@ import render from '../common/render';
 import { normalizeHtml } from './modules';
 
 dotenv.config();
-const { ICON, TITLE } = process.env;
+const { ICON, SECRET: secret, TITLE } = process.env;
 const { STATE } = C;
 
 export default async ({ session: { username } = {}, props: { domain, id } = {} }, res) => {
-  const user = new Storage({ filename: domain });
+  const user = new Storage({ filename: domain, secret });
   const profile = user.get('profile').value;
   const invoice = user.get('invoices').findOne({ id });
 
