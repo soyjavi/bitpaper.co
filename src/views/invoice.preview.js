@@ -1,10 +1,8 @@
 import dotenv from 'dotenv';
 import Storage from 'vanilla-storage';
 
-import {
-  C, ERROR, formatDate, formatPrice, rateSatoshis,
-} from '../common';
-import render from '../common/render';
+import { C, ERROR, formatPrice } from '../common';
+import { formatDate, rateSatoshis, render } from '../server/modules';
 import { normalizeHtml } from './modules';
 
 dotenv.config();

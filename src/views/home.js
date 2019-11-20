@@ -1,8 +1,7 @@
 import Storage from 'vanilla-storage';
 
 import { C } from '../common';
-import cache from '../common/cache';
-import render from '../common/render';
+import { cache, render } from '../server/modules';
 
 const { STORE } = C;
 

@@ -2,7 +2,7 @@ import dotenv from 'dotenv';
 import Storage from 'vanilla-storage';
 import tor from 'tor-request';
 
-import C from './constants';
+import { C } from '../../common';
 import mail from './mail';
 import render from './render';
 

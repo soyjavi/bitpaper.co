@@ -2,8 +2,7 @@ import dotenv from 'dotenv';
 import Storage from 'vanilla-storage';
 
 import { C } from '../common';
-import cache from '../common/cache';
-import render from '../common/render';
+import { cache, render } from '../server/modules';
 
 dotenv.config();
 const { SECRET: secret } = process.env;

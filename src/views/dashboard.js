@@ -1,8 +1,7 @@
 import Storage from 'vanilla-storage';
 
-import { C, formatDate, formatPrice } from '../common';
-import render from '../common/render';
-import exchange from '../common/exchange';
+import { C, exchange, formatPrice } from '../common';
+import { formatDate, render } from '../server/modules';
 
 import { normalizeHtml } from './modules';
 

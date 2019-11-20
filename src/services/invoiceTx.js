@@ -2,7 +2,7 @@ import dotenv from 'dotenv';
 import Storage from 'vanilla-storage';
 
 import { ERROR } from '../common';
-import updateInvoiceTx from '../common/updateInvoiceTx';
+import { updateInvoiceTx } from '../server/modules';
 
 dotenv.config();
 const { SECRET: secret } = process.env;

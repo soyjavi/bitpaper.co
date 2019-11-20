@@ -1,4 +1,4 @@
-import render from '../common/render';
+import { render } from '../server/modules';
 
 export default ({ session }, res) => {
   if (!session) return res.redirect('/');

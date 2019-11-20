@@ -1,6 +1,6 @@
 import fetch from 'node-fetch';
 
-import C from './constants';
+import { C } from '../../common';
 
 const { CURRENCY } = C;
 

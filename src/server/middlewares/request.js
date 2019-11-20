@@ -3,7 +3,7 @@ import onFinished from 'on-finished';
 import Storage from 'vanilla-storage';
 import { decrypt } from 'vanilla-storage/dist/modules';
 
-import { C } from '../common';
+import { C } from '../../common';
 
 dotenv.config();
 const { SECRET: secret } = process.env;
