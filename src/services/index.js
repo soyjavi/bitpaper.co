@@ -5,6 +5,7 @@ import signup from './signup';
 import login from './login';
 import profile from './profile';
 import profileUpdate from './profileUpdate';
+import search from './search';
 import invoice from './invoice';
 import invoiceCreate from './invoiceCreate';
 import invoiceUpdate from './invoiceUpdate';
@@ -16,6 +17,7 @@ const router = Router();
 // Endpoints
 router.post('/signup', api, signup);
 router.post('/login', api, login);
+router.get('/search', api, search);
 router.get('/profile', api, profile);
 router.put('/profile', api, profileUpdate);
 router.post('/invoice', api, invoiceCreate);

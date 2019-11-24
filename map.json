@@ -6,6 +6,9 @@
   "login": {
     "required": ["username", "mnemonic"]
   },
+  "search": {
+    "optional": ["username"]
+  },
   "profile": {
     "secure": true,
     "optional": ["name", "phone", "website", "location", "address", "xpub"]
