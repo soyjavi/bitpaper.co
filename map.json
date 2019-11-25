@@ -11,7 +11,7 @@
   },
   "profile": {
     "secure": true,
-    "optional": ["name", "phone", "website", "location", "address", "xpub"]
+    "optional": ["name", "email", "phone", "website", "location", "address", "xpub"]
   },
   "invoice": {
     "secure": true,

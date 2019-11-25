@@ -1,6 +1,7 @@
 import React, { Fragment, PureComponent } from 'react';
 import ReactDOM from 'react-dom';
 
+import { Input } from './components';
 import { fetch } from './modules';
 
 class FormProfile extends PureComponent {
@@ -18,7 +19,7 @@ class FormProfile extends PureComponent {
       });
   }
 
-  onChange(field, { target: { value } }) {
+  onChange(field, value) {
     let { state: { form } } = this;
 
     form = { ...form, [field]: value };
@@ -47,37 +48,47 @@ class FormProfile extends PureComponent {
 
     return (
       <Fragment>
-        <label>Name</label>
-        <input
+        <Input
           className="border"
           defaultValue={form.name}
+          label="Name"
           name="name"
+          onChange={onChange}
           placeholder="Enter Your Name"
-          onChange={(event) => onChange('name', event)}
         />
+
         <label>Address</label>
         <textarea
           className="border"
           defaultValue={form.location}
           name="address"
-          onChange={(event) => onChange('location', event)}
+          onChange={({ target: { value } }) => onChange('location', value)}
           placeholder="Enter Address"
         />
-        <label>Phone</label>
-        <input
+        <Input
+          className="border"
+          defaultValue={form.email}
+          label="Email"
+          name="email"
+          onChange={onChange}
+          placeholder="Enter Your Email"
+          type="email"
+        />
+        <Input
           className="border"
           defaultValue={form.phone}
+          label="Phone"
           name="phone"
+          onChange={onChange}
           placeholder="Enter Your Phone Number"
-          onChange={(event) => onChange('phone', event)}
         />
-        <label>Website</label>
-        <input
+        <Input
           className="border"
           defaultValue={form.website}
+          label="Website"
           name="website"
           placeholder="Enter Your Website"
-          onChange={(event) => onChange('website', event)}
+          onChange={onChange}
         />
 
         <label>
@@ -96,18 +107,18 @@ class FormProfile extends PureComponent {
           defaultValue={form.xpub}
           name="xpub"
           placeholder="... or Enter Your Bitcoin XPUB"
-          onChange={(event) => onChange('xpub', event)}
+          onChange={({ target: { value } }) => onChange('xpub', value)}
         />
 
         <small>
            Also, You can set a default Bitcoin Address for all those invoices that do not have an Bitcoin Address.
         </small>
-        <input
+        <Input
           className="border"
           defaultValue={form.address}
           name="address"
           placeholder="Enter Your Bitcoin Address..."
-          onChange={(event) => onChange('address', event)}
+          onChange={onChange}
         />
 
         <div className={`snackbar ${info || error ? 'visible' : ''} ${error ? 'error' : ''}`}>
