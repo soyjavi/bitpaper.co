@@ -1,22 +1,24 @@
 import { bool, func, string } from 'prop-types';
-import React from 'react';
+import React, { Fragment } from 'react';
 
 const Input = ({
-  label, name, onChange, required, ...inherit
+  busy, label, name, onChange, required, ...inherit
 }) => (
-  <>
+  <Fragment>
     { label && <label>{label}</label> }
     <input
       {...inherit}
       name={name}
       onChange={({ target: { value } }) => onChange(name, value)}
     />
-    { required && (!inherit.defaultValue || inherit.defaultValue.length === 0) && (
-      <span className="required">required</span>)}
-  </>
+    { !busy && required && (!inherit.defaultValue || inherit.defaultValue.length === 0) && (
+      <span className="tag">required</span>)}
+    { busy && <span className="tag busy"></span> }
+  </Fragment>
 );
 
 Input.propTypes = {
+  busy: bool,
   label: string,
   name: string.isRequired,
   onChange: func.isRequired,
@@ -24,6 +26,7 @@ Input.propTypes = {
 };
 
 Input.defaultProps = {
+  busy: false,
   label: undefined,
   required: false,
 };

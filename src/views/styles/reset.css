@@ -101,11 +101,11 @@ input:not([type="checkbox"]), textarea, select {
     border-color: var(--color-skeleton);
   }
 
-  input:focus + .required {
+  input:focus + .tag {
     background-color: var(--color-border);
   }
 
-  input + .required {
+  input + .tag {
     background-color: var(--color-accent);
     border-radius: var(--border-radius);
     color: var(--bg-color);
@@ -115,6 +115,18 @@ input:not([type="checkbox"]), textarea, select {
     line-height: var(--font-size-L);
     margin-left: calc(var(--unit) * -7.8);
     padding: 0 var(--space-XS);
+  }
+
+  input + .tag.busy {
+    background-color: transparent;
+    margin-left: calc(var(--unit) * -3.6);
+  }
+  input + .tag.busy:before {
+    display: inline-block;
+    content: '⠋';
+    color: var(--color-accent);
+    animation: spin 1s linear infinite;
+    vertical-align: middle;
   }
 
 
