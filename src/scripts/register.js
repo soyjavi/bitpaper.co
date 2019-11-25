@@ -5,6 +5,7 @@ import { Input } from './components';
 import { fetch, Storage } from './modules';
 
 const store = new Storage({ defaults: {}, filename: 'authorization' });
+let timeout;
 
 class FormRegister extends PureComponent {
   constructor(props) {
@@ -12,27 +13,37 @@ class FormRegister extends PureComponent {
     this.onChange = this.onChange.bind(this);
     this.onCheckbox = this.onCheckbox.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
-    this.state = { error: undefined, form: { terms: true }, valid: false };
+    this.state = {
+      busy: false, error: undefined, form: { terms: true }, valid: false,
+    };
   }
 
-  onChange(field, { target: { value } }) {
+  onChange(field, value) {
     let { state: { form } } = this;
 
     form = { ...form, [field]: value };
     form.username = form.username ? form.username.trim().replace(/\./g, '') : undefined;
-    const {
-      email, username, password, confirm, terms,
-    } = form;
+    this.setState({ error: undefined, form });
 
-    this.setState({
-      form,
-      valid: (email && username && password && password === confirm && terms),
-      error: undefined,
-    });
+    if (field !== 'username') return;
+
+    this.setState({ busy: true });
+    clearTimeout(timeout);
+    timeout = setTimeout(async () => {
+      const { exists } = await fetch({ service: `api/search?username=${form.username}` })
+        .catch((error) => this.setState({ busy: false, error: error.message }));
+
+      const { state: { form: { username, terms } } } = this;
+      this.setState({
+        busy: false,
+        error: exists ? 'Username already in use.' : undefined,
+        valid: username && terms && !exists,
+      });
+    }, 500);
   }
 
   onCheckbox(field, { currentTarget: { checked: value } }) {
-    this.onChange(field, { target: { value } });
+    this.onChange(field, value);
   }
 
   async onSubmit(event) {
@@ -51,49 +62,27 @@ class FormRegister extends PureComponent {
 
   render() {
     const {
-      onChange, onCheckbox, onSubmit, state: { error, valid, form: { terms } },
+      onChange, onCheckbox, onSubmit,
+      state: {
+        busy, error, valid, form: { terms },
+      },
     } = this;
 
     return (
       <Fragment>
         <label>Username</label>
         <Input
+          busy={busy}
           className="border"
           name="username"
-          onChange={(event) => onChange('username', event)}
+          onChange={onChange}
           placeholder="Enter Your Username"
           required
         />
         <label>Name</label>
-        <input
-          className="border"
-          name="name"
-          placeholder="Enter Your Name"
-          onChange={(event) => onChange('name', event)}
-        />
+        <Input className="border" name="name" placeholder="Enter Your Name" onChange={onChange} />
         <label>Email</label>
-        <input
-          className="border"
-          name="email"
-          placeholder="Enter Your Email"
-          onChange={(event) => onChange('email', event)}
-        />
-        <label>Password</label>
-        <input
-          className="border"
-          name="password"
-          type="password"
-          placeholder="Enter Your Password"
-          onChange={(event) => onChange('password', event)}
-        />
-        <label>Confirm Password</label>
-        <input
-          className="border"
-          name="confirm"
-          type="password"
-          placeholder="Confirm Your Password"
-          onChange={(event) => onChange('confirm', event)}
-        />
+        <Input className="border" name="email" placeholder="Enter Your Email" onChange={onChange} />
         <div className="row">
           <input
             className="border"
@@ -111,18 +100,6 @@ class FormRegister extends PureComponent {
           </label>
         </div>
 
-        <div className="row">
-          <input
-            className="border"
-            type="checkbox"
-            name="newsletter"
-            onChange={(event) => onCheckbox('newsletter', event)}
-          />
-          <label>
-            Yes, please keep me updated about News and Features.
-          </label>
-        </div>
-
         { error && (
           <p className="error row">
             <strong>ERROR:</strong>
@@ -131,7 +108,7 @@ class FormRegister extends PureComponent {
         )}
 
         <nav className="row space-between">
-          <button type="button" disabled={!valid || error} onClick={onSubmit}>Sign Up</button>
+          <button type="button" disabled={busy || !valid || error} onClick={onSubmit}>Sign Up</button>
           <a className="button secondary" href="/login">Already have an account?</a>
         </nav>
       </Fragment>

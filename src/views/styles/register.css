@@ -20,14 +20,16 @@
 
 [data-page="register"] #form {}
   [data-page="register"] #form .error {
-    background-color: var(--color-skeleton);
+    background-color: var(--color-error);
     border-radius: var(--border-radius);
-    color: var(--color-lighten);
+    color: var(--bg-color);
     margin-top: var(--space);
     padding: var(--space-S);
     text-align: left;
     font-size: var(--font-size-S);
   }
+  [data-page="register"] #form .error strong { margin-right: var(--space-XS); }
+
   [data-page="register"] #form nav { margin-top: var(--space); }
 
 [data-page="register"] label:not(:first-child) { margin-top: var(--space-XS); }
