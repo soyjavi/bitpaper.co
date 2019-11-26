@@ -1,6 +1,7 @@
 import React, { Fragment, PureComponent } from 'react';
 import ReactDOM from 'react-dom';
 
+import { Input } from './components';
 import { fetch, Storage } from './modules';
 
 const store = new Storage({ defaults: {}, filename: 'authorization' });
@@ -50,15 +51,14 @@ class FormRegister extends PureComponent {
           onChange={(event) => onChange('username', event)}
         />
         <label>
-          Password
-          <a className="right color-accent" href="/email/remember">Forgot password?</a>
+          Mnemonic
         </label>
         <input
           className="border"
-          name="password"
-          type="password"
+          name="mnemonic"
+          type="mnemonic"
           placeholder="Enter Your Password"
-          onChange={(event) => onChange('password', event)}
+          onChange={(event) => onChange('mnemonic', event)}
         />
 
         { error && (
