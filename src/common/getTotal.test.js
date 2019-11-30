@@ -19,7 +19,7 @@ describe('getTotal', () => {
 
   it('giving and array with the mandatory interface', async () => {
     expect(getTotal([
-      { quantity: 1, price: 100 }
+      { quantity: 1, price: 100 },
       { quantity: 3, price: 25 },
       { quantity: 3, price: -5 },
      ])).toEqual(160);
