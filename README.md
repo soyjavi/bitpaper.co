@@ -2,7 +2,8 @@
 [![Build Status](http://img.shields.io/travis/soyjavi/bitpaper.co/master.svg?style=flat-square)](https://travis-ci.org/soyjavi/bitpaper.co)
 [![dependencies Status](https://david-dm.org/soyjavi/bitpaper.co/status.svg?style=flat-square)](https://david-dm.org/soyjavi/bitpaper.co)
 [![devDependencies Status](https://david-dm.org/soyjavi/bitpaper.co/dev-status.svg?style=flat-square)](https://david-dm.org/soyjavi/bitpaper.co?type=dev)
-[![NpmLicense](https://img.shields.io/npm/l/bitpaper.co.svg?style=flat-square)](https://spdx.org/licenses/MIT)
+[![License](https://img.shields.io/github/license/soyjavi/bitpaper.co?style=flat-square)](https://spdx.org/licenses/AGPL-3.0-or-later)
+
 
 > Invoicer using Bitcoin Native Segwit addresses
 

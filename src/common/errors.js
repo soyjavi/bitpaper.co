@@ -1,6 +1,8 @@
 export default {
   FORBIDDEN: (res) => res.status(403).json({ message: 'Forbidden.' }),
 
+  INVALID_BTC_ADDRESS: (res) => res.status(404).json({ message: 'Invalid Bitcoin Address.' }),
+
   MESSAGE: (res, error = {}) => res.status(error.code || 400).json({ message: error.message }),
 
   NOT_FOUND: (res) => res.status(404).json({ message: 'Resource not found.' }),

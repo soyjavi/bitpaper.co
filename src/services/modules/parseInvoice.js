@@ -1,6 +1,6 @@
 import { decrypt } from 'vanilla-storage/dist/modules';
 
-import { C, ERROR, calcTotal } from '../../common';
+import { C, ERROR, getTotal } from '../../common';
 import { rateSatoshis } from '../../server/modules';
 import createAddress from './createAddress';
 
@@ -9,8 +9,13 @@ const [DATE_FORMAT] = DATE_FORMATS;
 
 export default async (res, session, props) => {
   const { entropy, xpub } = session;
+  let address;
+
+  try {
+    address = props.address || session.address || createAddress(decrypt(xpub, entropy), session.invoices);
+  } catch (e) { return ERROR.INVALID_BTC_ADDRESS(res); }
+
   const {
-    address = session.address || createAddress(decrypt(xpub, entropy), session.invoices),
     currency = CURRENCY,
     issued = (new Date()).getTime(),
     due,
@@ -30,7 +35,7 @@ export default async (res, session, props) => {
   if (!address && !xpub) return ERROR.REQUIRED_PARAMETERS(res, 'address or xpub');
   if (due && issued > due) return ERROR.MESSAGE(res, { message: 'Incorrect range of dates.' });
 
-  const total = calcTotal(items);
+  const total = getTotal(items);
   if (items.length > 0 && (state === DRAFT || state === PUBLISHED)) {
     satoshis = await rateSatoshis(total, currency);
   }
