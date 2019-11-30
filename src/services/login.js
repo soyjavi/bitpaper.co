@@ -20,8 +20,11 @@ export default ({ props: { username, mnemonic } }, res) => {
 
   const store = new Storage({ ...STORE.DB, secret });
   const user = store.get('users').findOne({ username });
-  if (!user || decrypt(user.passport, entropy) !== username) return ERROR.NOT_FOUND(res);
 
-  res.cookie('authorization', authorization, { maxAge: COOKIE_MAXAGE, httpOnly: true });
+  try {
+    if (!user || decrypt(user.passport, entropy) !== username) return ERROR.NOT_FOUND(res);
+    res.cookie('authorization', authorization, { maxAge: COOKIE_MAXAGE, httpOnly: true });
+  } catch (e) { return ERROR.NOT_FOUND(res); }
+
   return res.json({ authorization });
 };
