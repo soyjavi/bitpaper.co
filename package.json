@@ -1,8 +1,8 @@
 {
-  "name": "invoicer-btc-segwit",
+  "name": "bitpaper.co",
   "version": "0.2.18",
   "description": "Invoicer using Bitcoin Native Segwit addresses",
-  "repository": "https://github.com/soyjavi/invoicer-btc-segwit",
+  "repository": "https://github.com/soyjavi/bitpaper.co",
   "author": "soyjavi <hello@soyjavi.com>",
   "license": "MIT",
   "dependencies": {
@@ -33,11 +33,11 @@
     "@babel/node": "^7.7.4",
     "@babel/plugin-proposal-throw-expressions": "^7.7.4",
     "@babel/preset-env": "^7.7.4",
-    "eslint": "^6.7.0",
+    "eslint": "^6.7.1",
     "eslint-config-airbnb": "latest",
     "eslint-plugin-import": "^2.18.2",
     "eslint-plugin-jsx-a11y": "^6.2.3",
-    "eslint-plugin-react": "^7.16.0",
+    "eslint-plugin-react": "^7.17.0",
     "parcel-bundler": "^1.12.3"
   },
   "main": "index.js",

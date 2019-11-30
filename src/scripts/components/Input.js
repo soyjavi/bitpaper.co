@@ -13,7 +13,7 @@ const Input = ({
     />
     { !busy && required && (!inherit.defaultValue || inherit.defaultValue.length === 0) && (
       <span className="tag">required</span>)}
-    { busy && <span className="tag busy"></span> }
+    { busy && <span className="tag busy" /> }
   </Fragment>
 );
 
