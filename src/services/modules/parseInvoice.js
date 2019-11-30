@@ -9,8 +9,13 @@ const [DATE_FORMAT] = DATE_FORMATS;
 
 export default async (res, session, props) => {
   const { entropy, xpub } = session;
+  let address;
+
+  try {
+    address = props.address || session.address || createAddress(decrypt(xpub, entropy), session.invoices);
+  } catch (e) { return ERROR.INVALID_BTC_ADDRESS(res); }
+
   const {
-    address = session.address || createAddress(decrypt(xpub, entropy), session.invoices),
     currency = CURRENCY,
     issued = (new Date()).getTime(),
     due,
