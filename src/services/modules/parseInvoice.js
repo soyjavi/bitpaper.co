@@ -1,6 +1,6 @@
 import { decrypt } from 'vanilla-storage/dist/modules';
 
-import { C, ERROR, calcTotal } from '../../common';
+import { C, ERROR, getTotal } from '../../common';
 import { rateSatoshis } from '../../server/modules';
 import createAddress from './createAddress';
 
@@ -35,7 +35,7 @@ export default async (res, session, props) => {
   if (!address && !xpub) return ERROR.REQUIRED_PARAMETERS(res, 'address or xpub');
   if (due && issued > due) return ERROR.MESSAGE(res, { message: 'Incorrect range of dates.' });
 
-  const total = calcTotal(items);
+  const total = getTotal(items);
   if (items.length > 0 && (state === DRAFT || state === PUBLISHED)) {
     satoshis = await rateSatoshis(total, currency);
   }

@@ -2,7 +2,7 @@ import { bool, func, shape } from 'prop-types';
 import React, { PureComponent } from 'react';
 
 import {
-  C, calcTotal, exchange, formatPrice,
+  C, getTotal, exchange, formatPrice,
 } from '../../common';
 import Input from './Input';
 import Item from './Item';
@@ -80,7 +80,7 @@ class InvoiceContainer extends PureComponent {
       state: { dataSource, rates },
     } = this;
     const { currency, items } = dataSource;
-    const total = calcTotal(items);
+    const total = getTotal(items);
 
     return (
       <div className="invoice">
