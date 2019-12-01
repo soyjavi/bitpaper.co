@@ -62,15 +62,9 @@
   transition: transform var(--animation);
   z-index: 2;
 }
-  .snackbar.visible {
-    transform: translateY(0%);
-  }
-  .snackbar:not(.error) {
-    background-color: var(--color-success);
-  }
-  .snackbar.error {
-
-  }
+  .snackbar.visible { transform: translateY(0%); }
+  .snackbar:not(.error) { background-color: var(--color-success); }
+  .snackbar.error { background-color: var(--color-error); }
 
 @keyframes spin {
    0% { content: '⠋' }

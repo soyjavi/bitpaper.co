@@ -15,21 +15,21 @@ export default ({
   },
 }, res) => {
   const user = new Storage({ filename: username, secret });
+  let error;
 
   if (xpub) {
     try {
       createAddress(xpub);
-    } catch (error) { ERROR.INVALID_BTC_ADDRESS(res); }
+    } catch (e) { error = e; }
   }
 
   user.get('profile').save({
     ...props,
-    xpub: xpub ? encrypt(xpub, entropy) : undefined,
+    xpub: xpub && error === undefined ? encrypt(xpub, entropy) : undefined,
     address: !xpub ? address : undefined,
   });
 
-  res.json({
-    ...user.value,
-    xpub,
-  });
+  return error
+    ? ERROR.INVALID_BTC_ADDRESS(res)
+    : res.json({ ...user.value, xpub });
 };

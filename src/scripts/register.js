@@ -122,12 +122,9 @@ class FormRegister extends PureComponent {
           </div>
         )}
 
-        { error && (
-          <p className="error row">
-            <strong>ERROR:</strong>
-            {error}
-          </p>
-        )}
+        <div className={`snackbar error ${error ? 'visible' : ''}`}>
+          <span>{error}</span>
+        </div>
 
         { !mnemonic && (
           <nav className="row space-between">
