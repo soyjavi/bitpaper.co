@@ -24,8 +24,5 @@
       "terms",
       "state"
     ]
-  },
-  "transaction": {
-    "required": ["invoice"]
   }
 }

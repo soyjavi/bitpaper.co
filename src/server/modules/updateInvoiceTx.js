@@ -50,7 +50,7 @@ export default async (username, invoice = {}) => {
         };
 
         if (from.email) sendEmail(from, mailProps);
-        if (from.email) sendEmail(to, mailProps);
+        if (to.email) sendEmail(to, mailProps);
       }
 
       return output !== undefined;
