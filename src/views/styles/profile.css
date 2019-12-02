@@ -18,17 +18,7 @@
   margin-bottom: var(--space);
 }
 
-[data-page="profile"] #form {
-}
-  [data-page="profile"] #form .error {
-    background-color: var(--color-skeleton);
-    border-radius: var(--border-radius);
-    color: var(--color-lighten);
-    margin-top: var(--space);
-    padding: var(--space-S);
-    text-align: left;
-    font-size: var(--font-size-S);
-  }
+[data-page="profile"] #form {}
   [data-page="profile"] #form nav { margin-top: var(--space); }
 
 [data-page="profile"] label:not(:first-child) { margin-top: var(--space-XS); }

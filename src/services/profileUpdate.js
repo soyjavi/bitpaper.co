@@ -3,7 +3,7 @@ import Storage from 'vanilla-storage';
 import { encrypt } from 'vanilla-storage/dist/modules';
 
 import { ERROR } from '../common';
-import { createAddress } from './modules';
+import { createAddress, validateAddress } from './modules';
 
 dotenv.config();
 const { SECRET: secret } = process.env;
@@ -15,21 +15,18 @@ export default ({
   },
 }, res) => {
   const user = new Storage({ filename: username, secret });
+  let error;
 
-  if (xpub) {
-    try {
-      createAddress(xpub);
-    } catch (error) { ERROR.INVALID_BTC_ADDRESS(res); }
-  }
+  if (xpub) try { createAddress(xpub); } catch (e) { error = e; }
+  else if (address) try { validateAddress(address); } catch (e) { error = e; }
 
   user.get('profile').save({
     ...props,
-    xpub: xpub ? encrypt(xpub, entropy) : undefined,
-    address: !xpub ? address : undefined,
+    xpub: xpub && !error ? encrypt(xpub, entropy) : undefined,
+    address: !xpub && !error ? address : undefined,
   });
 
-  res.json({
-    ...user.value,
-    xpub,
-  });
+  return error
+    ? ERROR.INVALID_BTC_ADDRESS(res)
+    : res.json({ ...user.value, xpub });
 };

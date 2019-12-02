@@ -33,7 +33,6 @@ button, .button {
   padding: 0 var(--space);
   text-decoration: none;
   text-align: center;
-  text-align: center;
 }
   .button { line-height: var(--input-height); }
   button.secondary, .button.secondary {

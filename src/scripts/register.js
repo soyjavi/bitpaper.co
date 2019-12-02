@@ -14,7 +14,7 @@ class FormRegister extends PureComponent {
     this.onCheckbox = this.onCheckbox.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
     this.state = {
-      busy: false, error: undefined, form: { terms: true }, valid: false,
+      busy: false, error: undefined, form: { terms: true }, mnemonic: undefined, valid: false,
     };
   }
 
@@ -53,9 +53,9 @@ class FormRegister extends PureComponent {
 
     const { state: { form } } = this;
     fetch({ service: 'api/signup', method: 'POST', ...form })
-      .then((session) => {
-        store.write(session);
-        window.location = '/';
+      .then(({ authorization, mnemonic, username }) => {
+        store.write({ authorization, username });
+        this.setState({ mnemonic });
       })
       .catch((error) => this.setState({ error: error.message }));
   }
@@ -64,7 +64,7 @@ class FormRegister extends PureComponent {
     const {
       onChange, onCheckbox, onSubmit,
       state: {
-        busy, error, valid, form: { terms },
+        busy, error, form: { terms }, mnemonic, valid,
       },
     } = this;
 
@@ -100,17 +100,39 @@ class FormRegister extends PureComponent {
           </label>
         </div>
 
-        { error && (
-          <p className="error row">
-            <strong>ERROR:</strong>
-            {error}
-          </p>
+        { mnemonic && (
+          <div className="mnemonic">
+            <h3>Secret Backup Phrase</h3>
+            <p>
+              Your secret backup phrase makes it easy to restore your account in another device.
+              <strong> WARNING: </strong>
+              Never disclose your backup phrase. Here you have some tips:
+              <ul className="color-lighten">
+                <li>Store this phrase in a password manager like 1Password.</li>
+                <li>Write this phrase on a piece of paper and store in a secure location.</li>
+                <li>Memorize this phrase.</li>
+              </ul>
+            </p>
+
+            <div className="row words">
+              { mnemonic.split(' ').map((word) => <span>{word}</span> )}
+            </div>
+
+            <a className="button anchor" href="/">Already save my phrase</a>
+          </div>
         )}
 
-        <nav className="row space-between">
-          <button type="button" disabled={busy || !valid || error} onClick={onSubmit}>Sign Up</button>
-          <a className="button secondary" href="/login">Already have an account?</a>
-        </nav>
+        <div className={`snackbar error ${error ? 'visible' : ''}`}>
+          <span>{error}</span>
+        </div>
+
+        { !mnemonic && (
+          <nav className="row space-between">
+            <button type="button" disabled={busy || !valid || error} onClick={onSubmit}>Sign Up</button>
+            <a className="button secondary" href="/login">Already have an account?</a>
+          </nav>
+        )}
+
       </Fragment>
     );
   }

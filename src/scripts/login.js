@@ -51,7 +51,7 @@ class FormRegister extends PureComponent {
           onChange={(event) => onChange('username', event)}
         />
         <label>
-          Mnemonic
+          Import your existing wallet using a 12 word seed phrase
         </label>
         <input
           className="border"
@@ -61,12 +61,9 @@ class FormRegister extends PureComponent {
           onChange={(event) => onChange('mnemonic', event)}
         />
 
-        { error && (
-          <p className="error row">
-            <strong>ERROR:</strong>
-            {error}
-          </p>
-        )}
+        <div className={`snackbar error ${error ? 'visible' : ''}`}>
+          <span>{error}</span>
+        </div>
 
         <nav className="row space-between">
           <button type="button" disabled={!valid || error} onClick={onSubmit}>Login</button>
