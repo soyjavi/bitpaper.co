@@ -33,7 +33,11 @@ export default ({ props }, res) => {
     defaults: { profile: {}, invoices: [] },
     secret,
   });
-  store.get('profile').save({ email, name });
+
+  store.get('profile').save({
+    email: encrypt(email, entropy),
+    name: encrypt(name, entropy),
+  });
 
   res.cookie('authorization', authorization, { maxAge: COOKIE_MAXAGE, httpOnly: true });
   return res.json({

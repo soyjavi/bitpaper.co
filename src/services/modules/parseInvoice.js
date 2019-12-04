@@ -1,5 +1,3 @@
-import { decrypt } from 'vanilla-storage/dist/modules';
-
 import { C, ERROR, getTotal } from '../../common';
 import { rateSatoshis } from '../../server/modules';
 import createAddress from './createAddress';
@@ -9,11 +7,11 @@ const { CURRENCY, DATE_FORMATS, STATE: { DRAFT, PUBLISHED } } = C;
 const [DATE_FORMAT] = DATE_FORMATS;
 
 export default async (res, session, props) => {
-  const { entropy, xpub } = session;
+  const { xpub } = session;
   let address;
 
   try {
-    address = props.address || session.address || createAddress(decrypt(xpub, entropy), session.invoices);
+    address = props.address || session.address || createAddress(xpub, session.invoices);
     validateAddress(address);
   } catch (e) { return ERROR.INVALID_BTC_ADDRESS(res); }
 

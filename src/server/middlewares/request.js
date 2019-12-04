@@ -39,10 +39,13 @@ export default (req, res, next) => {
       if (user && decrypt(user.passport, entropy) === username) {
         user = new Storage({ filename: username, secret });
 
+        const profile = user.get('profile').value;
+        Object.keys(profile).forEach((key) => { profile[key] = decrypt(profile[key], entropy); });
+
         req.session = {
           entropy,
           username,
-          ...user.get('profile').value,
+          ...profile,
           invoices: user.get('invoices').value,
         };
       }
