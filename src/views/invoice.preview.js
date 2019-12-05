@@ -9,9 +9,8 @@ dotenv.config();
 const { ICON, SECRET: secret, TITLE } = process.env;
 const { STATE } = C;
 
-export default async ({ session: { username } = {}, props: { domain, id } = {} }, res) => {
-  const user = new Storage({ filename: domain, secret });
-  const profile = user.get('profile').value;
+export default async ({ session: { username } = {}, props: { domain, id, filename } = {} }, res) => {
+  const user = new Storage({ filename, secret });
   const invoice = user.get('invoices').findOne({ id });
 
   if (!invoice) return ERROR.NOT_FOUND(res);
@@ -43,7 +42,6 @@ export default async ({ session: { username } = {}, props: { domain, id } = {} }
       title: `${TITLE} - Invoice`,
       scripts: !isConfirmed ? ['payment'] : [],
       content: render('invoice.preview', {
-        ...profile,
         ...invoice,
 
         id,
@@ -55,13 +53,7 @@ export default async ({ session: { username } = {}, props: { domain, id } = {} }
         issued: formatDate(issued),
         due,
 
-        from: {
-          name: from.name || profile.name,
-          location: (from.location || profile.location || []).join('<br>'),
-          email: from.email || profile.email,
-          phone: from.phone || profile.phone,
-        },
-
+        from: { ...from, location: (from.location || []).join('<br>') },
         to: { ...to, location: (to.location || []).join('<br>') },
 
         items: normalizeHtml(items
