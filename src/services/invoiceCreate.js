@@ -7,17 +7,25 @@ import { parseInvoice } from './modules';
 
 dotenv.config();
 const { SECRET: secret } = process.env;
-const { STATE } = C;
+const { STATE, STORE } = C;
 const ALPHABET = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
 
 export default async ({ session, props }, res) => {
   const data = await parseInvoice(res, session, { ...props, state: STATE.DRAFT });
+  const { username } = session;
 
-  const user = new Storage({ filename: session.username, secret });
-  const invoice = user.get('invoices').push({
-    ...data,
-    id: generate(ALPHABET, 8),
-  });
+  const db = new Storage({ ...STORE.DB, secret });
+  db.get('invoice');
+
+  let id;
+  while (!id) {
+    const nextId = generate(ALPHABET, 8);
+    id = db.findOne({ id: nextId }) ? undefined : nextId;
+  }
+  db.push({ username, id });
+
+  const user = new Storage({ filename: username, secret });
+  const invoice = user.get('invoices').push({ ...data, id });
 
   return res.json(invoice);
 };

@@ -20,7 +20,7 @@ export default {
   },
 
   STORE: {
-    DB: { filename: 'db', defaults: { users: [], rates: {} } },
+    DB: { filename: 'db', defaults: { users: [], rates: {}, invoices: {} } },
     USER: { defaults: { profile: {}, invoices: [] } },
     CURRENCIES: { filename: 'currencies', defaults: { rates: {} } },
   },

@@ -10,6 +10,9 @@ const { ICON, SECRET: secret, TITLE } = process.env;
 const { STATE } = C;
 
 export default async ({ session: { username } = {}, props: { domain, id, filename } = {} }, res) => {
+  // @TODO: Should control if the pair username:invoice exists
+
+
   const user = new Storage({ filename, secret });
   const invoice = user.get('invoices').findOne({ id });
 
