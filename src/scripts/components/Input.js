@@ -3,19 +3,23 @@ import React, { Fragment } from 'react';
 
 const Input = ({
   busy, label, name, onChange, required, ...inherit
-}) => (
-  <Fragment>
-    { label && <label>{label}</label> }
-    <input
-      {...inherit}
-      name={name}
-      onChange={({ target: { value } }) => onChange(name, value)}
-    />
-    { !busy && required && (!inherit.defaultValue || inherit.defaultValue.length === 0) && (
-      <span className="tag">required</span>)}
-    { busy && <span className="tag busy" /> }
-  </Fragment>
-);
+}) => {
+  const isRequired = !busy && required && (!inherit.defaultValue || inherit.defaultValue.length === 0);
+
+  return (
+    <Fragment>
+      { label && <label>{label}</label> }
+      <input
+        {...inherit}
+        required={isRequired}
+        name={name}
+        onChange={({ target: { value } }) => onChange(name, value)}
+      />
+      { isRequired && <span className="tag">required</span> }
+      { busy && <span className="tag busy" /> }
+    </Fragment>
+  );
+};
 
 Input.propTypes = {
   busy: bool,
