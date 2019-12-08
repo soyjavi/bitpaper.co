@@ -8,10 +8,13 @@ import { C } from '../../common';
 dotenv.config();
 const { SECRET: secret } = process.env;
 const { STORE } = C;
-const DEFAULT_DOMAIN = 'soyjavi';
 
 export default (req, res, next) => {
-  const { headers, originalUrl = '', subdomains: [domain = DEFAULT_DOMAIN] } = req;
+  const {
+    headers,
+    originalUrl = '',
+    // subdomains: [domain],
+  } = req;
   const today = new Date();
   const timestamp = today.getTime();
 
@@ -23,7 +26,7 @@ export default (req, res, next) => {
 
   // -- Parse all parameters as props of request
   req.props = {
-    ...req.params, ...req.query, ...req.body, domain,
+    ...req.params, ...req.query, ...req.body,
   };
 
   // -- Determine session

@@ -15,7 +15,7 @@ export default async ({ session, props }, res) => {
   const { username } = session;
 
   const db = new Storage({ ...STORE.DB, secret });
-  db.get('invoice');
+  db.get('invoices');
 
   let id;
   while (!id) {

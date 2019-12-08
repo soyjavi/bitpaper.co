@@ -10,9 +10,7 @@ const { SECRET: secret } = process.env;
 
 export default ({
   session: { entropy, username },
-  props: {
-    domain, address, xpub, ...props
-  },
+  props: { address, xpub, ...props },
 }, res) => {
   const user = new Storage({ filename: username, secret });
   let error;

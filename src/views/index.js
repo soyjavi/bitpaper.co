@@ -20,7 +20,7 @@ router.get('/logout', logout);
 router.get('/profile', profile);
 router.get('/invoice/:id', request, invoice);
 
-router.get('/:invoiceId', request, invoicePreview);
+router.get('/:id', request, invoicePreview);
 
 router.get('/qr/:address/:amount', qr);
 router.get('/', (req, res, next) => {

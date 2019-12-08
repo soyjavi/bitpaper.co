@@ -7,22 +7,22 @@ import { normalizeHtml } from './modules';
 
 dotenv.config();
 const { ICON, SECRET: secret, TITLE } = process.env;
-const { STATE } = C;
+const { STATE, STORE } = C;
 
-export default async ({ session: { username } = {}, props: { domain, id, filename } = {} }, res) => {
-  // @TODO: Should control if the pair username:invoice exists
+export default async ({ session = {}, props: { id } = {} }, res) => {
+  const db = new Storage({ ...STORE.DB, secret });
+  const { username } = db.get('invoices').findOne({ id }) || {};
+  if (!username) return ERROR.NOT_FOUND(res);
 
-
-  const user = new Storage({ filename, secret });
+  const user = new Storage({ filename: username, secret });
   const invoice = user.get('invoices').findOne({ id });
-
   if (!invoice) return ERROR.NOT_FOUND(res);
 
   const {
     address, currency, due, from = {}, issued, items = [], total, to = {}, state,
   } = invoice;
   let { satoshis } = invoice;
-  const isOwner = username === domain;
+  const isOwner = username === session.username;
   const isConfirmed = state === STATE.CONFIRMED;
   let options = '<button class="fixed" disabled>Print</button>';
   if (isOwner) {
@@ -48,7 +48,6 @@ export default async ({ session: { username } = {}, props: { domain, id, filenam
         ...invoice,
 
         id,
-        domain,
 
         options,
 
@@ -74,7 +73,7 @@ export default async ({ session: { username } = {}, props: { domain, id, filenam
             ...invoice, total: formatPrice(total, currency), totalBTC,
           })
           : render('templates/invoicePayment', {
-            id, domain, address, total: formatPrice(total, currency), totalBTC,
+            id, address, total: formatPrice(total, currency), totalBTC,
           }),
       }),
     }),

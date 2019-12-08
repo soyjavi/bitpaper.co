@@ -1,6 +1,6 @@
 {
   "name": "bitpaper.co",
-  "version": "0.3.3",
+  "version": "0.3.4",
   "description": "Invoicer using Bitcoin Native Segwit addresses",
   "repository": "https://github.com/soyjavi/bitpaper.co",
   "author": "soyjavi <hello@soyjavi.com>",
