@@ -8,10 +8,13 @@ import { C } from '../../common';
 dotenv.config();
 const { SECRET: secret } = process.env;
 const { STORE } = C;
-const DEFAULT_DOMAIN = 'soyjavi';
 
 export default (req, res, next) => {
-  const { headers, originalUrl = '', subdomains: [domain = DEFAULT_DOMAIN] } = req;
+  const {
+    headers,
+    originalUrl = '',
+    // subdomains: [domain],
+  } = req;
   const today = new Date();
   const timestamp = today.getTime();
 
@@ -23,7 +26,7 @@ export default (req, res, next) => {
 
   // -- Parse all parameters as props of request
   req.props = {
-    ...req.params, ...req.query, ...req.body, domain,
+    ...req.params, ...req.query, ...req.body,
   };
 
   // -- Determine session
@@ -39,10 +42,13 @@ export default (req, res, next) => {
       if (user && decrypt(user.passport, entropy) === username) {
         user = new Storage({ filename: username, secret });
 
+        const profile = user.get('profile').value;
+        Object.keys(profile).forEach((key) => { profile[key] = decrypt(profile[key], entropy); });
+
         req.session = {
           entropy,
           username,
-          ...user.get('profile').value,
+          ...profile,
           invoices: user.get('invoices').value,
         };
       }

@@ -11,13 +11,14 @@ const { STATE, STORE } = C;
 export default ({ originalUrl, session, props: { id } }, res) => {
   if (!session) res.redirect('/');
 
+  const { username } = session;
   const isNew = id === 'new';
 
   if (!isNew) {
-    const user = new Storage({ filename: session.username, secret });
+    const user = new Storage({ filename: username, secret });
     const invoice = user.get('invoices').findOne({ id });
     if (!invoice) return res.redirect('/');
-    if (invoice.state === STATE.CONFIRMED) return res.redirect(`/invoice/${id}/preview`);
+    if (invoice.state === STATE.CONFIRMED) return res.redirect(`/${username}/${id}`);
   }
 
   const { xpub = '', address = '' } = session;

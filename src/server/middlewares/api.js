@@ -18,7 +18,6 @@ export default (req, res, next) => {
     if (routeProps.includes(key)) props[key] = req.props[key];
   });
 
-
   // 3. Required parameters
   if (required.length > 0) {
     const requiredParameters = required.filter((x) => !Object.keys(props).includes(x));

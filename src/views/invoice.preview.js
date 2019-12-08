@@ -7,20 +7,22 @@ import { normalizeHtml } from './modules';
 
 dotenv.config();
 const { ICON, SECRET: secret, TITLE } = process.env;
-const { STATE } = C;
+const { STATE, STORE } = C;
 
-export default async ({ session: { username } = {}, props: { domain, id } = {} }, res) => {
-  const user = new Storage({ filename: domain, secret });
-  const profile = user.get('profile').value;
+export default async ({ session = {}, props: { id } = {} }, res) => {
+  const db = new Storage({ ...STORE.DB, secret });
+  const { username } = db.get('invoices').findOne({ id }) || {};
+  if (!username) return ERROR.NOT_FOUND(res);
+
+  const user = new Storage({ filename: username, secret });
   const invoice = user.get('invoices').findOne({ id });
-
   if (!invoice) return ERROR.NOT_FOUND(res);
 
   const {
     address, currency, due, from = {}, issued, items = [], total, to = {}, state,
   } = invoice;
   let { satoshis } = invoice;
-  const isOwner = username === domain;
+  const isOwner = username === session.username;
   const isConfirmed = state === STATE.CONFIRMED;
   let options = '<button class="fixed" disabled>Print</button>';
   if (isOwner) {
@@ -43,11 +45,9 @@ export default async ({ session: { username } = {}, props: { domain, id } = {} }
       title: `${TITLE} - Invoice`,
       scripts: !isConfirmed ? ['payment'] : [],
       content: render('invoice.preview', {
-        ...profile,
         ...invoice,
 
         id,
-        domain,
 
         options,
 
@@ -55,13 +55,7 @@ export default async ({ session: { username } = {}, props: { domain, id } = {} }
         issued: formatDate(issued),
         due,
 
-        from: {
-          name: from.name || profile.name,
-          location: (from.location || profile.location || []).join('<br>'),
-          email: from.email || profile.email,
-          phone: from.phone || profile.phone,
-        },
-
+        from: { ...from, location: (from.location || []).join('<br>') },
         to: { ...to, location: (to.location || []).join('<br>') },
 
         items: normalizeHtml(items
@@ -79,7 +73,7 @@ export default async ({ session: { username } = {}, props: { domain, id } = {} }
             ...invoice, total: formatPrice(total, currency), totalBTC,
           })
           : render('templates/invoicePayment', {
-            id, domain, address, total: formatPrice(total, currency), totalBTC,
+            id, address, total: formatPrice(total, currency), totalBTC,
           }),
       }),
     }),

@@ -45,7 +45,7 @@ class InvoiceForm extends PureComponent {
   onPreview() {
     const { state: { id } } = this;
 
-    window.location = `/invoice/${id}/preview`;
+    window.location = `/invoice/${id}`; // @TODO!!!!
   }
 
   async onSubmit() {
