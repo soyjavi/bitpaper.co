@@ -39,7 +39,7 @@ class FormProfile extends PureComponent {
       ...form,
       location: form.location ? form.location.split('\n') : [],
     })
-      .then(() => this.setState({ info: 'Changes saved correctly' }))
+      .then(({ message }) => this.setState({ info: message }))
       .catch((error) => this.setState({ error: error.message }));
   }
 

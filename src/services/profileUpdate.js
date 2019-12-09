@@ -28,5 +28,5 @@ export default ({
 
   return error
     ? ERROR.INVALID_BTC_ADDRESS(res)
-    : res.status(204).json();
+    : res.json({ message: 'Changes saved correctly' });
 };

@@ -115,7 +115,7 @@ class FormRegister extends PureComponent {
             </p>
 
             <div className="row words">
-              { mnemonic.split(' ').map((word) => <span>{word}</span> )}
+              { mnemonic.split(' ').map((word) => <span>{word}</span>)}
             </div>
 
             <a className="button anchor" href="/">Already save my phrase</a>
