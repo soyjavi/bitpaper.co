@@ -1,7 +1,7 @@
 import React, { Fragment, PureComponent } from 'react';
 import ReactDOM from 'react-dom';
 
-import { Input } from './components';
+import { Input, Snackbar } from './components';
 import { fetch, Storage } from './modules';
 
 const store = new Storage({ defaults: {}, filename: 'authorization' });
@@ -40,8 +40,6 @@ class FormRegister extends PureComponent {
     const { onChange, onSubmit, state: { error, form: { username, mnemonic = '' } } } = this;
     const valid = username && mnemonic.trim().split(' ').length === 12;
 
-    console.log({ valid, username, mnemonic });
-
     return (
       <Fragment>
         <label>Username</label>
@@ -56,9 +54,7 @@ class FormRegister extends PureComponent {
           placeholder="Enter Your 12 words"
         />
 
-        <div className={`snackbar error ${error ? 'visible' : ''}`}>
-          <span>{error}</span>
-        </div>
+        <Snackbar value={error} error />
 
         <nav className="row space-between">
           <button type="button" disabled={!valid || error} onClick={onSubmit}>Login</button>

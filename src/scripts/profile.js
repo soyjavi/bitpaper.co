@@ -1,7 +1,7 @@
 import React, { Fragment, PureComponent } from 'react';
 import ReactDOM from 'react-dom';
 
-import { Input } from './components';
+import { Input, Snackbar } from './components';
 import { fetch } from './modules';
 
 class FormProfile extends PureComponent {
@@ -121,9 +121,7 @@ class FormProfile extends PureComponent {
           onChange={onChange}
         />
 
-        <div className={`snackbar ${info || error ? 'visible' : ''} ${error ? 'error' : ''}`}>
-          <span>{info || error}</span>
-        </div>
+        <Snackbar value={info || error} error={error !== undefined} />
 
         <nav className="row space-between">
           <button type="button" disabled={error} onClick={onSubmit}>Save changes</button>
