@@ -37,12 +37,6 @@ class InvoiceContainer extends PureComponent {
     }
   }
 
-  // @TODO
-  // static getDerivedStateFromError(error) {
-  //   // Update state so the next render will show the fallback UI.
-  //   return { hasError: true };
-  // }
-
   onAddItem() {
     const { state: { dataSource } } = this;
     this.setState({ dataSource: { ...dataSource, items: [...dataSource.items, {}] } });
@@ -206,6 +200,7 @@ InvoiceContainer.propTypes = {
   busy: bool,
   dataSource: shape({}),
   onChange: func,
+  onError: func,
   onPreview: func,
   onSubmit: func,
 };
@@ -214,6 +209,7 @@ InvoiceContainer.defaultProps = {
   busy: false,
   dataSource: undefined,
   onChange() {},
+  onError() {},
   onPreview() {},
   onSubmit() {},
 };

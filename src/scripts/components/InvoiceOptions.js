@@ -26,26 +26,30 @@ class InvoiceContainer extends PureComponent {
   }
 
   onDelete() {
-    const { props: { dataSource: { id } } } = this;
+    const { dataSource: { id }, onError } = this.props;
 
     this.setState({ busy: true });
-    fetch({ service: `/api/invoice/${id}`, method: 'DELETE' }).then(() => { window.location = '/'; });
+    fetch({ service: `/api/invoice/${id}`, method: 'DELETE' })
+      .catch(onError)
+      .then(() => { window.location = '/'; });
   }
 
-  onPublish() {
-    const { props: { dataSource: { from = {}, to = {}, ...dataSource } } } = this;
+  async onPublish() {
+    const { dataSource: { from = {}, to = {}, ...dataSource }, onError } = this.props;
 
-    const props = {
+
+    this.setState({ busy: true });
+    const response = fetch({
+      service: `/api/invoice/${dataSource.id}`,
+      method: 'PUT',
       ...dataSource,
       state: STATE.PUBLISHED,
       from: { ...from, location: from.location ? from.location.split('\n') : undefined },
       to: { ...to, location: to.location ? to.location.split('\n') : undefined },
-    };
+    }).catch(onError);
 
-    this.setState({ busy: true });
-    fetch({ service: `/api/invoice/${dataSource.id}`, method: 'PUT', ...props })
-      .then(() => { window.location = '/'; })
-      .catch((error) => this.setState({ busy: undefined, error }));
+    if (response) window.location = '/';
+    this.setState({ busy: false });
   }
 
   render() {
@@ -125,6 +129,7 @@ InvoiceContainer.propTypes = {
   dataSource: shape({}),
   demo: bool,
   onChange: func,
+  onError: func,
   onPreview: func,
   onSubmit: func,
   total: number,
@@ -135,6 +140,7 @@ InvoiceContainer.defaultProps = {
   dataSource: undefined,
   demo: false,
   onChange() {},
+  onError() {},
   onPreview() {},
   onSubmit() {},
   total: undefined,

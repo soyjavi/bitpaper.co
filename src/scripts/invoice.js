@@ -1,4 +1,4 @@
-import React, { PureComponent } from 'react';
+import React, { Fragment, PureComponent } from 'react';
 import ReactDOM from 'react-dom';
 
 import { fetch } from './modules';
@@ -24,7 +24,7 @@ class InvoiceForm extends PureComponent {
   }
 
   componentDidMount() {
-    const { state: { id } } = this;
+    const { onError, state: { id } } = this;
 
     if (id) {
       fetch({ service: `/api/invoice/${id}` })
@@ -38,7 +38,7 @@ class InvoiceForm extends PureComponent {
             },
           });
         })
-        .catch((error) => this.setState({ busy: false, error }));
+        .catch(onError);
     }
   }
 
@@ -47,8 +47,13 @@ class InvoiceForm extends PureComponent {
     window.location = `/${id}`;
   }
 
+  onError(error) {
+    this.setState({ busy: false, error });
+    console.error({ error });
+  }
+
   async onSubmit() {
-    const { state: { id, value: { from, to, ...value } } } = this;
+    const { onError, state: { id, value: { from, to, ...value } } } = this;
     const newValue = {
       ...value,
       from: { ...from, location: from.location ? from.location.split('\n') : undefined },
@@ -60,25 +65,28 @@ class InvoiceForm extends PureComponent {
     const method = id ? 'PUT' : 'POST';
     const service = id ? `/api/invoice/${id}` : '/api/invoice';
 
-    const invoice = await fetch({ service, method, ...newValue })
-      .catch((error) => this.setState({ error }));
+    const invoice = await fetch({ service, method, ...newValue }).catch(onError);
 
     this.setState({ busy: false });
     if (!id) window.location = `/invoice/${invoice.id}`;
   }
 
   render() {
-    const { onPreview, onSubmit, state: { busy, error, value } } = this;
+    const {
+      onError, onPreview, onSubmit, state: { busy, value },
+    } = this;
 
     return (
-      <InvoiceContainer
-        busy={busy}
-        dataSource={value}
-        error={error}
-        onChange={(newValue) => this.setState({ value: newValue })}
-        onPreview={onPreview}
-        onSubmit={onSubmit}
-      />
+      <Fragment>
+        <InvoiceContainer
+          busy={busy}
+          dataSource={value}
+          onChange={(newValue) => this.setState({ value: newValue })}
+          onError={onError}
+          onPreview={onPreview}
+          onSubmit={onSubmit}
+        />
+      </Fragment>
     );
   }
 }
