@@ -18,12 +18,15 @@ export default async ({ session = {}, props: { id } = {} }, res) => {
   const invoice = user.get('invoices').findOne({ id });
   if (!invoice) return ERROR.NOT_FOUND(res);
 
+  const isOwner = username === session.username;
   const {
     address, currency, due, from = {}, issued, items = [], total, to = {}, state,
   } = invoice;
-  let { satoshis } = invoice;
-  const isOwner = username === session.username;
+  const isPublished = state === STATE.PUBLISHED;
   const isConfirmed = state === STATE.CONFIRMED;
+  if (!isOwner && !isPublished && !isConfirmed) res.redirect('/');
+
+  let { satoshis } = invoice;
   let options = '<button class="fixed" disabled>Print</button>';
   if (isOwner) {
     options = isConfirmed

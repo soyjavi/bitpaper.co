@@ -1,7 +1,7 @@
 import React, { Fragment, PureComponent } from 'react';
 import ReactDOM from 'react-dom';
 
-import { Input } from './components';
+import { Input, Snackbar } from './components';
 import { fetch, Storage } from './modules';
 
 const store = new Storage({ defaults: {}, filename: 'authorization' });
@@ -115,16 +115,14 @@ class FormRegister extends PureComponent {
             </p>
 
             <div className="row words">
-              { mnemonic.split(' ').map((word) => <span>{word}</span> )}
+              { mnemonic.split(' ').map((word) => <span>{word}</span>)}
             </div>
 
             <a className="button anchor" href="/">Already save my phrase</a>
           </div>
         )}
 
-        <div className={`snackbar error ${error ? 'visible' : ''}`}>
-          <span>{error}</span>
-        </div>
+        <Snackbar value={error} error />
 
         { !mnemonic && (
           <nav className="row space-between">

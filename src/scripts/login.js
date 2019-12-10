@@ -1,7 +1,7 @@
 import React, { Fragment, PureComponent } from 'react';
 import ReactDOM from 'react-dom';
 
-import { Input } from './components';
+import { Input, Snackbar } from './components';
 import { fetch, Storage } from './modules';
 
 const store = new Storage({ defaults: {}, filename: 'authorization' });
@@ -11,17 +11,15 @@ class FormRegister extends PureComponent {
     super(props);
     this.onChange = this.onChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
-    this.state = { error: undefined, form: { terms: true }, valid: false };
+    this.state = { error: undefined, form: {} };
   }
 
-  onChange(field, { target: { value } }) {
+  onChange(field, value) {
     let { state: { form } } = this;
 
     form = { ...form, [field]: value };
     form.username = form.username ? form.username.trim().replace(/\./g, '') : undefined;
-    const { username, password } = form;
-
-    this.setState({ form, valid: (username && password), error: undefined });
+    this.setState({ form, error: undefined });
   }
 
   async onSubmit(event) {
@@ -39,31 +37,24 @@ class FormRegister extends PureComponent {
   }
 
   render() {
-    const { onChange, onSubmit, state: { error, valid } } = this;
+    const { onChange, onSubmit, state: { error, form: { username, mnemonic = '' } } } = this;
+    const valid = username && mnemonic.trim().split(' ').length === 12;
 
     return (
       <Fragment>
         <label>Username</label>
-        <input
-          className="border"
-          name="username"
-          placeholder="Enter Your Username"
-          onChange={(event) => onChange('username', event)}
-        />
+        <Input className="border" name="username" placeholder="Enter Your Username" onChange={onChange} />
         <label>
-          Import your existing wallet using a 12 word seed phrase
+          Secret 12 word seed phrase
         </label>
-        <input
+        <textarea
           className="border"
           name="mnemonic"
-          type="mnemonic"
-          placeholder="Enter Your Password"
-          onChange={(event) => onChange('mnemonic', event)}
+          onChange={({ target: { value } }) => onChange('mnemonic', value)}
+          placeholder="Enter Your 12 words"
         />
 
-        <div className={`snackbar error ${error ? 'visible' : ''}`}>
-          <span>{error}</span>
-        </div>
+        <Snackbar value={error} error />
 
         <nav className="row space-between">
           <button type="button" disabled={!valid || error} onClick={onSubmit}>Login</button>
