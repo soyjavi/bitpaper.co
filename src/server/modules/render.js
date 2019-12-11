@@ -12,7 +12,7 @@ const {
 
 const folder = path.resolve('.', 'src/views');
 const bindingProp = new RegExp(/{{.*}}/, 'g');
-const bindingObj = /{{(.*)\.(.*)}}/;
+const bindingObj = /{{(.*?)\.(.*?)}}/;
 
 export default (filename = 'index', values = {}, forceCache = true) => {
   const cacheKey = `view:${filename}`;
@@ -56,6 +56,8 @@ export default (filename = 'index', values = {}, forceCache = true) => {
   let match = view.match(bindingObj);
   while (match !== null) {
     const [binding, base, prop] = match;
+
+    console.log({ binding, base, prop });
 
     view = view.replace(
       new RegExp(binding, 'g'),
