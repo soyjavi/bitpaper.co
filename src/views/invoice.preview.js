@@ -54,7 +54,7 @@ export default async ({ session = {}, props: { id } = {} }, res) => {
 
         options,
 
-        logo: 'https://via.placeholder.com/128' || ICON,
+        logo: undefined || ICON,
         issued: formatDate(issued),
         due,
 

@@ -7,7 +7,7 @@ import cache from './cache';
 
 dotenv.config();
 const {
-  COPYRIGHT, DOMAIN, TITLE, DESCRIPTION, ICON, IMAGE, EMAIL,
+  COPYRIGHT, DOMAIN, TITLE, DESCRIPTION, FAVICON, ICON, IMAGE,
 } = process.env;
 
 const folder = path.resolve('.', 'src/views');
@@ -35,7 +35,7 @@ export default (filename = 'index', values = {}, forceCache = true) => {
   const dataSource = {
     COPYRIGHT,
     DOMAIN,
-    EMAIL,
+    FAVICON: `${DOMAIN}${FAVICON}`,
     ICON: `${DOMAIN}${ICON}`,
     VERSION: PKG.version,
 
@@ -56,8 +56,6 @@ export default (filename = 'index', values = {}, forceCache = true) => {
   let match = view.match(bindingObj);
   while (match !== null) {
     const [binding, base, prop] = match;
-
-    console.log({ binding, base, prop });
 
     view = view.replace(
       new RegExp(binding, 'g'),
