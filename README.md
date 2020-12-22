@@ -45,7 +45,7 @@ TITLE=bitpaper
 DESCRIPTION=Invoicing Software for Small Business.
 ICON=/static/icon.png
 IMAGE=/static/banner.jpg
-EMAIL=hello@soyjavi.com
+EMAIL=sample@email.com
 
 #EMAIL
 EMAIL_USERNAME=
